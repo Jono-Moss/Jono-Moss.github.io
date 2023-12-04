@@ -1,0 +1,4 @@
+baseURL = 'https://Jono-Moss.github.io'
+languageCode = 'en-us'
+title = 'Jonathan Moss'
+theme="hugo-theme-stack"
