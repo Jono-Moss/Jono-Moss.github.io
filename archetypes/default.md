@@ -1,7 +1,7 @@
 +++
 author = "Jonathan Moss"
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
-date = {{ .Date }}
+datePublished = {{ .Date }}
 description = ""
 tags = [
     "tag1",
@@ -16,3 +16,6 @@ aliases = ["aliases"]
 image = "pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg"
 draft = true
 +++
+
+Summery Here
+<!--more-->

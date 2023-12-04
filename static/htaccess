@@ -1,0 +1,10 @@
+DirectoryIndex index.html
+RewriteEngine On
+
+# disable directory browsing
+Options All -Indexes
+
+#force https
+RewriteEngine On 
+RewriteCond %{HTTPS} off 
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
