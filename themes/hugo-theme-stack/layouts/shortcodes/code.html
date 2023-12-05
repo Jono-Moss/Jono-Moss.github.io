@@ -1,0 +1,11 @@
+<div>
+    <div>
+        {{ $input := (trim .Inner  "\n\r") }}
+        {{ transform.Highlight $input (.Get "lang") "lineNos=table, style=autumn, lineNoStart=1" }}
+    </div>
+    {{ with .Get "filename" }}
+    <div class="code-filename">
+        {{ . }}
+    </div>
+    {{ end }}
+</div>

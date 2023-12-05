@@ -16,6 +16,3 @@ aliases = ["aliases"]
 image = "pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg"
 draft = true
 +++
-
-Summery Here
-<!--more-->
