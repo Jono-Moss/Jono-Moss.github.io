@@ -1,7 +1,7 @@
 +++
 author = "Jonathan Moss"
 title = 'Old Server New Home Lab'
-datePublished = 2023-12-04
+date = 2023-12-06
 description = "Is it worth using old hardware?"
 tags = [
     "Hardware",
@@ -12,15 +12,15 @@ categories = [
     "Home Lab",
 ]
 series = ["Home Lab"]
-image = "splash.jpeg"
+image = "splash.jpg"
 draft = false
 +++
 
 ## My Current Setup
 
-For many years I have been using two HPE ProLiant MicroServer Gen 8's which are still running great till this day. I upgraded them with Xeon E31260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.
+For many years I have been using two HPE ProLiant MicroServer Gen 8's which are still running great till this day. I upgraded them with Xeon E3-1260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.
 
-![ProLiant MicroServer](4.jpeg)
+![ProLiant MicroServer](4.jpg)
 
 As technologies have matured and become more and more complex. 16GB of RAM is just not enough to run all the software that I need to run either on a daily bases or when I need to run multiple virtual machines to test new software and configurations.
 I decided to look into getting something more powerful and has more features for my work and home lab purposes. I will continue to use my ProLiant MicroServers for running my home network and services.
@@ -55,10 +55,10 @@ Take these numbers with a grain of salt due to silicon lottery. However this is 
 Browsing through the web and scouring forums, I could make out that a X5650 idles at around 45 - 55 Watts.
 So a total of around 110 Watts for the pair. 
 
-My ProLiant with the Xeon E31260L idles at around 35 - 45 Watts.
+My ProLiant with the Xeon E3-1260L idles at around 35 - 45 Watts.
 Which would bring the idle power usage around 10 Watts per CPU more then what I currently use. For me that is not too bad to have two more cores and 4 more threads available.
 
-However, when doing heavy work loads, the power draw doubles from 45 Watts of the E31260L to 95 Watts of the X5650. So defiantly a lot more power usage for the extra two cores and 4 threads at full load.
+However, when doing heavy work loads, the power draw doubles from 45 Watts of the E3-1260L to 95 Watts of the X5650. So defiantly a lot more power usage for the extra two cores and 4 threads at full load.
 
 I wanted to compare this to a modern 12 core 24 thread CPU to have a rough idea of what a more modern CPU would draw. 
 
@@ -85,7 +85,7 @@ R6999 (At the time of writing this)
 An Intel BX8071512700F Core i7-12700F:
 R8099  (At the time of writing this)
 
-![CPU Costs](2.png)
+![CPU Costs](2.jpg)
 
 To build a new complete server would by far cost more than purchasing an old fully configured server. With this already in mind, the Dell will be a good purchase.
 
@@ -115,9 +115,9 @@ cost per year = 13.10 x 365
 
 To put this in perspective, at the time of writing this, using Uber eats, a McDonalds McFeast® Meal costs R149.90. It costs less then three McFeast® Meals to run the Dell at full load for a month.
 
-Another way to look at it is that I can purchase the Dell and use it 24/7 for a year and that will be close to the cost of only buying a new CPU. Then if we take the cost of a motherboard for that CPU, which is around another R4000. We can run the Dell 24/7 for two years at the same price. 
+![McFeast](1.jpg)
 
-![McFeast](1.png)
+Another way to look at it is that I can purchase the Dell and use it 24/7 for a year and that will be close to the cost of only buying a new CPU. Then if we take the cost of a motherboard for that CPU, which is around another R4000. We can run the Dell 24/7 for two years at the same price. 
 
 In my situation, going the Dell route is the better option than building a more modern server. I don't plan on running the server 24/7 as well, so it will defiantly be cheaper to run a second hand Dell R710.
 
@@ -125,11 +125,11 @@ In my situation, going the Dell route is the better option than building a more 
 
 So of course I purchased the unit. It is now sitting comfortably in my server rack.
 
-![receipt](3.png)
+![receipt](3.jpg)
 
-![Dell R710 with cover](5.jpeg)
+![Dell R710 with cover](5.jpg)
 
-![Dell R710](6.jpeg)
+![Dell R710](6.jpg)
 
 I decided it would be nice to share my experience and processes that I went through to set up and use the Dell.
 
@@ -138,7 +138,7 @@ I will be doing a mini series of articles about it and hopefully it will help so
 Below is the wattage use when the server starts up (Between 163 Watts - 175 Watts) and then at idle (Between 119 Watts - 123 Watts). This is the idle draw using Proxmox as the host OS, with an OpnSense Virtual Machine and an Ubuntu Virtual Machine running a few docker containers. I only have one PSU plugged in and have the fans tweaked to run slower. Very Nice.
 
 Startup Wattage
-![Dell R710 startup Wattage](7.jpeg)
+![Dell R710 startup Wattage](7.jpg)
 
 Idle Wattage
-![Dell R710 idle Wattage](8.jpeg)
+![Dell R710 idle Wattage](8.jpg)

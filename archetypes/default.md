@@ -1,7 +1,7 @@
 +++
 author = "Jonathan Moss"
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
-datePublished = {{ .Date }}
+date = {{ .Date }}
 description = ""
 tags = [
     "tag1",
