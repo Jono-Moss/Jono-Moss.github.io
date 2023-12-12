@@ -13,7 +13,7 @@ categories = [
 ]
 series = ["Home Lab"]
 image = "splash.jpg"
-draft = true
+draft = false
 +++
 
 ## You have a new secondhand server, what now?
