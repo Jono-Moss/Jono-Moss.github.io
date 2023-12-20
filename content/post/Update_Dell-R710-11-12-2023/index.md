@@ -16,6 +16,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube ycagCHgiz7w >}}
+
 ## You have a new secondhand server, what now?
 
 The fist thing you need to do when buying an old server is to make sure you clear, reset any passwords (eg IDrac Password), update the bios and firmware to the latest available version.

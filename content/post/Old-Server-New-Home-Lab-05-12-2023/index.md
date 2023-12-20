@@ -16,6 +16,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube 7maUSRi0Z0g >}}
+
 ## My Current Setup
 
 For many years I have been using two HPE ProLiant MicroServer Gen 8's which are still running great till this day. I upgraded them with Xeon E3-1260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.
