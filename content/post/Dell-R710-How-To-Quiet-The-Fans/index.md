@@ -1,6 +1,6 @@
 +++
 author = "Jonathan Moss"
-title = 'How To Make Your Dell R710 Quite using Proxmox'
+title = 'How To Make Your Dell R710 Quiet using Proxmox'
 date = 2024-01-05
 description = "We will create a cron job that will run a script that will control the fan speed"
 tags = [
@@ -15,6 +15,8 @@ series = ["Home Lab"]
 image = "splash.jpg"
 draft = false
 +++
+
+{{< youtube 3yJYq0PEhTw >}}
 
 ## How will we achieve this?
 
@@ -216,7 +218,7 @@ if [[ $TEMP > $MAXTEMP ]];
     printf "Activating manual fan speeds! (1560 RPM)"
     # This sets the fans to manual mode
     ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW -y $IPMIEK raw 0x30 0x30 0x01 0x00
-    # This is where we set the slower, quite speed
+    # This is where we set the slower, quiet speed
     ipmitool -I lanplus -H $IPMIHOST -U $IPMIUSER -P $IPMIPW -y $IPMIEK raw 0x30 0x30 0x02 0xff 0x$SPEEDHEX
 fi
 ```

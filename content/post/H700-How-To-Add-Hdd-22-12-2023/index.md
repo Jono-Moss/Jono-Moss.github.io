@@ -16,6 +16,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube l1RXsGe611c >}}
+
 ## PERC H700 RAID controller
 
 The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD's to it.
