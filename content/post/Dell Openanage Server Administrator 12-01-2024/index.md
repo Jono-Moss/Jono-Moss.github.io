@@ -16,6 +16,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube 8QpCzaXBUI4 >}}
+
 ## What is Dell OpenManage Server Administrator
 In short Dell OpenManage Server Administrator (OMSA) is a tool "web browser-based graphical user interface" that allows you to manage your server without having to access the Configuration Utility in the boot screen.
 
