@@ -18,6 +18,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube g8yRyeIirpo >}}
+
 ## Home Lab Network Design
 I wanted to share the design of the network I will be creating and using in my new home / office lab setup. I will briefly go over the requirements of what in my opinion every lab network should have and how I will achieve this with as little hardware as possible.
 
