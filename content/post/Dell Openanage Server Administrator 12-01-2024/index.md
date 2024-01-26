@@ -1,7 +1,7 @@
 +++
 author = "Jonathan Moss"
 title = 'How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3'
-date = 2024-01-05
+date = 2024-01-12
 description = "How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3"
 tags = [
     "Software",
