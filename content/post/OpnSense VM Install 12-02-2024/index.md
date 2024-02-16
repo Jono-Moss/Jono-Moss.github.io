@@ -20,6 +20,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube dCRhCrokeSo >}}
+
 ## Introduction
 
 The first step in creating our new OpnSense VM, is to get our network bridges setup and ready to use. Once we have that in order, we will move onto creating the virtual machine and attaching the network bridges to it.
