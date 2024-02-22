@@ -16,6 +16,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube Z-EJnSPeThA >}}
+
 ## Introduction
 
 This is just a quick guide on how to add another drive to an existing RAID 0 virtual disk on th H700 RAID Controller.
