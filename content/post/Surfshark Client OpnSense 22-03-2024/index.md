@@ -18,6 +18,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube KNFyR6Dki4A >}}
+
 ## Intro
 
 In this guide we will setup up a VPN client on OpnSense, this will allow us to create a gateway that we can use
