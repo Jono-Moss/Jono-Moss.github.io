@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='We will create a cron job that will run a script that will control the fan speed'>
+<title>How To Make Your Dell R710 Quiet using Proxmox</title>
+
+<link rel='canonical' href='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How To Make Your Dell R710 Quiet using Proxmox'>
+<meta property='og:description' content='We will create a cron job that will run a script that will control the fan speed'>
+<meta property='og:url' content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hardware' /><meta property='article:tag' content='Home Lab' /><meta property='article:published_time' content='2024-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-01-05T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/splash.jpg' />
+<meta name="twitter:title" content="How To Make Your Dell R710 Quiet using Proxmox">
+<meta name="twitter:description" content="We will create a cron job that will run a script that will control the fan speed"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#how-will-we-achieve-this">How will we achieve this?</a></li>
+    <li><a href="#set-your-idrac-lan-settings-and-main-admin-user">Set your iDRAC LAN Settings and main admin user</a></li>
+    <li><a href="#create-a-new-idrac-user-for-our-script">Create a new iDRAC user for our script</a></li>
+    <li><a href="#ipmi-encryption">IPMI Encryption</a></li>
+    <li><a href="#install-ipmi-tools-on-proxmox">Install IPMI Tools on Proxmox</a></li>
+    <li><a href="#the-script">The script</a></li>
+    <li><a href="#create-a-cron-job">Create a cron job</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/dell-r710-how-to-quiet-the-fans/">
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_800x0_resize_q75_box.jpg"
+                        srcset="/post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_800x0_resize_q75_box.jpg 800w, /post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="465" 
+                        loading="lazy"
+                        alt="Featured image of post How To Make Your Dell R710 Quiet using Proxmox" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hardware/" >
+                Hardware
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/dell-r710-how-to-quiet-the-fans/">How To Make Your Dell R710 Quiet using Proxmox</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            We will create a cron job that will run a script that will control the fan speed
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">05 Jan 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/3yJYq0PEhTw" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<h2 id="how-will-we-achieve-this">How will we achieve this?</h2>
+<p>In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
+The script will need to use two main components to achieve this:</p>
+<ol>
+<li>ipmitool for Debian (Proxmox) to use use ipmi protocols in the cli.</li>
+<li>A iDRAC user account that the script will use to access the iDRAC.</li>
+<li>Dells iDRAC (iDRAC 6 on the Dell R710) to get the servers ambient temperature and to set the fan speeds.</li>
+</ol>
+<p>Just as a side note, I have created a &ldquo;Management&rdquo; (10.0.0.0/24) network were things such as the iDRAC and other other management related software / devices are connected to. Having a separate and tightly locked down network where all the IT infrastructure is managed is very important.</p>
+<p>I will do a write up on my network design in a future post, but for now I wanted to get this post out to help people silence their server and also help save some electricity in the process.</p>
+<h2 id="set-your-idrac-lan-settings-and-main-admin-user">Set your iDRAC LAN Settings and main admin user</h2>
+<p>In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &ldquo;Admin&rdquo; user we can use to login and administrate the server.</p>
+<p>make sure to have your iDRAC NIC connected to your desired network
+<img src="/post/dell-r710-how-to-quiet-the-fans/8.jpg"
+	width="1200"
+	height="900"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="cable connection"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="320px"
+	
+></p>
+<ol>
+<li>To get to the iDRAC bios / settings
+Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard when you see the following message:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="s2">&#34;Press CTRL + E for Remote Access Setup within 5 sec&#34;</span>
+</span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/2.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="bios screen"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<ol start="2">
+<li>Make sure the that the <code>iDRAC6 LAN</code> and <code>IPMI Over LAN</code> options are set to <code>on</code></li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/3.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="IPMI On"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<ol start="3">
+<li>Next goto the <code>LAN Parameters</code> section, navigate down until you get to the <code>IPv4 Settings</code> section and fill in your desired IP details.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/4.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Lan Section"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/5.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Lan Settings"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<ol start="4">
+<li>Lastly, go to the <code>LAN User Configuration</code> to create the main user you will use to access iDRAC and administrate your server.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/6.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="user section"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<ol start="5">
+<li>Make sure to set the <code>IPMI LAN Privilege</code> to <code>Admin</code>, set the <code>Account Access</code> to <code>Enabled</code> and set the user name and password you would like to use.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/7.jpg"
+	width="1200"
+	height="800"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="user settings"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<ol start="6">
+<li>press <code>ESC</code> to exit and save your changes.</li>
+</ol>
+<h2 id="create-a-new-idrac-user-for-our-script">Create a new iDRAC user for our script</h2>
+<p>We don&rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
+We will instead create a new user that we will give permissions to use the IPMI.</p>
+<ol>
+<li>Login to your iDRAC web portal entering your iDRAC IP address in your browser, mine is as follows:
+https://10.0.0.4/login.html</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/1.jpg"
+	width="1200"
+	height="665"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="iDRAC Web"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+<ol start="2">
+<li>
+<p>Login using the user details that you created in the previous section.</p>
+</li>
+<li>
+<p>Once logged in. In the menu on the left side. Open the <code>iDRAC Settings</code> section</p>
+</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/9.jpg"
+	width="1006"
+	height="892"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="iDRAC Menu"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="270px"
+	
+></p>
+<ol start="3">
+<li>Now open the <code>Network/Security</code> sub menu.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/10.jpg"
+	width="1006"
+	height="892"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="network section Menu"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="270px"
+	
+></p>
+<ol start="4">
+<li>Now select the <code>users</code> section</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/11.jpg"
+	width="1006"
+	height="892"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="user  section"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="270px"
+	
+></p>
+<ol start="5">
+<li>click on a free “User ID” number.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/12.jpg"
+	width="1200"
+	height="648"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="id select"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="444px"
+	
+></p>
+<ol start="6">
+<li>Select the “Configure User” radio button, and click “Next”.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/13.jpg"
+	width="1200"
+	height="523"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Configure User"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="550px"
+	
+></p>
+<ol start="7">
+<li>
+<p>Set the following settings:</p>
+<p>The <code>Enable User</code> check box should be ticked.
+Enter a username.
+Enter a password. A max of twenty alpha-numeric password is needed.
+Set <code>Maximum LAN User Privilege Granted</code> to <code>Administrator</code>.
+The <code>Enable Serial Over LAN</code> check box should be ticked.
+Everything else should be default, which will effectively be no permissions.</p>
+</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/14.jpg"
+	width="1200"
+	height="613"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="user settings"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+></p>
+<ol start="8">
+<li>Scroll to the bottom of the page and click “Apply” to create the new user.</li>
+</ol>
+<h2 id="ipmi-encryption">IPMI Encryption</h2>
+<p>Under the <code>Network</code> section of the <code>iDRAC Settings</code>. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &ldquo;0&rdquo;.</p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/15.jpg"
+	width="1200"
+	height="589"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="IPMI Encryption"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+></p>
+<h2 id="install-ipmi-tools-on-proxmox">Install IPMI Tools on Proxmox</h2>
+<p>I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.</p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/16.jpg"
+	width="1200"
+	height="449"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Proxmox Terminal"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="641px"
+	
+></p>
+<ol>
+<li>
+<p>Do a repository update and then install ipmitools using the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt install ipmitool
+</span></span></code></pre></div><p>if you are already a root user you can just run the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt install ipmitool
+</span></span></code></pre></div></li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/17.jpg"
+	width="1200"
+	height="566"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="command"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="508px"
+	
+></p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/18.jpg"
+	width="1200"
+	height="566"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="ipmitool installed"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="508px"
+	
+></p>
+<ol start="2">
+<li>We can test if it is working by running the following command:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ipmitool -I lanplus -H &lt;ip&gt; -U &lt;user&gt; -P &lt;pass&gt; -y &lt;enc&gt; sdr <span class="nb">type</span> temperature
+</span></span></code></pre></div><p>Make sure to replace the following with your details:
+<!-- raw HTML omitted --> = your iDRAC IP
+<!-- raw HTML omitted --> = the user you created in the previous section
+<!-- raw HTML omitted --> = the users password
+<!-- raw HTML omitted --> = your encryption string</p>
+<p>So in my case it will be as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ipmitool -I lanplus -H 10.0.0.4 -U fan-admin -P asd123asd -y <span class="m">0000000000000000000000000000000000000000</span> sdr <span class="nb">type</span> temperature
+</span></span></code></pre></div><p>If everything is correct, you will get a table with some temperature values.</p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/19.jpg"
+	width="1200"
+	height="566"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="ipmitool test"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="508px"
+	
+></p>
+<h2 id="the-script">The script</h2>
+<ol>
+<li>
+<p>I will create a new folder in the <code>root</code> users home folder where I will store the script.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir fancontrol
+</span></span></code></pre></div></li>
+<li>
+<p>I will then use <code>nano</code> to create a file called <code>setspeed.sh</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano setspeed.sh
+</span></span></code></pre></div></li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/20.jpg"
+	width="1000"
+	height="410"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create file"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="243"
+		data-flex-basis="585px"
+	
+></p>
+<p>The below script is a modified version of the script found here <a class="link" href="https://github.com/NoLooseEnds/Scripts/tree/master/R710-IPMI-TEMP"  target="_blank" rel="noopener"
+    >https://github.com/NoLooseEnds/Scripts/tree/master/R710-IPMI-TEMP</a></p>
+<p>The original script was split into two files which I found was unnecessary and got confusing to edit. So I merged them into one file to be easier to maintain.
+I also added a <code>FANSPEED</code> variable to make it easier to set the fan speed by utilisation percentage as the original script did not have that function.</p>
+<ol start="3">
+<li>Copy and paste the below script into nano</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1"># IPMI IP address</span>
+</span></span><span class="line"><span class="cl"><span class="nv">IPMIHOST</span><span class="o">=</span>10.0.0.4
+</span></span><span class="line"><span class="cl"><span class="c1"># IPMI Username</span>
+</span></span><span class="line"><span class="cl"><span class="nv">IPMIUSER</span><span class="o">=</span>fan-admin
+</span></span><span class="line"><span class="cl"><span class="c1"># IPMI Password</span>
+</span></span><span class="line"><span class="cl"><span class="nv">IPMIPW</span><span class="o">=</span>y0urPassw0rd
+</span></span><span class="line"><span class="cl"><span class="c1"># Your IPMI Encryption Key</span>
+</span></span><span class="line"><span class="cl"><span class="nv">IPMIEK</span><span class="o">=</span><span class="m">0000000000000000000000000000000000000000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Fan Speed / utilisation in percentage, for example 9 for 9% utilisation</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Please note that each fan can have a different rpm and will not all be the same speed</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FANSPEED</span><span class="o">=</span><span class="m">9</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># TEMPERATURE</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Change this to the temperature in Celsius you are comfortable with.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># If the temperature goes above the set degrees it will send raw IPMI command to enable dynamic fan control</span>
+</span></span><span class="line"><span class="cl"><span class="nv">MAXTEMP</span><span class="o">=</span><span class="m">27</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This variable sends a IPMI command to get the temperature, and outputs it as two digits.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Do not edit unless you know what you do.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Side note, if you are running ipmitool on the system you are controlling, you don&#39;t need to specify -H,-U,-P - from the OS installed on the host, ipmitool is assumed permitted. You only need host/user/pass for remote access. </span>
+</span></span><span class="line"><span class="cl"><span class="nv">TEMP</span><span class="o">=</span><span class="k">$(</span>ipmitool -I lanplus -H <span class="nv">$IPMIHOST</span> -U <span class="nv">$IPMIUSER</span> -P <span class="nv">$IPMIPW</span> -y <span class="nv">$IPMIEK</span> sdr <span class="nb">type</span> temperature <span class="p">|</span>grep Ambient <span class="p">|</span>grep degrees <span class="p">|</span>grep -Po <span class="s1">&#39;\d{2}&#39;</span> <span class="p">|</span> tail -1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Dont edit this, this converts decimal to hex</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SPEEDHEX</span><span class="o">=</span><span class="k">$(</span> <span class="nb">printf</span> <span class="s2">&#34;%x&#34;</span> <span class="nv">$FANSPEED</span> <span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="nv">$TEMP</span> &gt; <span class="nv">$MAXTEMP</span> <span class="o">]]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">printf</span> <span class="s2">&#34;Warning: Temperature is too high! Activating dynamic fan control! (</span><span class="nv">$TEMP</span><span class="s2"> C)&#34;</span> <span class="p">|</span> systemd-cat -t R710-IPMI-TEMP
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Warning: Temperature is too high! Activating dynamic fan control! (</span><span class="nv">$TEMP</span><span class="s2"> C)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># This sets the fans to auto mode, so the motherboard will set it to a speed that it will need do cool the server down</span>
+</span></span><span class="line"><span class="cl">    ipmitool -I lanplus -H <span class="nv">$IPMIHOST</span> -U <span class="nv">$IPMIUSER</span> -P <span class="nv">$IPMIPW</span> -y <span class="nv">$IPMIEK</span> raw 0x30 0x30 0x01 0x01
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">printf</span> <span class="s2">&#34;Temperature is OK (</span><span class="nv">$TEMP</span><span class="s2"> C)&#34;</span> <span class="p">|</span> systemd-cat -t R710-IPMI-TEMP
+</span></span><span class="line"><span class="cl">    <span class="nb">printf</span> <span class="s2">&#34;Activating manual fan speeds! (1560 RPM)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># This sets the fans to manual mode</span>
+</span></span><span class="line"><span class="cl">    ipmitool -I lanplus -H <span class="nv">$IPMIHOST</span> -U <span class="nv">$IPMIUSER</span> -P <span class="nv">$IPMIPW</span> -y <span class="nv">$IPMIEK</span> raw 0x30 0x30 0x01 0x00
+</span></span><span class="line"><span class="cl">    <span class="c1"># This is where we set the slower, quiet speed</span>
+</span></span><span class="line"><span class="cl">    ipmitool -I lanplus -H <span class="nv">$IPMIHOST</span> -U <span class="nv">$IPMIUSER</span> -P <span class="nv">$IPMIPW</span> -y <span class="nv">$IPMIEK</span> raw 0x30 0x30 0x02 0xff 0x<span class="nv">$SPEEDHEX</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/21.jpg"
+	width="1200"
+	height="1410"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="nano"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="204px"
+	
+></p>
+<ol start="4">
+<li>
+<p>press <code>ctrl + x</code> to close nano, then press <code>Y</code> to save your changes.</p>
+</li>
+<li>
+<p>We then need to give the file executable permissions</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x setspeed.sh
+</span></span></code></pre></div><ol start="6">
+<li>You can test your script to make sure it is working, set a speed in the script and run it.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./setspeed.sh
+</span></span></code></pre></div><p>In your iDRAC web portal, under the <code>fans</code> section, you can see the current rpm of each fan.</p>
+<p>So at 9 percent speed my fans run at around 2040 rpm.</p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/22.jpg"
+	width="1200"
+	height="698"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="9 percent speed"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p>And at 50 percent speed my fans run at around 7320 rpm.</p>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/23.jpg"
+	width="1200"
+	height="698"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="50 percent speed"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<h2 id="create-a-cron-job">Create a cron job</h2>
+<p>Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.</p>
+<ol>
+<li>Open crontab</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">crontab -e
+</span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/24.jpg"
+	width="1200"
+	height="351"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="crontab"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="820px"
+	
+></p>
+<ol start="2">
+<li>Add the following line to the end of the file</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">*</span><span class="err">/1 * * * * /bin/bash /root/fancontrol/setspeed.sh &gt; /dev/null 2&gt;&amp;1</span>
+</span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/25.jpg"
+	width="1200"
+	height="1393"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create cron"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="206px"
+	
+></p>
+<ol start="3">
+<li>You can then exit and save the file. Then in Proxmox, if we look at the syslog, we will see that in a minutes time, the cron job will execute.</li>
+</ol>
+<p><img src="/post/dell-r710-how-to-quiet-the-fans/26.jpg"
+	width="690"
+	height="118"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="cron job runs"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="584"
+		data-flex-basis="1403px"
+	
+></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hardware/">Hardware</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/h700-how-to-add-hdd-22-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How To Add Drives To The Dell PERC H700 RAID Controller"
+                        
+                        data-hash="md5-5WxprgS5E/6bDwbM6kSOZA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How To Add Drives To The Dell PERC H700 RAID Controller</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/old-server-new-home-lab-05-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Old Server New Home Lab"
+                        
+                        data-hash="md5-GRm2CsGaJxYpy4jRGIsUWQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Old Server New Home Lab</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/update_dell-r710-11-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Updating a Dell PowerEdge R710"
+                        
+                        data-hash="md5-ssvzDXMyIKqXdZIi75DO8g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Updating a Dell PowerEdge R710</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

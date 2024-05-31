@@ -1,0 +1,1185 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Hardware on Jonathan Moss</title>
+        <link>http://localhost:1313/categories/hardware/</link>
+        <description>Recent content in Hardware on Jonathan Moss</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 02 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/hardware/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>LAB WAN Network Creation</title>
+        <link>http://localhost:1313/post/lab-wan-network-creation-02-02-2024/</link>
+        <pubDate>Fri, 02 Feb 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/lab-wan-network-creation-02-02-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/lab-wan-network-creation-02-02-2024/splash.jpg" alt="Featured image of post LAB WAN Network Creation" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/TS09UH8Qj3A&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+        </item>
+        <item>
+        <title>Home Lab Network Design</title>
+        <link>http://localhost:1313/post/home-lab-network-design-26-01-2024/</link>
+        <pubDate>Fri, 26 Jan 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/home-lab-network-design-26-01-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/home-lab-network-design-26-01-2024/splash.jpg" alt="Featured image of post Home Lab Network Design" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/g8yRyeIirpo&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;home-lab-network-design&#34;&gt;Home Lab Network Design&lt;/h2&gt;
+&lt;p&gt;I wanted to share the design of the network I will be creating and using in my new home / office lab setup. I will briefly go over the requirements of what in my opinion every lab network should have and how I will achieve this with as little hardware as possible.&lt;/p&gt;
+&lt;h2 id=&#34;the-requirements&#34;&gt;The requirements&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Dual WAN ports. It is very important to learn how to use and work in a multi WAN environment. Most medium to large companies will have to use a Multi WAN network, so learning how to work with them in your Lab is important.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It is important to have all your &amp;ldquo;Management&amp;rdquo; software and devices on its own network. This helps with security as well as keeps the network more manageable when separating specific devices to specific networks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The last requirement will then be to have a &amp;ldquo;LAN Port&amp;rdquo; that we can use for what ever we need to as this series continues. For example we will most probably use this port as a &amp;ldquo;Trunk&amp;rdquo; for VLANs. We will most probably use it to create VLANs such as &amp;ldquo;IOT/Mobile, Office and Guests&amp;rdquo; which we can then connect to another Managed switch to grow the network over time.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;the-design&#34;&gt;The Design&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Please note that this will change as the network grows or as needed.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/home-lab-network-design-26-01-2024/splash.jpg&#34;
+	width=&#34;1072&#34;
+	height=&#34;621&#34;
+	srcset=&#34;http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Network Diagram&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;414px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;managed-switch&#34;&gt;Managed Switch&lt;/h3&gt;
+&lt;p&gt;The heart of my network is the &amp;ldquo;TP-Link TL-SG1024DE&amp;rdquo; managed switch. I have been using it for years and it has been an incredible switch for me. I use VLANs (802.1Q) to be able to split the switch up into the different networks.&lt;/p&gt;
+&lt;p&gt;I use it in the following way:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The first 8 ports (1-8) are used from my &amp;ldquo;Home Network&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;The next 8 ports (9-16) are used for my &amp;ldquo;Business Network&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;The next 7  (17-23) are used for my &amp;ldquo;Lab Network&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;the last port (24) is used as a trunk for my &amp;ldquo;Home, Business and home Lab&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;this allows me to only need one switch for my entire network, which saves space and electricity.&lt;/p&gt;
+&lt;h3 id=&#34;wan-connections-for-the-lab&#34;&gt;WAN connections for the Lab&lt;/h3&gt;
+&lt;p&gt;I have created a trunk from my &amp;ldquo;main router&amp;rdquo; that will have two VLANs (104 and 105).&lt;/p&gt;
+&lt;p&gt;On my main router, I created two VLAN networks that I will then use as WAN connections for our lab.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VLAN 104, 172.16.0.0/29&lt;/li&gt;
+&lt;li&gt;VLAN 105, 172.17.0.0/29&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This goes into port 24 as a &amp;ldquo;tagged&amp;rdquo; VLAN, then on port 17 and 18 they will be &amp;ldquo;untagged&amp;rdquo;. That is then connected to OpnSense as gateways.&lt;/p&gt;
+&lt;p&gt;We will then have two WAN networks to play with in the Lab.&lt;/p&gt;
+&lt;h3 id=&#34;opnsense&#34;&gt;OpnSense&lt;/h3&gt;
+&lt;p&gt;I will be installing OpnSense on a Virtual Machine and give the Virtual Machine access to the NIC ports via &amp;ldquo;Linux bridges&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;This way it allows for easier and quick adding and removing ports as needed. It will also help with migration and clusters if you would like to do that. Passing (Passthrough) an entire NIC to the virtual machine is not needed and can actually be more of a pain at times to manage then just using bridges.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Honestly there is not much more for me to explain as I think the diagram explains a lot already. I will see how it goes, but I will most probably do a Youtube Video showing the installation process and how I went about setting up the networks from beginning to end.&lt;/p&gt;
+&lt;p&gt;However since it will be a very time intensive task, I will be looking into splitting it up into a series of smaller videos, but I will see how things go and take it as it comes.
+But I&amp;rsquo;m excited to start on this series and I hope you will enjoy it and learn a lot.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>How To Make Your Dell R710 Quiet using Proxmox</title>
+        <link>http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/</link>
+        <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/</guid>
+        <description>&lt;img src="http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/splash.jpg" alt="Featured image of post How To Make Your Dell R710 Quiet using Proxmox" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/3yJYq0PEhTw&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;how-will-we-achieve-this&#34;&gt;How will we achieve this?&lt;/h2&gt;
+&lt;p&gt;In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
+The script will need to use two main components to achieve this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ipmitool for Debian (Proxmox) to use use ipmi protocols in the cli.&lt;/li&gt;
+&lt;li&gt;A iDRAC user account that the script will use to access the iDRAC.&lt;/li&gt;
+&lt;li&gt;Dells iDRAC (iDRAC 6 on the Dell R710) to get the servers ambient temperature and to set the fan speeds.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Just as a side note, I have created a &amp;ldquo;Management&amp;rdquo; (10.0.0.0/24) network were things such as the iDRAC and other other management related software / devices are connected to. Having a separate and tightly locked down network where all the IT infrastructure is managed is very important.&lt;/p&gt;
+&lt;p&gt;I will do a write up on my network design in a future post, but for now I wanted to get this post out to help people silence their server and also help save some electricity in the process.&lt;/p&gt;
+&lt;h2 id=&#34;set-your-idrac-lan-settings-and-main-admin-user&#34;&gt;Set your iDRAC LAN Settings and main admin user&lt;/h2&gt;
+&lt;p&gt;In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &amp;ldquo;Admin&amp;rdquo; user we can use to login and administrate the server.&lt;/p&gt;
+&lt;p&gt;make sure to have your iDRAC NIC connected to your desired network
+&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cable connection&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;To get to the iDRAC bios / settings
+Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your keyboard when you see the following message:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Press CTRL + E for Remote Access Setup within 5 sec&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;bios screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Make sure the that the &lt;code&gt;iDRAC6 LAN&lt;/code&gt; and &lt;code&gt;IPMI Over LAN&lt;/code&gt; options are set to &lt;code&gt;on&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;IPMI On&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Next goto the &lt;code&gt;LAN Parameters&lt;/code&gt; section, navigate down until you get to the &lt;code&gt;IPv4 Settings&lt;/code&gt; section and fill in your desired IP details.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Lan Section&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Lan Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Lastly, go to the &lt;code&gt;LAN User Configuration&lt;/code&gt; to create the main user you will use to access iDRAC and administrate your server.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;user section&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Make sure to set the &lt;code&gt;IPMI LAN Privilege&lt;/code&gt; to &lt;code&gt;Admin&lt;/code&gt;, set the &lt;code&gt;Account Access&lt;/code&gt; to &lt;code&gt;Enabled&lt;/code&gt; and set the user name and password you would like to use.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;800&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;user settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;press &lt;code&gt;ESC&lt;/code&gt; to exit and save your changes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;create-a-new-idrac-user-for-our-script&#34;&gt;Create a new iDRAC user for our script&lt;/h2&gt;
+&lt;p&gt;We don&amp;rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
+We will instead create a new user that we will give permissions to use the IPMI.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Login to your iDRAC web portal entering your iDRAC IP address in your browser, mine is as follows:
+https://10.0.0.4/login.html&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;665&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;iDRAC Web&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;433px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Login using the user details that you created in the previous section.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Once logged in. In the menu on the left side. Open the &lt;code&gt;iDRAC Settings&lt;/code&gt; section&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9.jpg&#34;
+	width=&#34;1006&#34;
+	height=&#34;892&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;iDRAC Menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;270px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Now open the &lt;code&gt;Network/Security&lt;/code&gt; sub menu.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10.jpg&#34;
+	width=&#34;1006&#34;
+	height=&#34;892&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;network section Menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;270px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Now select the &lt;code&gt;users&lt;/code&gt; section&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11.jpg&#34;
+	width=&#34;1006&#34;
+	height=&#34;892&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;user  section&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;270px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;click on a free “User ID” number.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;648&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;id select&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;444px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Select the “Configure User” radio button, and click “Next”.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;523&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Configure User&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;229&#34;
+		data-flex-basis=&#34;550px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Set the following settings:&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Enable User&lt;/code&gt; check box should be ticked.
+Enter a username.
+Enter a password. A max of twenty alpha-numeric password is needed.
+Set &lt;code&gt;Maximum LAN User Privilege Granted&lt;/code&gt; to &lt;code&gt;Administrator&lt;/code&gt;.
+The &lt;code&gt;Enable Serial Over LAN&lt;/code&gt; check box should be ticked.
+Everything else should be default, which will effectively be no permissions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;613&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;user settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;195&#34;
+		data-flex-basis=&#34;469px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;Scroll to the bottom of the page and click “Apply” to create the new user.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ipmi-encryption&#34;&gt;IPMI Encryption&lt;/h2&gt;
+&lt;p&gt;Under the &lt;code&gt;Network&lt;/code&gt; section of the &lt;code&gt;iDRAC Settings&lt;/code&gt;. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &amp;ldquo;0&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;589&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;IPMI Encryption&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;203&#34;
+		data-flex-basis=&#34;488px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;install-ipmi-tools-on-proxmox&#34;&gt;Install IPMI Tools on Proxmox&lt;/h2&gt;
+&lt;p&gt;I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;449&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Proxmox Terminal&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;267&#34;
+		data-flex-basis=&#34;641px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Do a repository update and then install ipmitools using the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt install ipmitool
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;if you are already a root user you can just run the following command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apt update &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt install ipmitool
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;566&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;command&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;212&#34;
+		data-flex-basis=&#34;508px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;566&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ipmitool installed&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;212&#34;
+		data-flex-basis=&#34;508px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;We can test if it is working by running the following command:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ipmitool -I lanplus -H &amp;lt;ip&amp;gt; -U &amp;lt;user&amp;gt; -P &amp;lt;pass&amp;gt; -y &amp;lt;enc&amp;gt; sdr &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt; temperature
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make sure to replace the following with your details:
+&lt;!-- raw HTML omitted --&gt; = your iDRAC IP
+&lt;!-- raw HTML omitted --&gt; = the user you created in the previous section
+&lt;!-- raw HTML omitted --&gt; = the users password
+&lt;!-- raw HTML omitted --&gt; = your encryption string&lt;/p&gt;
+&lt;p&gt;So in my case it will be as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ipmitool -I lanplus -H 10.0.0.4 -U fan-admin -P asd123asd -y &lt;span class=&#34;m&#34;&gt;0000000000000000000000000000000000000000&lt;/span&gt; sdr &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt; temperature
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If everything is correct, you will get a table with some temperature values.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;566&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ipmitool test&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;212&#34;
+		data-flex-basis=&#34;508px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-script&#34;&gt;The script&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;I will create a new folder in the &lt;code&gt;root&lt;/code&gt; users home folder where I will store the script.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir fancontrol
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I will then use &lt;code&gt;nano&lt;/code&gt; to create a file called &lt;code&gt;setspeed.sh&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nano setspeed.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20.jpg&#34;
+	width=&#34;1000&#34;
+	height=&#34;410&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create file&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;243&#34;
+		data-flex-basis=&#34;585px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;The below script is a modified version of the script found here &lt;a class=&#34;link&#34; href=&#34;https://github.com/NoLooseEnds/Scripts/tree/master/R710-IPMI-TEMP&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/NoLooseEnds/Scripts/tree/master/R710-IPMI-TEMP&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The original script was split into two files which I found was unnecessary and got confusing to edit. So I merged them into one file to be easier to maintain.
+I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to set the fan speed by utilisation percentage as the original script did not have that function.&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Copy and paste the below script into nano&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IPMI IP address&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;IPMIHOST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;10.0.0.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IPMI Username&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;IPMIUSER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fan-admin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IPMI Password&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;IPMIPW&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;y0urPassw0rd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Your IPMI Encryption Key&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;IPMIEK&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0000000000000000000000000000000000000000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Fan Speed / utilisation in percentage, for example 9 for 9% utilisation&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Please note that each fan can have a different rpm and will not all be the same speed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;FANSPEED&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# TEMPERATURE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Change this to the temperature in Celsius you are comfortable with.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# If the temperature goes above the set degrees it will send raw IPMI command to enable dynamic fan control&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;MAXTEMP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;27&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# This variable sends a IPMI command to get the temperature, and outputs it as two digits.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Do not edit unless you know what you do.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Side note, if you are running ipmitool on the system you are controlling, you don&amp;#39;t need to specify -H,-U,-P - from the OS installed on the host, ipmitool is assumed permitted. You only need host/user/pass for remote access. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TEMP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;ipmitool -I lanplus -H &lt;span class=&#34;nv&#34;&gt;$IPMIHOST&lt;/span&gt; -U &lt;span class=&#34;nv&#34;&gt;$IPMIUSER&lt;/span&gt; -P &lt;span class=&#34;nv&#34;&gt;$IPMIPW&lt;/span&gt; -y &lt;span class=&#34;nv&#34;&gt;$IPMIEK&lt;/span&gt; sdr &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt; temperature &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep Ambient &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep degrees &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep -Po &lt;span class=&#34;s1&#34;&gt;&amp;#39;\d{2}&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -1&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Dont edit this, this converts decimal to hex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;SPEEDHEX&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;%x&amp;#34;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$FANSPEED&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$TEMP&lt;/span&gt; &amp;gt; &lt;span class=&#34;nv&#34;&gt;$MAXTEMP&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Warning: Temperature is too high! Activating dynamic fan control! (&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$TEMP&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; C)&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; systemd-cat -t R710-IPMI-TEMP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Warning: Temperature is too high! Activating dynamic fan control! (&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$TEMP&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; C)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# This sets the fans to auto mode, so the motherboard will set it to a speed that it will need do cool the server down&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ipmitool -I lanplus -H &lt;span class=&#34;nv&#34;&gt;$IPMIHOST&lt;/span&gt; -U &lt;span class=&#34;nv&#34;&gt;$IPMIUSER&lt;/span&gt; -P &lt;span class=&#34;nv&#34;&gt;$IPMIPW&lt;/span&gt; -y &lt;span class=&#34;nv&#34;&gt;$IPMIEK&lt;/span&gt; raw 0x30 0x30 0x01 0x01
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Temperature is OK (&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$TEMP&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; C)&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; systemd-cat -t R710-IPMI-TEMP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Activating manual fan speeds! (1560 RPM)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# This sets the fans to manual mode&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ipmitool -I lanplus -H &lt;span class=&#34;nv&#34;&gt;$IPMIHOST&lt;/span&gt; -U &lt;span class=&#34;nv&#34;&gt;$IPMIUSER&lt;/span&gt; -P &lt;span class=&#34;nv&#34;&gt;$IPMIPW&lt;/span&gt; -y &lt;span class=&#34;nv&#34;&gt;$IPMIEK&lt;/span&gt; raw 0x30 0x30 0x01 0x00
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# This is where we set the slower, quiet speed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ipmitool -I lanplus -H &lt;span class=&#34;nv&#34;&gt;$IPMIHOST&lt;/span&gt; -U &lt;span class=&#34;nv&#34;&gt;$IPMIUSER&lt;/span&gt; -P &lt;span class=&#34;nv&#34;&gt;$IPMIPW&lt;/span&gt; -y &lt;span class=&#34;nv&#34;&gt;$IPMIEK&lt;/span&gt; raw 0x30 0x30 0x02 0xff 0x&lt;span class=&#34;nv&#34;&gt;$SPEEDHEX&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;1410&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;nano&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;85&#34;
+		data-flex-basis=&#34;204px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;press &lt;code&gt;ctrl + x&lt;/code&gt; to close nano, then press &lt;code&gt;Y&lt;/code&gt; to save your changes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We then need to give the file executable permissions&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x setspeed.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;You can test your script to make sure it is working, set a speed in the script and run it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./setspeed.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In your iDRAC web portal, under the &lt;code&gt;fans&lt;/code&gt; section, you can see the current rpm of each fan.&lt;/p&gt;
+&lt;p&gt;So at 9 percent speed my fans run at around 2040 rpm.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;698&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;9 percent speed&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;412px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;And at 50 percent speed my fans run at around 7320 rpm.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;698&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;50 percent speed&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;412px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;create-a-cron-job&#34;&gt;Create a cron job&lt;/h2&gt;
+&lt;p&gt;Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open crontab&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;crontab -e
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;351&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;crontab&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;341&#34;
+		data-flex-basis=&#34;820px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Add the following line to the end of the file&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/1 * * * * /bin/bash /root/fancontrol/setspeed.sh &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;1393&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create cron&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;86&#34;
+		data-flex-basis=&#34;206px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;You can then exit and save the file. Then in Proxmox, if we look at the syslog, we will see that in a minutes time, the cron job will execute.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26.jpg&#34;
+	width=&#34;690&#34;
+	height=&#34;118&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cron job runs&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;584&#34;
+		data-flex-basis=&#34;1403px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>How To Add Drives To The Dell PERC H700 RAID Controller</title>
+        <link>http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/</link>
+        <pubDate>Tue, 26 Dec 2023 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/</guid>
+        <description>&lt;img src="http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/splash.jpg" alt="Featured image of post How To Add Drives To The Dell PERC H700 RAID Controller" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/l1RXsGe611c&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;perc-h700-raid-controller&#34;&gt;PERC H700 RAID controller&lt;/h2&gt;
+&lt;p&gt;The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD&amp;rsquo;s to it.&lt;/p&gt;
+&lt;h2 id=&#34;add-your-hard-drives-to-the-server&#34;&gt;Add your hard drives to the server&lt;/h2&gt;
+&lt;p&gt;I had four extremely  old Seagate 500 GB Barracuda Sata hard drives laying around, I will only be using those to demonstrate how to add drives to the server.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Seagate&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;how-to-access-the-controllers-bios&#34;&gt;How to access the controllers bios&lt;/h2&gt;
+&lt;p&gt;To access the controllers BIOS Configuration Utility.
+Turn on your Dell R710 and wait until you see the message to press the:
+&lt;code&gt;Ctrl + R&lt;/code&gt; Keys&lt;/p&gt;
+&lt;p&gt;Press the &lt;code&gt;Ctrl + R&lt;/code&gt; Keys to open the Utility.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;BIOS Configuration Utility&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;raid-type-to-use&#34;&gt;RAID type to use&lt;/h2&gt;
+&lt;p&gt;I would recommend that you read the user guide provided by Dell.
+From page 17 they go over the different RAID types and terminology.
+For this guide I&amp;rsquo;m going to use two drives individually, so RAID 0 and then the last two drives I will create a RAID 1 group.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.dell.com/manuals/all-products/esuprt_ser_stor_net/esuprt_dell_adapters/poweredge-rc-h700_user%27s%20guide_en-us.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dl.dell.com/manuals/all-products/esuprt_ser_stor_net/esuprt_dell_adapters/poweredge-rc-h700_user&#39;s%20guide_en-us.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For a quick references, below is a paragraph from the above manual about the different RAID types:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;RAID Description
+RAID is a group of independent physical disks that provides high performance
+by increasing the number of disks used for saving and accessing data.
+
+A RAID disk subsystem offers the following benefits:
+• Improves I/O performance and data availability.
+• Improves data throughput because several disks are accessed
+simultaneously. The physical disk group appears either as a single storage
+unit or multiple logical units to the host system.
+• Improves data storage availability and fault tolerance. Data loss caused by
+a physical disk failure can be recovered by rebuilding missing data from the
+remaining physical disks containing data or parity.
+CAUTION: In the event of a physical disk failure, a RAID 0 virtual disk fails,
+resulting in data loss.
+
+Summary of RAID Levels
+• RAID 0 uses disk striping to provide high data throughput, especially for
+large files in an environment that requires no data redundancy.
+• RAID 1 uses disk mirroring so that data written to one physical disk is
+simultaneously written to another physical disk. RAID 1 is good for small
+databases or other applications that require small capacity and complete
+data redundancy.
+• RAID 5 uses disk striping and parity data across all physical disks
+(distributed parity) to provide high data throughput and data redundancy,
+especially for small random access.
+• RAID 6 is an extension of RAID 5 and uses an additional parity block.
+RAID 6 uses block-level striping with two parity blocks distributed across
+all member disks. RAID 6 provides protection against double disk failures,
+and failures while a single disk is rebuilding. If you are using only one array,
+deploying RAID 6 is more effective than deploying a hot spare disk.
+• RAID 10 is a combination of RAID 0 and RAID 1, uses disk striping
+across mirrored disks. It provides high data throughput and complete data
+redundancy. RAID 10 can support up to eight spans, and up to 32 physical
+disks per span.
+• RAID 50 is a combination of RAID 0 and RAID 5 where a RAID 0 array
+is striped across RAID 5 elements. RAID 50 requires at least six disks.
+• RAID 60 is a combination of RAID 0 and RAID 6 where a RAID 0 array is
+striped across RAID 6 elements. RAID 60 requires at least eight disks
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;how-to-add-hdds&#34;&gt;How to add HDDs&lt;/h2&gt;
+&lt;p&gt;Once the Configuration Utility is open, you will see a list of all your new HDDs at the bottom of the list under the &amp;ldquo;Unconfigured Physical Disks&amp;rdquo; section. So for exammple we can see that all four of our 500GB HDDs are showing up. If we only saw three for example, we could take a look at the caddy&amp;rsquo;s LED lights and find the one where the LED is not on. From there we could double check that the HDD is inserted correctly or troubleshoot further.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Unconfigured&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Use the &lt;code&gt;UP or DOWN&lt;/code&gt; arrows on your keyboard to highlight the Top most item &amp;ldquo;PERC H700 Integrated (Bus 0x03, Dev 0x00)&amp;rdquo; in the list.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Highlight Controller&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press the &lt;code&gt;F2&lt;/code&gt; key to open the &amp;ldquo;Operations&amp;rdquo; menu.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Oerations Menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Highlight the &amp;ldquo;Create New VD&amp;rdquo; (VD stands for Virtual Disk) and press the &lt;code&gt;Enter / Return&lt;/code&gt; keyboard button to open the &amp;ldquo;Virtual Disk Management&amp;rdquo; Menu.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Virtual Disk Management Menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Please note that you can use the &lt;code&gt;UP or DOWN&lt;/code&gt; arrows on your keyboard to navigate the menu.&lt;/p&gt;
+&lt;h3 id=&#34;raid-type&#34;&gt;RAID type&lt;/h3&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Highlight the &amp;ldquo;RAID Level&amp;rdquo; input. When you have it highlighted, press the &lt;code&gt;Enter / Return&lt;/code&gt; keyboard button to select the RAID Level you would like.
+In this case, I want to create a single RAID 0 drive. So I will only select the &amp;ldquo;RAID-0&amp;rdquo; option. Please note that You will only be presented with the available options depending on the amount of free drives you have.&lt;/p&gt;
+&lt;p&gt;In the screenshot below, I only have two HDDs available, so the max RAID Level I can create is RAID-1.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;RAID Levels&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the &lt;code&gt;DOWN&lt;/code&gt; arrow on your keyboard to highlight the HDD you would like to add the the &amp;ldquo;Disk Group&amp;rdquo;. When you have the HDD highlighted, press the &lt;code&gt;Space&lt;/code&gt; keyboard button to select the HDD to be part of the &amp;ldquo;Disk Group&amp;rdquo;.
+I this case, I want to create a single RAID 0 drive. So I will only select the first disk.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Select HDD / HDDs RAID 0&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;If for example you would like to create a RAID 1 disk group. Select two HDDs you would like to use.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Select HDD / HDDs RAID 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using the &lt;code&gt;DOWN&lt;/code&gt; arrow on your keyboard continue to press &lt;code&gt;DOWN&lt;/code&gt; until you are on the &amp;ldquo;VM Name&amp;rdquo; input and type in the name you would like to call your Disk Group.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Group Name&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using the &lt;code&gt;DOWN&lt;/code&gt; arrow on your keyboard continue to press &lt;code&gt;DOWN&lt;/code&gt; until you are on the &amp;ldquo;OK&amp;rdquo; button and then press the &lt;code&gt;Enter / Return&lt;/code&gt; button to finalise your creation.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;OK button&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;how-to-initialise-the-new-disk-groups&#34;&gt;How to initialise the new disk groups.&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Highlight the HDDs in your new Disk Group and press the &lt;code&gt;F2&lt;/code&gt; button to open the &amp;quot; Operations Menu &amp;quot; again.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Disk Operations Menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;code&gt;Enter / Return&lt;/code&gt; on the &amp;ldquo;Initialization&amp;rdquo; option, then press &lt;code&gt;Enter / Return&lt;/code&gt; on the &amp;ldquo;init. Start&amp;rdquo; option. This will start initializing the drives to be used in your OS.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Initialization&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;code&gt;Enter / Return&lt;/code&gt; to accept that any data on the disks will be deleted.
+&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;723&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Confirm&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;358px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Continue to do that for all your new Virtual Disks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Hopefully this quick guide helps you on your path of adding new drives to your PERC H700 RAID Controller. I recommend that you read and study the different RAID Levels / Types in order to know which type will be the best for your use cases.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Old Server New Home Lab</title>
+        <link>http://localhost:1313/post/old-server-new-home-lab-05-12-2023/</link>
+        <pubDate>Wed, 06 Dec 2023 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/old-server-new-home-lab-05-12-2023/</guid>
+        <description>&lt;img src="http://localhost:1313/post/old-server-new-home-lab-05-12-2023/splash.jpg" alt="Featured image of post Old Server New Home Lab" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/7maUSRi0Z0g&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;my-current-setup&#34;&gt;My Current Setup&lt;/h2&gt;
+&lt;p&gt;For many years I have been using two HPE ProLiant MicroServer Gen 8&amp;rsquo;s which are still running great till this day. I upgraded them with Xeon E3-1260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu4fa883f32be73ce051e36a2d4f7d48d5_207941_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu4fa883f32be73ce051e36a2d4f7d48d5_207941_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ProLiant MicroServer&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;As technologies have matured and become more and more complex. 16GB of RAM is just not enough to run all the software that I need to run either on a daily bases or when I need to run multiple virtual machines to test new software and configurations.
+I decided to look into getting something more powerful and has more features for my work and home lab purposes. I will continue to use my ProLiant MicroServers for running my home network and services.&lt;/p&gt;
+&lt;p&gt;I noticed that there are a lot of Dell R710&amp;rsquo;s floating around on the second hand market. It is the time were all companies are getting rid of all their old servers and moving to newer technologies.&lt;/p&gt;
+&lt;p&gt;The price was great, the specs are fantastic, but is it still a good idea to use very old technologies for a testing and home lab server?&lt;/p&gt;
+&lt;p&gt;Please note that I&amp;rsquo;m not a master of hardware, I have a fair amount of experience using different hardware but I&amp;rsquo;m far from a hardware guru. If you need advice from experts, I would recommend visiting the Level 1 Techs forums &lt;a class=&#34;link&#34; href=&#34;https://forum.level1techs.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://forum.level1techs.com/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;second-hand-dell-r710-is-it-worth-it&#34;&gt;Second Hand Dell R710 is it worth it?&lt;/h2&gt;
+&lt;p&gt;The R710 server that I was looking at has two Xeon X5650&amp;rsquo;s, 64 GB RAM, 8x Gigabit ports (2x 4 port gigabit cards), 2x 870 watt PSU&amp;rsquo;s and a H700 RAID Controller which unfortunately does not support passthrough. I didn&amp;rsquo;t do my research on the H700 before hand as I assumed that it would support passthrough as I&amp;rsquo;m so used to RAID controllers usually supporting that. In the end it is not too much of an issue for me, but it was a wake up call with regards to reminding me to always research every thing thoroughly first.&lt;/p&gt;
+&lt;p&gt;The unit did not include any HDD caddies, so I had to get 6x caddies as well.&lt;/p&gt;
+&lt;p&gt;A X5650 has 6 cores 12 threads at a base frequency of 2.66 GHz and boosts to  3.06 GHz. The TDP is  95 W and can take up to 288 GB of DDR3 800/1066/1333 ecc RAM. It also support all the virtualization technologies (VT-x and VT-d) if needed, although I was also having issues with hardware passthrough.&lt;/p&gt;
+&lt;p&gt;The cost of the Dell R710 was R3000 (ZAR)
+The cost of a HDD caddy was R175 each, I needed 6 (R1050 total)
+Shipping was R30&lt;/p&gt;
+&lt;p&gt;Total cost is R4080&lt;/p&gt;
+&lt;p&gt;Really good deal in my opinion.&lt;/p&gt;
+&lt;h3 id=&#34;what-i-looked-for-to-see-if-it-was-worth-purchasing&#34;&gt;What I looked for to see if it was worth purchasing?&lt;/h3&gt;
+&lt;h4 id=&#34;power-draw-and-efficiency&#34;&gt;Power draw and efficiency&lt;/h4&gt;
+&lt;p&gt;Take these numbers with a grain of salt due to silicon lottery. However this is the approach I took when deciding if the Dell R710 will be a good purchase.&lt;/p&gt;
+&lt;p&gt;Browsing through the web and scouring forums, I could make out that a X5650 idles at around 45 - 55 Watts.
+So a total of around 110 Watts for the pair.&lt;/p&gt;
+&lt;p&gt;My ProLiant with the Xeon E3-1260L idles at around 35 - 45 Watts.
+Which would bring the idle power usage around 10 Watts per CPU more then what I currently use. For me that is not too bad to have two more cores and 4 more threads available.&lt;/p&gt;
+&lt;p&gt;However, when doing heavy work loads, the power draw doubles from 45 Watts of the E3-1260L to 95 Watts of the X5650. So defiantly a lot more power usage for the extra two cores and 4 threads at full load.&lt;/p&gt;
+&lt;p&gt;I wanted to compare this to a modern 12 core 24 thread CPU to have a rough idea of what a more modern CPU would draw.&lt;/p&gt;
+&lt;p&gt;An AMD 100-100000061WOF Ryzen 9 5900X 12 Core 3.7GHz has a TDP of 105 Watts&lt;/p&gt;
+&lt;p&gt;An Intel BX8071512700F Core i7-12700F 12 Core 3.6GHz has a TDP of 95 Watts - 180 Watts maximum at load.&lt;/p&gt;
+&lt;p&gt;They are all in a similar TDP range with regards to Watts per core and it is very clear that as technology improved, the modern CPU&amp;rsquo;s will be more efficient and more powerful. But with regards to the workload I will be putting on the cpu, I won&amp;rsquo;t be very disadvantaged with the frequency of the cpu. The 2.66 GHz to  3.06 GHz of the X5650 will be fine for my test and home lab needs.&lt;/p&gt;
+&lt;p&gt;It is also very important to know that depending on your workload, running two CPU&amp;rsquo;s together can run slower than a single CPU with the combined cores. But I was interested in redundancy and having more RAM channels, using a dual socket motherboard will facilitate this.&lt;/p&gt;
+&lt;h4 id=&#34;sound-pollution&#34;&gt;Sound Pollution&lt;/h4&gt;
+&lt;p&gt;Unfortunately server hardware is loud, sever fans can be extremely noise polluting, especially in a residential area. But with some tweaking, we will be able to almost make the server completely silent. I will create an article in the near future with how to achieve this.&lt;/p&gt;
+&lt;h4 id=&#34;costs&#34;&gt;Costs&lt;/h4&gt;
+&lt;p&gt;The Second hand Dell R710 totals up to:
+R4080&lt;/p&gt;
+&lt;p&gt;An AMD 100-100000061WOF Ryzen 9 5900X CPU only:
+R6999 (At the time of writing this)&lt;/p&gt;
+&lt;p&gt;An Intel BX8071512700F Core i7-12700F:
+R8099  (At the time of writing this)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;481&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hue8da54c38e5708b395721fbd612cbb1a_134965_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hue8da54c38e5708b395721fbd612cbb1a_134965_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;CPU Costs&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;249&#34;
+		data-flex-basis=&#34;598px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;To build a new complete server would by far cost more than purchasing an old fully configured server. With this already in mind, the Dell will be a good purchase.&lt;/p&gt;
+&lt;p&gt;To help take another approach to see if it would be worth it and cost effective, I did a quick calculation to see what it would cost daily in electricity if i did decide to run the Dell 24/7 at full load.&lt;/p&gt;
+&lt;p&gt;For the purpose of this calculation, I will set the Dells full load to be 200 Watts.
+The cost per Kilowatt Hours at the time of writing this is:
+R2.73 (ZAR)&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cost = power rating × time × price
+
+power rating = 200 W (We need to convert it to kWh)
+kilowatt hours = (watts × hours) ÷ 1000
+= (200 x 1) ÷ 1000
+= 0.2 KW
+
+cost per day = 0.2 x 24 x 2.73
+= R13.10
+
+cost per month = 13.10 x 30
+= R393
+
+cost per year = 13.10 x 365
+= R4781.50
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To put this in perspective, at the time of writing this, using Uber eats, a McDonalds McFeast® Meal costs R149.90. It costs less then three McFeast® Meals to run the Dell at full load for a month.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;679&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu30910665284931ace4f57faa1e01d828_71125_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu30910665284931ace4f57faa1e01d828_71125_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;McFeast&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;424px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Another way to look at it is that I can purchase the Dell and use it 24/7 for a year and that will be close to the cost of only buying a new CPU. Then if we take the cost of a motherboard for that CPU, which is around another R4000. We can run the Dell 24/7 for two years at the same price.&lt;/p&gt;
+&lt;p&gt;In my situation, going the Dell route is the better option than building a more modern server. I don&amp;rsquo;t plan on running the server 24/7 as well, so it will defiantly be cheaper to run a second hand Dell R710.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;So of course I purchased the unit. It is now sitting comfortably in my server rack.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;775&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu30910665284931ace4f57faa1e01d828_86260_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu30910665284931ace4f57faa1e01d828_86260_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;receipt&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;371px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Dell R710 with cover&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu4fa883f32be73ce051e36a2d4f7d48d5_254682_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu4fa883f32be73ce051e36a2d4f7d48d5_254682_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Dell R710&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;I decided it would be nice to share my experience and processes that I went through to set up and use the Dell.&lt;/p&gt;
+&lt;p&gt;I will be doing a mini series of articles about it and hopefully it will help some people along the way to setting up their own R710 server.&lt;/p&gt;
+&lt;p&gt;Below is the wattage use when the server starts up (Between 163 Watts - 175 Watts) and then at idle (Between 119 Watts - 123 Watts). This is the idle draw using Proxmox as the host OS, with an OpnSense Virtual Machine and an Ubuntu Virtual Machine running a few docker containers. I only have one PSU plugged in and have the fans tweaked to run slower. Very Nice.&lt;/p&gt;
+&lt;p&gt;Startup Wattage
+&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu4fa883f32be73ce051e36a2d4f7d48d5_203235_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu4fa883f32be73ce051e36a2d4f7d48d5_203235_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Dell R710 startup Wattage&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Idle Wattage
+&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu4fa883f32be73ce051e36a2d4f7d48d5_223277_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu4fa883f32be73ce051e36a2d4f7d48d5_223277_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Dell R710 idle Wattage&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

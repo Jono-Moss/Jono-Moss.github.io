@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
+<title>Multi WAN Uptime Monitoring</title>
+
+<link rel='canonical' href='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Multi WAN Uptime Monitoring'>
+<meta property='og:description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
+<meta property='og:url' content='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
+<meta name="twitter:title" content="Multi WAN Uptime Monitoring">
+<meta name="twitter:description" content="In this guide we will look at how to monitor multiple WAN connections with a single monitoring software"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#concept-and-design">Concept and design</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#create-the-monitors">Create the monitors</a>
+      <ol>
+        <li><a href="#create-a-monitor">Create a monitor</a></li>
+      </ol>
+    </li>
+    <li><a href="#test-that-the-monitors-work">Test that the monitors work</a></li>
+    <li><a href="#firewall-rules">Firewall rules.</a>
+      <ol>
+        <li><a href="#firewall-rule-concept">Firewall rule concept</a></li>
+      </ol>
+    </li>
+    <li><a href="#test-that-the-monitors-work-individually">Test that the monitors work individually</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/multi-wan-uptime-monitoring/">
+                <img src="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg"
+                        srcset="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg 800w, /post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Multi WAN Uptime Monitoring" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/software/" >
+                Software
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+            <a href="/categories/networking/" >
+                Networking
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/multi-wan-uptime-monitoring/">Multi WAN Uptime Monitoring</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            In this guide we will look at how to monitor multiple WAN connections with a single monitoring software
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">31 May 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="concept-and-design">Concept and design</h2>
+<p>In a previous video I made going over the different Multi WAN modes.
+I spoke about how you could route traffic over different WAN connections to create a form of load balancing.
+We can use that same concept for monitoring multiple WAN connections from a single monitoring application.</p>
+<p>In this guide, I will be using a monitoring application called &ldquo;Uptime Kuma&rdquo; mainly
+due to it being quick to install and extremely simple to setup. However this method will work for any monitoring software that uses a ping (ICMP) to monitor a devices presence.</p>
+<h2 id="installation">Installation</h2>
+<p>I have created an Ubuntu server VM that is on the &ldquo;Management&rdquo; network.
+I have given it a static IP of ```10.0.0.3</p>
+<pre tabindex="0"><code class="language-," data-lang=",">From there I have created an &#34;Uptime Kuma&#34; container that is ready to go.
+
+I simply create a folder in my users home folder called ```docker```
+and then created a folder in there called ```kuma```
+
+In the ```kuma``` folder, I then created a file in there called ```docker-compose.yml``` and a folder called ```data```. That is where all the data Uptime Kuma needs to store will go.
+
+
+Below is the docker-compose.yml file I used to get it running:
+
+``` YML 
+version: &#39;3.3&#39;
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3001:3001  # &lt;Host Port&gt;:&lt;Container Port&gt;
+    restart: always
+    
+</code></pre><p>Once done, we can simply run the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker-compose up -d
+</span></span></code></pre></div><p>That will create and start the container.</p>
+<h2 id="create-the-monitors">Create the monitors</h2>
+<p>Once Uptime Kuma is up and running, we can goto:
+<code>http://&lt;your.servser.IP&gt;:3001</code>
+in your web browser of choice and we can create the following monitors. Change the <code>&lt;your.servser.IP&gt;</code> to the IP of your server.</p>
+<p>For this guide, we will create three monitors.</p>
+<ol>
+<li>For the first WAN, we will call it Fibre</li>
+<li>For the second WAN, we will call it 5G</li>
+<li>For the VPN, we will call it VPN</li>
+</ol>
+<h3 id="create-a-monitor">Create a monitor</h3>
+<ol>
+<li>
+<p>Click on the <code>+ Add New Monitor</code> button on the top left to start creating a new monitor.</p>
+</li>
+<li>
+<p>Use the following:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Monitor Type: ping
+Friendly Name: &#34;Fibre&#34;
+Hostname: 8.8.8.8
+Heartbeat Interval: 60 
+Retries: 2
+Heartbeat Retry Interval: 20
+Description: &#34;Fibre WAN Uptime&#34;
+</code></pre><ol start="3">
+<li>
+<p>Click the <code>save</code> button at the bottom to add the monitor.</p>
+</li>
+<li>
+<p>Now repeat this two more times, using the following:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Monitor Type: ping
+Friendly Name: &#34;5G&#34;
+Hostname: 1.1.1.1
+Heartbeat Interval: 60 
+Retries: 2
+Heartbeat Retry Interval: 20
+Description: &#34;5G WAN Uptime&#34;
+</code></pre><pre tabindex="0"><code>Monitor Type: ping
+Friendly Name: &#34;VPN&#34;
+Hostname: 9.9.9.9
+Heartbeat Interval: 60 
+Retries: 2
+Heartbeat Retry Interval: 20
+Description: &#34;VPN Uptime&#34;
+</code></pre><h2 id="test-that-the-monitors-work">Test that the monitors work</h2>
+<p>Now since  the server is on the &ldquo;Management&rdquo; network. The pings will most probably use the default WAN mode that you have set for that network. So in this instance it is on a &ldquo;failover&rdquo; WAN group that uses the &ldquo;Fibre&rdquo; WAN first and the &ldquo;5G&rdquo; WAN as the failover.</p>
+<p>So if we  unplug the &ldquo;Fibre&rdquo; connection, we should see that all the connections will be marked as down for a few moments, until the failover kicks in.</p>
+<p>This will let us know that the monitor are working, however we want to have the monitors monitor the desired individual WAN connections.</p>
+<p>We will do that on our Firewall by creating rules in order to route the pings through the correct WAN connection / Gateways.</p>
+<h2 id="firewall-rules">Firewall rules.</h2>
+<p>This is not an &ldquo;OpnSense&rdquo; specific feature.
+This will work with any firewall where you have the ability to create detailed firewall rules. You will just need to consult the user manual for that firewall in order to see how to create custom rules.</p>
+<p>However, in this guide I will use OpnSense as my firewall.</p>
+<h3 id="firewall-rule-concept">Firewall rule concept</h3>
+<p>The rule will allow <code>ICMP</code> traffic to <code>Pass</code> from the server with IP <code>&lt;your.server.IP&gt;</code> through a specific <code>Gateway</code> depending on the <code>destination IP</code></p>
+<ol>
+<li>Login to your Firewall.</li>
+<li>In OpnSens, I will go to the &ldquo;Management&rdquo; network in the &ldquo;Rules&rdquo; section and create a new rule.</li>
+<li>Use the following but change it to suit your setup.</li>
+</ol>
+<pre tabindex="0"><code>Action: Pass
+Interface: &lt;Your Network Name&gt;
+Direction: in
+TCP/IP Version: IPv4
+Protocol: ICMP
+ICMP Type: any
+Source:  Single host or Network
+&lt;your.server.ip&gt; / 32
+Destination:  Single host or Network
+&lt;ping.to.ip&gt; / 32
+Log: enabled (Optional)
+Description: Ping for Fibre Monitoring
+Gateway: &lt;Your Desired WAN Connection&gt;
+</code></pre><p>So for this guide / my network it will be the following:</p>
+<p>Fibre Uptime Monitoring:</p>
+<pre tabindex="0"><code>Action: Pass
+Interface: Management
+Direction: in
+TCP/IP Version: IPv4
+Protocol: ICMP
+ICMP Type: any
+Source:  Single host or Network
+&lt;your.server.ip&gt; / 32
+Destination:  Single host or Network
+8.8.8.8 / 32
+Log: enabled (Optional)
+Description: Ping for Fibre Monitoring
+Gateway: &lt;Your Desired WAN Connection&gt;
+</code></pre><p>5G Uptime Monitoring:</p>
+<pre tabindex="0"><code>Action: Pass
+Interface: Management
+Direction: in
+TCP/IP Version: IPv4
+Protocol: ICMP
+ICMP Type: any
+Source:  Single host or Network
+&lt;your.server.ip&gt; / 32
+Destination:  Single host or Network
+1.1.1.1 / 32
+Log: enabled (Optional)
+Description: Ping for 5G Monitoring
+Gateway: &lt;Your Desired WAN Connection&gt;
+</code></pre><p>VPN Uptime Monitoring:</p>
+<pre tabindex="0"><code>Action: Pass
+Interface: Management
+Direction: in
+TCP/IP Version: IPv4
+Protocol: ICMP
+ICMP Type: any
+Source:  Single host or Network
+&lt;your.server.ip&gt; / 32
+Destination:  Single host or Network
+9.9.9.9 / 32
+Log: enabled (Optional)
+Description: Ping for VPN Monitoring
+Gateway: &lt;Your Desired WAN Connection&gt;
+</code></pre><p>With those rules created and applied, we can test again and we should now get the desired results.</p>
+<h2 id="test-that-the-monitors-work-individually">Test that the monitors work individually</h2>
+<p>If we now unplug the first WAN connection in this case the &ldquo;Fibre&rdquo; WAN. We will see that only the &ldquo;Fibre&rdquo; monitor will show as &ldquo;down&rdquo;.</p>
+<p>If the &ldquo;VPN&rdquo; connection was connected on the &ldquo;Fibre&rdquo; WAN, that too will show as &ldquo;down&rdquo; until it reconnects to the next WAn connection.</p>
+<p>If we plug  it back in, the monitor will return to &ldquo;UP&rdquo;.</p>
+<p>You can now do this test on the &ldquo;5G&rdquo; WAN and you should get the expected results.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This was a quick guide showing you how to monitor multiple WANs / Gateways using a single instance of your monitoring software.
+The power of firewall rules helps you achieve this setup and is a very quick and flexible option that doesn&rsquo;t require complicated network setups.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/software/">Software</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+            <a href="/tags/networking/">Networking</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/surfshark-client-opnsense-22-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/surfshark-client-opnsense-22-03-2024/_hu30910665284931ace4f57faa1e01d828_534702_5f2e559883f8e16298cbd8d13ec04e54.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Setup Surfshark OpenVPN Client on OpnSense"
+                        
+                        data-hash="md5-GIstsgKyyy8D&#43;x7LOsVypg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Setup Surfshark OpenVPN Client on OpnSense</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-dns-and-block-list-setup-12-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/_hu30910665284931ace4f57faa1e01d828_246393_a622abddaa7880a8012931caa0c272ff.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense DNS and Block List Setup"
+                        
+                        data-hash="md5-0qLokOpL3dkBKBrjbUdKWg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense DNS and Block List Setup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/finishing-the-management-network-01-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/finishing-the-management-network-01-03-2024/_hu30910665284931ace4f57faa1e01d828_560198_f9bb6ce9a50cddd14ad4e7a396805567.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Finishing the Management Network"
+                        
+                        data-hash="md5-eu5OzKjDtQM0VLoUZ7ccWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Finishing the Management Network</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-vm-install-12-02-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-vm-install-12-02-2024/_hu30910665284931ace4f57faa1e01d828_331877_ae42883ac6fb99fd565c8df317bbc75f.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense Virtual Machine Installation on Proxmox"
+                        
+                        data-hash="md5-EkYERV2WjE18sTtZMGNn6A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense Virtual Machine Installation on Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/lab-wan-network-creation-02-02-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/lab-wan-network-creation-02-02-2024/_hu30910665284931ace4f57faa1e01d828_51682_ef6432b7ecf4378f1fea9b3a26492341.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post LAB WAN Network Creation"
+                        
+                        data-hash="md5-XMYxXkMx4vA4jcbUXOtutg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">LAB WAN Network Creation</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

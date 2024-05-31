@@ -1,0 +1,1544 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Virtual Machine on Jonathan Moss</title>
+        <link>http://localhost:1313/categories/virtual-machine/</link>
+        <description>Recent content in Virtual Machine on Jonathan Moss</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 01 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/virtual-machine/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Finishing the Management Network</title>
+        <link>http://localhost:1313/post/finishing-the-management-network-01-03-2024/</link>
+        <pubDate>Fri, 01 Mar 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/finishing-the-management-network-01-03-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/finishing-the-management-network-01-03-2024/splash.jpg" alt="Featured image of post Finishing the Management Network" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/3gnNcO2v3ys&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+        </item>
+        <item>
+        <title>OpnSense Virtual Machine Installation on Proxmox</title>
+        <link>http://localhost:1313/post/opnsense-vm-install-12-02-2024/</link>
+        <pubDate>Mon, 12 Feb 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/opnsense-vm-install-12-02-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/opnsense-vm-install-12-02-2024/Splash.jpg" alt="Featured image of post OpnSense Virtual Machine Installation on Proxmox" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/dCRhCrokeSo&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The first step in creating our new OpnSense VM, is to get our network bridges setup and ready to use. Once we have that in order, we will move onto creating the virtual machine and attaching the network bridges to it.&lt;/p&gt;
+&lt;p&gt;We will then move onto Installing OpnSense onto the virtual machine and do some initial configurations in the OpnSense shell.&lt;/p&gt;
+&lt;p&gt;Lastly we will login to the OpnSense Web UI to add and configure all the network interfaces and services.&lt;/p&gt;
+&lt;p&gt;This is going to be a long but very fun project, let&amp;rsquo;s get started.&lt;/p&gt;
+&lt;h2 id=&#34;figuring-out-what-port-belongs-to-which-network-name&#34;&gt;Figuring out what port belongs to which network name&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;An easy way on how to know which physical port belongs to the port name in Proxmox, is to do the following:&lt;/p&gt;
+&lt;p&gt;Open Up two Proxmox web UI instances in your browser. One will have the &amp;ldquo;Network&amp;rdquo; section open and the other we will have the &amp;ldquo;Shell&amp;rdquo; open. Ps since my screen has a small real estate to work on, I will just have them open in tabs rather than two windows.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/1.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;715&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_122323_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_122323_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Proxmox Web UI&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;167&#34;
+		data-flex-basis=&#34;402px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Using the following command in the shell, we can see which network ports are in the &amp;ldquo;UP&amp;rdquo; state:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ip a &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;s1&#34;&gt;&amp;#39;state UP&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If i run that now, I will see that the main Proxmox connection (Port and bridge) is up.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/2.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;207&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_55905_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_55905_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ip a shell 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;579&#34;
+		data-flex-basis=&#34;1391px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;So it shows that &lt;code&gt;eno1&lt;/code&gt; and &lt;code&gt;vmbr0&lt;/code&gt; is up. If we check on the &amp;ldquo;Network&amp;rdquo; section we can see that it is indeed the main Proxmox connections and it is up since we are currently connected to it.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/3.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;207&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/3_hu5f299b5f3d0d701c1ef5afe858e66b6a_68444_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/3_hu5f299b5f3d0d701c1ef5afe858e66b6a_68444_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;network section 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;579&#34;
+		data-flex-basis=&#34;1391px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Just as a side note, remember to always label your cables to help with avoiding the headache of having to trace cables in the future.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/4.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/4_hu4fa883f32be73ce051e36a2d4f7d48d5_134555_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/4_hu4fa883f32be73ce051e36a2d4f7d48d5_134555_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Labels&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;We will now use this method to figure out the name of the port we will be using for our first &amp;ldquo;WAN&amp;rdquo; connection.&lt;/p&gt;
+&lt;p&gt;Connect your first WAN cable in to the port you want to use, in this case, the first port of the first NIC. See the &amp;ldquo;Home Lab Network Design&amp;rdquo; post for the diagram I&amp;rsquo;m using to set up my network:
+&lt;a class=&#34;link&#34; href=&#34;https://jono-moss.github.io/post/home-lab-network-design-26-01-2024/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://jono-moss.github.io/post/home-lab-network-design-26-01-2024/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/5.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;535&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_85330_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_85330_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;WAN Connection to port 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;224&#34;
+		data-flex-basis=&#34;538px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Now do the same command as in the previous step and we should now see the name of the port associated to it:&lt;/p&gt;
+&lt;p&gt;From the screenshot below, we can see the port is named &amp;ldquo;enp7s0f0&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/6.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;330&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_57343_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_57343_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;port 1 association name&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;363&#34;
+		data-flex-basis=&#34;872px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;With this information, we can add a comment to that port so we will know in the future, what it is used for.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/7.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;594&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_57781_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_57781_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;port 1 comment&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We will repeat this process with the next WAN port. We will unplug the connection from the first port and will plug it into the third port to see what we get. Then we can create a comment on that port.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/8.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;594&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_84863_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_84863_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;WAN Connection to port 3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/9.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;594&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_54499_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_54499_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;port 3  association name&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/10.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;594&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_58244_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_58244_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;port 3 comment&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;From the above results, we can now make the conclusion that the last two ports will be the following:
+&lt;code&gt;enp7s0f1&lt;/code&gt; will be our &lt;code&gt;Management&lt;/code&gt; network and &lt;code&gt;enp9s0f1&lt;/code&gt; will be our &lt;code&gt;Trunk&lt;/code&gt; network. We can add comments to them and we are now ready to create the bridges.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/11.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;594&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_73687_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_73687_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ports commented&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;setup-the-network-bridges-on-proxmox&#34;&gt;Setup the network bridges on Proxmox&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &amp;ldquo;Create&amp;rdquo; button and choose the &amp;ldquo;Linux Bridge&amp;rdquo; option.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/12.jpg&#34;
+	width=&#34;932&#34;
+	height=&#34;644&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_67796_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_67796_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create bridge button&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;347px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Under the &amp;ldquo;Bridge Port&amp;rdquo; input, we will put in the name of the first WAN port, in this case it is &lt;code&gt;enp7s0f0&lt;/code&gt;. We can also give it a comment like &amp;ldquo;OP WAN1&amp;rdquo; so that we will know wht this new bridge network will be for.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/13.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;624&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_57832_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_57832_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create bridge WAN 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;192&#34;
+		data-flex-basis=&#34;461px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Repeat this process for all the other ports till you have 4 new bridge connections.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/14.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;478&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_75016_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_75016_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create bridge connections all&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;251&#34;
+		data-flex-basis=&#34;602px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Now the last setting we need to enable is the &amp;ldquo;VLAN Aware&amp;rdquo; option on the &amp;ldquo;Trunk&amp;rdquo; bridge. This will let Proxmox know that VLAN traffic will be used on it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/22.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;542&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/22_hu5f299b5f3d0d701c1ef5afe858e66b6a_46076_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/22_hu5f299b5f3d0d701c1ef5afe858e66b6a_46076_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;VLAN Aware&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;221&#34;
+		data-flex-basis=&#34;531px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Once completed, click on the &amp;ldquo;Apply Configuration&amp;rdquo; button and accept the confirmation dialog to save the networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/15.jpg&#34;
+	width=&#34;762&#34;
+	height=&#34;328&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/15_hu5f299b5f3d0d701c1ef5afe858e66b6a_38966_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/15_hu5f299b5f3d0d701c1ef5afe858e66b6a_38966_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Apply Networks&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;557px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;We are now ready to move onto downloading the OpnSense ISO.&lt;/p&gt;
+&lt;h2 id=&#34;downloading-the-opnsense-iso&#34;&gt;Downloading the OpnSense ISO&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Goto the OpnSense download page and make sure to get the &amp;ldquo;DVD&amp;rdquo; version.
+&lt;a class=&#34;link&#34; href=&#34;https://opnsense.org/download/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://opnsense.org/download/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/16.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;697&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/16_hu8f5e8ece1545cdc7772ac0a2783c4f41_77669_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/16_hu8f5e8ece1545cdc7772ac0a2783c4f41_77669_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ISO Download&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Extract the iso from the .bz2 file. Please not that on MacOS you will need a 3rd party extraction tool. In my case I used an app called &amp;ldquo;The Unarchiver&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/17.jpg&#34;
+	width=&#34;724&#34;
+	height=&#34;472&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/17_hu5f299b5f3d0d701c1ef5afe858e66b6a_24862_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/17_hu5f299b5f3d0d701c1ef5afe858e66b6a_24862_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ISO Extracted&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;368px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;On Proxmox, goto the &amp;ldquo;local&amp;rdquo; drive and select the &amp;ldquo;ISO Images&amp;rdquo; menu.
+From there select the &amp;ldquo;upload&amp;rdquo; button.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/18.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;409&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/18_hu5f299b5f3d0d701c1ef5afe858e66b6a_51722_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/18_hu5f299b5f3d0d701c1ef5afe858e66b6a_51722_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Upload Button&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;293&#34;
+		data-flex-basis=&#34;704px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Click on the &amp;ldquo;Select File&amp;rdquo; button and find the iso file you downloaded. Then click on the &amp;ldquo;Upload&amp;rdquo; button to begin the upload.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/19.jpg&#34;
+	width=&#34;980&#34;
+	height=&#34;546&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/19_hu5f299b5f3d0d701c1ef5afe858e66b6a_41646_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/19_hu5f299b5f3d0d701c1ef5afe858e66b6a_41646_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Upload iso&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;179&#34;
+		data-flex-basis=&#34;430px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;The ISO will be uploaded and we can now move to creating the virual machine.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/20.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;542&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_50175_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_50175_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Uploaded ISO&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;221&#34;
+		data-flex-basis=&#34;531px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/21.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;542&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/21_hu5f299b5f3d0d701c1ef5afe858e66b6a_58800_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/21_hu5f299b5f3d0d701c1ef5afe858e66b6a_58800_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ISO&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;221&#34;
+		data-flex-basis=&#34;531px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;creating-the-virtual-machine&#34;&gt;Creating the Virtual Machine&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &amp;ldquo;Create VM&amp;rdquo; blue button on the top right of the Proxmox UI.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/23.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;542&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/23_hu5f299b5f3d0d701c1ef5afe858e66b6a_51724_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/23_hu5f299b5f3d0d701c1ef5afe858e66b6a_51724_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Create VM Button&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;221&#34;
+		data-flex-basis=&#34;531px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Make sure the &amp;ldquo;Advanced&amp;rdquo; box is checked. It is next to the &amp;ldquo;Back&amp;rdquo; button.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/24.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;321&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_23117_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_23117_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Advanced is Checked&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;373&#34;
+		data-flex-basis=&#34;897px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Give the VM a name, in this case I will call it &amp;ldquo;OpnSense&amp;rdquo;.
+Enable the &amp;ldquo;Start at boot&amp;rdquo; box and set the &amp;ldquo;Start/Shutdown Order&amp;rdquo; to &amp;ldquo;1&amp;rdquo;. This will make sure that OpnSense is the first VM to start when Proxmox boots up.
+Click on the &amp;ldquo;Next&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/25.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/25_hu5f299b5f3d0d701c1ef5afe858e66b6a_65882_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/25_hu5f299b5f3d0d701c1ef5afe858e66b6a_65882_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Give VM a Name&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Select the &amp;ldquo;OpnSense&amp;rdquo; ISO we uploaded in the previous section and then click on the &amp;ldquo;Next&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/26.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_62170_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_62170_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Select ISO&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;We will leave the settings in the &amp;ldquo;System&amp;rdquo; section as is, Click on the &amp;ldquo;Next&amp;rdquo; button.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/27.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/27_hu5f299b5f3d0d701c1ef5afe858e66b6a_55334_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/27_hu5f299b5f3d0d701c1ef5afe858e66b6a_55334_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;System Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;We will also leave the &amp;ldquo;Disks&amp;rdquo; section as is. Since I would like to install plugins and have &amp;ldquo;IPS/IDS&amp;rdquo; data and other block lists. 32GB will be enough space for the VM.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/28.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/28_hu5f299b5f3d0d701c1ef5afe858e66b6a_71480_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/28_hu5f299b5f3d0d701c1ef5afe858e66b6a_71480_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Disks Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;For the CPU &amp;ldquo;Type&amp;rdquo;, We will set it to &amp;ldquo;host&amp;rdquo;, this will allow OpnSense direct access to the CPUs &amp;ldquo;instruction sets&amp;rdquo; for better performance. I will also give the VM 4 cores so that there will be enough cores for when we start using things like &amp;ldquo;IPS/IDS&amp;rdquo; and VPNs.
+Click on the &amp;ldquo;Next&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/29.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/29_hu8f5e8ece1545cdc7772ac0a2783c4f41_105738_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/29_hu8f5e8ece1545cdc7772ac0a2783c4f41_105738_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;CPU Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;For the RAM, I will give the VM 4GB for the same reason as above. I will leave on &amp;ldquo;Ballooning&amp;rdquo;, so that when the VM is not using all the RAM, it can be used elsewhere. Click on the &amp;ldquo;Next&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/30.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/30_hu5f299b5f3d0d701c1ef5afe858e66b6a_51826_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/30_hu5f299b5f3d0d701c1ef5afe858e66b6a_51826_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Memory Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;For the network section, we will add the first network to it (vmbr1). We will add the other bridges to the VM in a bit. PS I forgot to turn off the &amp;ldquo;Firewall&amp;rdquo; option. I turned it off ofter I added all the connections to the VM. Click on the &amp;ldquo;Next&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/31.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/31_hu5f299b5f3d0d701c1ef5afe858e66b6a_67741_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/31_hu5f299b5f3d0d701c1ef5afe858e66b6a_67741_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Network Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;You can continue to click on the &amp;ldquo;finish&amp;rdquo; button to complete the VM creation.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/32.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;869&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/32_hu5f299b5f3d0d701c1ef5afe858e66b6a_82995_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/32_hu5f299b5f3d0d701c1ef5afe858e66b6a_82995_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Complete Settings&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;Now all that is left is to add the last three bridge connections to the VM.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;With the VM selected, open the &amp;ldquo;Hardware Device&amp;rdquo; section, Click on the &amp;ldquo;Add&amp;rdquo; button and select the &amp;ldquo;Network&amp;rdquo; option.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/33.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;438&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/33_hu8f5e8ece1545cdc7772ac0a2783c4f41_81182_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/33_hu8f5e8ece1545cdc7772ac0a2783c4f41_81182_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Add Network&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;273&#34;
+		data-flex-basis=&#34;657px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;12&#34;&gt;
+&lt;li&gt;Now like in step 9, set the Bridge to &amp;ldquo;vmbr2&amp;rdquo; and tick off the &amp;ldquo;Firewall&amp;rdquo; option, just I reminder, I forgot to turn off the &amp;ldquo;Firewall&amp;rdquo; option here but corrected that once I noticed I forgot to do it. Click on the &amp;ldquo;Add&amp;rdquo; button once you have done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/34.jpg&#34;
+	width=&#34;1162&#34;
+	height=&#34;674&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/34_hu5f299b5f3d0d701c1ef5afe858e66b6a_77862_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/34_hu5f299b5f3d0d701c1ef5afe858e66b6a_77862_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Add next Network&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;13&#34;&gt;
+&lt;li&gt;Repeat step 11 for &amp;ldquo;vmbr3&amp;rdquo; and &amp;ldquo;vmbr4&amp;rdquo; until you have all four bridges attached to the vm.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/35.jpg&#34;
+	width=&#34;1162&#34;
+	height=&#34;674&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/35_hu5f299b5f3d0d701c1ef5afe858e66b6a_77545_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/35_hu5f299b5f3d0d701c1ef5afe858e66b6a_77545_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;All Bridges Added firewall on&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/36.jpg&#34;
+	width=&#34;1162&#34;
+	height=&#34;674&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/36_hu5f299b5f3d0d701c1ef5afe858e66b6a_98812_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/36_hu5f299b5f3d0d701c1ef5afe858e66b6a_98812_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;All Bridges Added&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;installing-opnsense&#34;&gt;Installing OpnSense&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure that there are no Network cables plugged into the OpnSense ports. We will connect them later.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Click on the &amp;ldquo;Start&amp;rdquo; button and then open the VM&amp;rsquo;s &amp;ldquo;Console&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/37.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;484&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/37_hu8f5e8ece1545cdc7772ac0a2783c4f41_44836_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/37_hu8f5e8ece1545cdc7772ac0a2783c4f41_44836_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Start VM&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;595px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Wait for the OpnSense to boot up, it took around 2 minutes to do so. When it is ready, you will be presented with a login prompt.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/38.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/38_hu8f5e8ece1545cdc7772ac0a2783c4f41_86915_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/38_hu8f5e8ece1545cdc7772ac0a2783c4f41_86915_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Booted VM up&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Login using the following details:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;login: installer
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;password: opnsense
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will be presented with a menu where we can start the installation process.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/40.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/40_hu8f5e8ece1545cdc7772ac0a2783c4f41_90499_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/40_hu8f5e8ece1545cdc7772ac0a2783c4f41_90499_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Installer start screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Choose the &amp;ldquo;Keymap&amp;rdquo; you would like to use, in my case it is the &amp;ldquo;default&amp;rdquo;. Use the &amp;ldquo;Up&amp;rdquo; and &amp;ldquo;Down&amp;rdquo; arrows to highlight your choice, then press the &amp;ldquo;Space bar&amp;rdquo; to select your option. Once selected press &amp;ldquo;Enter / Return&amp;rdquo; on your keyboard to continue to the next screen.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Next I will choose the &amp;ldquo;Install (UFS)&amp;rdquo; option, if you would like to use &amp;ldquo;ZFS&amp;rdquo; you can.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/41.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/41_hu8f5e8ece1545cdc7772ac0a2783c4f41_76176_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/41_hu8f5e8ece1545cdc7772ac0a2783c4f41_76176_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;UFS&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;We will then choose the &amp;ldquo;da0&amp;rdquo; drive which is the 32GB disk we created as the installation media to install OpnSense on.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/42.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/42_hu8f5e8ece1545cdc7772ac0a2783c4f41_66279_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/42_hu8f5e8ece1545cdc7772ac0a2783c4f41_66279_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;install disk&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;You will be presented with a confirmation prompt to create a swap partition. Accept it to continue.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/43.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/43_hu8f5e8ece1545cdc7772ac0a2783c4f41_56431_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/43_hu8f5e8ece1545cdc7772ac0a2783c4f41_56431_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;swap partition prompt&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;You will then be prompted to confirm your choices. Select &amp;ldquo;Yes&amp;rdquo; to continue.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/44.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/44_hu8f5e8ece1545cdc7772ac0a2783c4f41_59152_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/44_hu8f5e8ece1545cdc7772ac0a2783c4f41_59152_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;confirm prompt&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;OpnSense will start to install, this can take around 4 minute plus to install.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/45.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/45_hu8f5e8ece1545cdc7772ac0a2783c4f41_60322_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/45_hu8f5e8ece1545cdc7772ac0a2783c4f41_60322_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;installing&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;Once the installation is completed, You will be presented with a menu to change the &amp;ldquo;root&amp;rdquo; password. It is recommended to do so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/46.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/46_hu8f5e8ece1545cdc7772ac0a2783c4f41_67158_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/46_hu8f5e8ece1545cdc7772ac0a2783c4f41_67158_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;completed menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/47.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/47_hu8f5e8ece1545cdc7772ac0a2783c4f41_59603_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/47_hu8f5e8ece1545cdc7772ac0a2783c4f41_59603_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Set password menu&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;12&#34;&gt;
+&lt;li&gt;When you are ready, Select the &amp;ldquo;Complete Install&amp;rdquo; option.
+When you select it, go into the &amp;ldquo;Hardware&amp;rdquo; section of the VM again and unmount the ISO.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/48.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/48_hu8f5e8ece1545cdc7772ac0a2783c4f41_66826_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/48_hu8f5e8ece1545cdc7772ac0a2783c4f41_66826_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Complete Install&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/49.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/49_hu8f5e8ece1545cdc7772ac0a2783c4f41_46113_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/49_hu8f5e8ece1545cdc7772ac0a2783c4f41_46113_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;remove ISO&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;13&#34;&gt;
+&lt;li&gt;Well done. The VM will restart and boot again into the installed OpnSense instance.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/50.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/50_hu8f5e8ece1545cdc7772ac0a2783c4f41_75106_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/50_hu8f5e8ece1545cdc7772ac0a2783c4f41_75106_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Restarting&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;creating-the-networks-in-opnsense-terminal&#34;&gt;Creating the networks in OpnSense terminal&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Connect the WAN 1 cable into the WAN Port 1, and Connect a cable into the &amp;ldquo;Management&amp;rdquo; Network. We will use this &amp;ldquo;Management LAN&amp;rdquo; connection to connect directly to the OpnSense web UI later on.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/51.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/51_hu8f5e8ece1545cdc7772ac0a2783c4f41_95162_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/51_hu8f5e8ece1545cdc7772ac0a2783c4f41_95162_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Initial Cable Connections&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Login to OpnSense with the root user and the password you set during the installation stage. Once logged in, you will be presented with a menu where we can do the first network setup.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/52.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/52_hu8f5e8ece1545cdc7772ac0a2783c4f41_64196_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/52_hu8f5e8ece1545cdc7772ac0a2783c4f41_64196_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;root login&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Type &amp;ldquo;1&amp;rdquo; and press &amp;ldquo;Enter / Return&amp;rdquo; to start the &amp;ldquo;Assign Interfaces&amp;rdquo; process.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/53.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;280&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/53_hu5f299b5f3d0d701c1ef5afe858e66b6a_38672_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/53_hu5f299b5f3d0d701c1ef5afe858e66b6a_38672_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Assign Interfaces&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;428&#34;
+		data-flex-basis=&#34;1028px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Type &amp;ldquo;n&amp;rdquo; for the &amp;ldquo;LAGGs&amp;rdquo; and &amp;ldquo;VLANs&amp;rdquo; options.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/54.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;280&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/54_hu5f299b5f3d0d701c1ef5afe858e66b6a_40790_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/54_hu5f299b5f3d0d701c1ef5afe858e66b6a_40790_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lagg vlan prompts&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;428&#34;
+		data-flex-basis=&#34;1028px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Next we will be asked to assign the &amp;ldquo;WAN&amp;rdquo; connection. In proxmox, we attached the first &amp;ldquo;WAN&amp;rdquo; bridge to the VM and it is called &amp;ldquo;net0&amp;rdquo;.
+This will be called &amp;ldquo;vtnet0&amp;rdquo; on OpenSense. So we will now type &amp;ldquo;vtnet0&amp;rdquo; and press &amp;ldquo;Enter / Return&amp;rdquo; to assign that as the WAN.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/55.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;498&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/55_hu5f299b5f3d0d701c1ef5afe858e66b6a_65271_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/55_hu5f299b5f3d0d701c1ef5afe858e66b6a_65271_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Bridge Names&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;240&#34;
+		data-flex-basis=&#34;578px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/56.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;306&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/56_hu8f5e8ece1545cdc7772ac0a2783c4f41_56548_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/56_hu8f5e8ece1545cdc7772ac0a2783c4f41_56548_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cmd assign wan&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;392&#34;
+		data-flex-basis=&#34;941px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;You will now be asked to assign the &amp;ldquo;LAN&amp;rdquo; network. This network will become our &amp;ldquo;Management&amp;rdquo; network. So for this, type &amp;ldquo;vtnet1&amp;rdquo; and press &amp;ldquo;Enter / Return&amp;rdquo; to assign it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/57.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;306&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/57_hu5f299b5f3d0d701c1ef5afe858e66b6a_48682_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/57_hu5f299b5f3d0d701c1ef5afe858e66b6a_48682_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cmd assign lan&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;392&#34;
+		data-flex-basis=&#34;941px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;You will now be asked if you would like to assign another network or end the assignment process. We will press &amp;ldquo;Enter / Return&amp;rdquo; to end and complete the assignments as we will now move on to logging in to the OpnSense web UI to add and edit the networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/58.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;306&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/58_hu5f299b5f3d0d701c1ef5afe858e66b6a_42734_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/58_hu5f299b5f3d0d701c1ef5afe858e66b6a_42734_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cmd assign completed&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;392&#34;
+		data-flex-basis=&#34;941px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;Now we will be able to see that the two networks are up and running. You will be presented the the current IP addresses of the new networks we have just assigned / created. In this case we are indeed connected to our first WAN connection as we where givin the IP address of &amp;ldquo;172.16.0.3&amp;rdquo; and OpnSense created a LAN connection with the range of &amp;ldquo;192.168.1.1/24&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/59.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;517&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/59_hu8f5e8ece1545cdc7772ac0a2783c4f41_71190_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/59_hu8f5e8ece1545cdc7772ac0a2783c4f41_71190_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;get lan ip&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;557px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;You can now type in &amp;ldquo;0&amp;rdquo; and press &amp;ldquo;Enter / Return&amp;rdquo; to logout of the shell.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;creating-the-last-two-networks-in-opnsense-web-ui&#34;&gt;Creating the last two networks in OpnSense web UI&lt;/h2&gt;
+&lt;h3 id=&#34;connect-the-last-cable&#34;&gt;Connect the last cable&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;We can now plug in the second WAN cable into our OpnSense VM as we are going to create that interface and network soon.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/87.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;900&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/87_hu4fa883f32be73ce051e36a2d4f7d48d5_132200_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/87_hu4fa883f32be73ce051e36a2d4f7d48d5_132200_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Plug in 2nd&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;133&#34;
+		data-flex-basis=&#34;320px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;assigning-the-interfaces&#34;&gt;Assigning the interfaces&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Connect your laptop / PC directly to the LAN network we just created, (the to be management network). OpnSense will give you an IP
+address in the range of the Lan &amp;ldquo;192.168.1.1/24&amp;rdquo;. So I was given &amp;ldquo;192.168.1.101&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/60.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;847&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/60_hu8f5e8ece1545cdc7772ac0a2783c4f41_134614_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/60_hu8f5e8ece1545cdc7772ac0a2783c4f41_134614_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;initial cable from OpnSense&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;340px&#34;
+	
+&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/61.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;822&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/61_hu8f5e8ece1545cdc7772ac0a2783c4f41_169673_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/61_hu8f5e8ece1545cdc7772ac0a2783c4f41_169673_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;initial cable to laptop&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;350px&#34;
+	
+&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/62.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;851&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/62_hu8f5e8ece1545cdc7772ac0a2783c4f41_87842_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/62_hu8f5e8ece1545cdc7772ac0a2783c4f41_87842_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;given lan ip&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;We can now login to the OpnSense Web UI by going to
+https://192.168.1.1
+You can allow the security warning as OpnSense is using a self signed certificate.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/63.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;693&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/63_hu8f5e8ece1545cdc7772ac0a2783c4f41_37226_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/63_hu8f5e8ece1545cdc7772ac0a2783c4f41_37226_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;login screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;173&#34;
+		data-flex-basis=&#34;415px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Once logged in, you will most probably be presented with a &amp;ldquo;Set up wizard&amp;rdquo; screen. We will not go through the wizard as we will manually continue to do the set up. So you can click on the &amp;ldquo;Dashboard&amp;rdquo; menu under the &amp;ldquo;Lobby&amp;rdquo; section.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/64.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;429&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/64_hu8f5e8ece1545cdc7772ac0a2783c4f41_54581_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/64_hu8f5e8ece1545cdc7772ac0a2783c4f41_54581_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;wizard screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;279&#34;
+		data-flex-basis=&#34;671px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Click on the &amp;ldquo;Assignments&amp;rdquo; menu under the &amp;ldquo;Interfaces&amp;rdquo; section. Here we will assign the last two interfaces.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/65.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;508&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/65_hu8f5e8ece1545cdc7772ac0a2783c4f41_56313_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/65_hu8f5e8ece1545cdc7772ac0a2783c4f41_56313_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;assign interface screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;566px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;In the device list, select &amp;ldquo;vtnet2&amp;rdquo; and in the description type in &amp;ldquo;WAN2&amp;rdquo; as this will be the second WAN interface. Click on the &amp;ldquo;Add&amp;rdquo; button when done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/66.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;696&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/66_hu5f299b5f3d0d701c1ef5afe858e66b6a_53010_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/66_hu5f299b5f3d0d701c1ef5afe858e66b6a_53010_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;assign WAN2 interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Repeat this with &amp;ldquo;vtnet3&amp;rdquo; and in the description type in &amp;ldquo;TRUNK&amp;rdquo; as this will be the trunk interface. Click on the &amp;ldquo;Add&amp;rdquo; button when done so.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/67.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;696&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/67_hu5f299b5f3d0d701c1ef5afe858e66b6a_55681_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/67_hu5f299b5f3d0d701c1ef5afe858e66b6a_55681_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;assign TRUNK interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Now click on the &amp;ldquo;Save&amp;rdquo; button to complete the assignments.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/68.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;696&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/68_hu5f299b5f3d0d701c1ef5afe858e66b6a_52115_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/68_hu5f299b5f3d0d701c1ef5afe858e66b6a_52115_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;save interfaces&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;172&#34;
+		data-flex-basis=&#34;413px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;enabling-the-interfaces-and-setting-ips&#34;&gt;Enabling the interfaces and setting IPs&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Now we need to enable the interfaces and set their IP types.
+Click on the &amp;ldquo;TRUNK&amp;rdquo; interface that we just created.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/69.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;511&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/69_hu5f299b5f3d0d701c1ef5afe858e66b6a_48755_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/69_hu5f299b5f3d0d701c1ef5afe858e66b6a_48755_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;enable TRUNK interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;234&#34;
+		data-flex-basis=&#34;563px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Click on the &amp;ldquo;Enable&amp;rdquo; box. We will leave the rest of the interface settings as is for now. Since we will be using it as a &amp;ldquo;trunk&amp;rdquo; connection. It will not be getting an IP address as it will be used to accommodate multiple VLAN networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Scroll down and click on the &amp;ldquo;Save&amp;rdquo; button to continue. You can Ignore the &amp;ldquo;Apply Configurations&amp;rdquo; message for now as we will do that once we have completed editing all the settings.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/70.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;337&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/70_hu8f5e8ece1545cdc7772ac0a2783c4f41_37956_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/70_hu8f5e8ece1545cdc7772ac0a2783c4f41_37956_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;saved TRUNK interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;356&#34;
+		data-flex-basis=&#34;854px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Click on the &amp;ldquo;WAN2&amp;rdquo; interface and click on the &amp;ldquo;Enable&amp;rdquo; box.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/71.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;337&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/71_hu8f5e8ece1545cdc7772ac0a2783c4f41_38178_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/71_hu8f5e8ece1545cdc7772ac0a2783c4f41_38178_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;enable wan2 interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;356&#34;
+		data-flex-basis=&#34;854px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Set the &amp;ldquo;IPv4&amp;rdquo; type to &amp;ldquo;DHCP&amp;rdquo; and click on the &amp;ldquo;Save&amp;rdquo; button to continue.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/72.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;337&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/72_hu5f299b5f3d0d701c1ef5afe858e66b6a_35086_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/72_hu5f299b5f3d0d701c1ef5afe858e66b6a_35086_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;set dncp WAN2 interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;356&#34;
+		data-flex-basis=&#34;854px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;We can now click on the &amp;ldquo;Apply Configurations&amp;rdquo; button to finalise the configurations and apply them. Please take note that this can take a few minutes to apply, if you see it loading for more than two minutes, don&amp;rsquo;t panic as it does take time.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/73.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;407&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/73_hu5f299b5f3d0d701c1ef5afe858e66b6a_38623_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/73_hu5f299b5f3d0d701c1ef5afe858e66b6a_38623_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;apply interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;294&#34;
+		data-flex-basis=&#34;707px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;If we now go back to the &amp;ldquo;Dashboard&amp;rdquo; and scroll down to the &amp;ldquo;Interfaces&amp;rdquo; widget. We will see that everything is in order, both the WAN connections are getting an IP address, and the trunk interface is active.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/74.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;650&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/74_hu8f5e8ece1545cdc7772ac0a2783c4f41_85728_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/74_hu8f5e8ece1545cdc7772ac0a2783c4f41_85728_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;confirmed interface&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;443px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;changing-the-name-ip-address-and-dhcp-range-of-the-management-network&#34;&gt;Changing the Name, IP address and DHCP range of the management network&lt;/h2&gt;
+&lt;p&gt;The last step we will do on this guide is set up the management network. In the next guide we will setup the managed switch to help distribute the management network and we will setup a Wifi access point for easier connection to the lab.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Click on the &amp;ldquo;LAN&amp;rdquo; Interface under the &amp;ldquo;Interfaces&amp;rdquo; section. Change the description from &amp;ldquo;LAN&amp;rdquo; to &amp;ldquo;Management&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/75.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;306&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/75_hu8f5e8ece1545cdc7772ac0a2783c4f41_39917_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/75_hu8f5e8ece1545cdc7772ac0a2783c4f41_39917_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;management description change&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;392&#34;
+		data-flex-basis=&#34;941px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Since I won&amp;rsquo;t be using IPv6, I will disable it by setting the type to &amp;ldquo;none&amp;rdquo;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/76.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;306&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/76_hu5f299b5f3d0d701c1ef5afe858e66b6a_32378_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/76_hu5f299b5f3d0d701c1ef5afe858e66b6a_32378_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management IPv6 change&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;392&#34;
+		data-flex-basis=&#34;941px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Scroll down and change the IP address to &amp;ldquo;10.0.0.1&amp;rdquo;. This will be the IP address range that we will use for all our management devices and software.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/77.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;268&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/77_hu5f299b5f3d0d701c1ef5afe858e66b6a_25679_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/77_hu5f299b5f3d0d701c1ef5afe858e66b6a_25679_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management IP change&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;447&#34;
+		data-flex-basis=&#34;1074px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Click on the &amp;ldquo;Save&amp;rdquo; button to continue.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Before we apply the settings, we need to change the DHCP range to be in the &amp;ldquo;10.0.0.0/24&amp;rdquo; subnet.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Under &amp;ldquo;Services&amp;rdquo;, then &amp;ldquo;ISC DHCPv4&amp;rdquo;, click on the &amp;ldquo;Management&amp;rdquo; option.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/78.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;436&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/78_hu8f5e8ece1545cdc7772ac0a2783c4f41_49391_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/78_hu8f5e8ece1545cdc7772ac0a2783c4f41_49391_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management DHCP Screen&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;275&#34;
+		data-flex-basis=&#34;660px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;You will notice that the old range is not in the same subnet as the new IP range. So we will change it now.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/79.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;436&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/79_hu8f5e8ece1545cdc7772ac0a2783c4f41_54294_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/79_hu8f5e8ece1545cdc7772ac0a2783c4f41_54294_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management wrong Subnet&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;275&#34;
+		data-flex-basis=&#34;660px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Put in the IP range you would like, in this case i will use:
+&amp;ldquo;10.0.0.10&amp;rdquo; to &amp;ldquo;10.0.0.60&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/80.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;404&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/80_hu5f299b5f3d0d701c1ef5afe858e66b6a_37109_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/80_hu5f299b5f3d0d701c1ef5afe858e66b6a_37109_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management set range&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;297&#34;
+		data-flex-basis=&#34;712px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Click &amp;ldquo;Save&amp;rdquo; to finalise the DHCP changes.
+&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/81.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;448&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/81_hu5f299b5f3d0d701c1ef5afe858e66b6a_39560_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/81_hu5f299b5f3d0d701c1ef5afe858e66b6a_39560_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management set range save&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;267&#34;
+		data-flex-basis=&#34;642px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note that once it is saved, the DHCP service will be stopped due to the fact that we have not &amp;ldquo;Applied&amp;rdquo; the changes to the &amp;ldquo;Management&amp;rdquo; interface yet (step 4).&lt;/p&gt;
+&lt;p&gt;We will do that now.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/82.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;232&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/82_hu5f299b5f3d0d701c1ef5afe858e66b6a_24767_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/82_hu5f299b5f3d0d701c1ef5afe858e66b6a_24767_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management DHCP Stopped&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;517&#34;
+		data-flex-basis=&#34;1241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;Go back to the &amp;ldquo;Management&amp;rdquo; Interface and click on the &amp;ldquo;Apply Configurations&amp;rdquo; button to complete the setup.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/83.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;193&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/83_hu8f5e8ece1545cdc7772ac0a2783c4f41_29627_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/83_hu8f5e8ece1545cdc7772ac0a2783c4f41_29627_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Management interface apply&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;621&#34;
+		data-flex-basis=&#34;1492px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;This will once again take a few minutes to &amp;ldquo;Apply&amp;rdquo; and take effect.
+Wait for about two minutes and then do the following:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now since we have changed the IP address of the interface, we need to unplug and plug the cable back into the laptop / PC to get the new IP in the 10.0.0.0/24 range.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/84.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;618&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/84_hu5f299b5f3d0d701c1ef5afe858e66b6a_57249_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/84_hu5f299b5f3d0d701c1ef5afe858e66b6a_57249_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;New IP received&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;194&#34;
+		data-flex-basis=&#34;466px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;This is good news as it means the Management network is completed.&lt;/p&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;Now we can goto
+https://10.0.0.1
+to login to the OpnSense UI again.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/85.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;414&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/85_hu8f5e8ece1545cdc7772ac0a2783c4f41_34203_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/85_hu8f5e8ece1545cdc7772ac0a2783c4f41_34203_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;New login&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;289&#34;
+		data-flex-basis=&#34;695px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;Once logged in, scroll down to the &amp;ldquo;Interfaces&amp;rdquo; widget. We will see that everything is still in order, both the WAN connections are getting an IP address, the trunk interface is active and our &amp;ldquo;Management&amp;rdquo; network is on the new IP range.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/86.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;765&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-vm-install-12-02-2024/86_hu5f299b5f3d0d701c1ef5afe858e66b6a_56644_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/opnsense-vm-install-12-02-2024/86_hu5f299b5f3d0d701c1ef5afe858e66b6a_56644_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Completed&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;156&#34;
+		data-flex-basis=&#34;376px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;We now officially have an OpnSense VM running and ready to be used in our Lab. In the next guide I will go through how to once again split the managed switch into more parts for us to join our management network to and then move the Proxmox instance to. We will also add a Wifi access point to the network for easier connection to our Lab.&lt;/p&gt;
+&lt;p&gt;Have fun with your new OpnSense VM.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

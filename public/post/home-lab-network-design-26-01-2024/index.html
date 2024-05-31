@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='I want to do an OpenSense tutorial series, this is the network we will setup and use.'>
+<title>Home Lab Network Design</title>
+
+<link rel='canonical' href='http://localhost:1313/post/home-lab-network-design-26-01-2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Home Lab Network Design'>
+<meta property='og:description' content='I want to do an OpenSense tutorial series, this is the network we will setup and use.'>
+<meta property='og:url' content='http://localhost:1313/post/home-lab-network-design-26-01-2024/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hardware' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-01-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-01-26T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/home-lab-network-design-26-01-2024/splash.jpg' />
+<meta name="twitter:title" content="Home Lab Network Design">
+<meta name="twitter:description" content="I want to do an OpenSense tutorial series, this is the network we will setup and use."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/home-lab-network-design-26-01-2024/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#home-lab-network-design">Home Lab Network Design</a></li>
+    <li><a href="#the-requirements">The requirements</a></li>
+    <li><a href="#the-design">The Design</a>
+      <ol>
+        <li><a href="#managed-switch">Managed Switch</a></li>
+        <li><a href="#wan-connections-for-the-lab">WAN connections for the Lab</a></li>
+        <li><a href="#opnsense">OpnSense</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/home-lab-network-design-26-01-2024/">
+                <img src="/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_800x0_resize_q75_box.jpg"
+                        srcset="/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_800x0_resize_q75_box.jpg 800w, /post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="463" 
+                        loading="lazy"
+                        alt="Featured image of post Home Lab Network Design" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hardware/" >
+                Hardware
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+            <a href="/categories/networking/" >
+                Networking
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/home-lab-network-design-26-01-2024/">Home Lab Network Design</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            I want to do an OpenSense tutorial series, this is the network we will setup and use.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">26 Jan 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/g8yRyeIirpo" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<h2 id="home-lab-network-design">Home Lab Network Design</h2>
+<p>I wanted to share the design of the network I will be creating and using in my new home / office lab setup. I will briefly go over the requirements of what in my opinion every lab network should have and how I will achieve this with as little hardware as possible.</p>
+<h2 id="the-requirements">The requirements</h2>
+<ol>
+<li>
+<p>Dual WAN ports. It is very important to learn how to use and work in a multi WAN environment. Most medium to large companies will have to use a Multi WAN network, so learning how to work with them in your Lab is important.</p>
+</li>
+<li>
+<p>It is important to have all your &ldquo;Management&rdquo; software and devices on its own network. This helps with security as well as keeps the network more manageable when separating specific devices to specific networks.</p>
+</li>
+<li>
+<p>The last requirement will then be to have a &ldquo;LAN Port&rdquo; that we can use for what ever we need to as this series continues. For example we will most probably use this port as a &ldquo;Trunk&rdquo; for VLANs. We will most probably use it to create VLANs such as &ldquo;IOT/Mobile, Office and Guests&rdquo; which we can then connect to another Managed switch to grow the network over time.</p>
+</li>
+</ol>
+<h2 id="the-design">The Design</h2>
+<p><em>Please note that this will change as the network grows or as needed.</em></p>
+<p><img src="/post/home-lab-network-design-26-01-2024/splash.jpg"
+	width="1072"
+	height="621"
+	srcset="/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_480x0_resize_q75_box.jpg 480w, /post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Network Diagram"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="414px"
+	
+></p>
+<h3 id="managed-switch">Managed Switch</h3>
+<p>The heart of my network is the &ldquo;TP-Link TL-SG1024DE&rdquo; managed switch. I have been using it for years and it has been an incredible switch for me. I use VLANs (802.1Q) to be able to split the switch up into the different networks.</p>
+<p>I use it in the following way:</p>
+<ul>
+<li>The first 8 ports (1-8) are used from my &ldquo;Home Network&rdquo;.</li>
+<li>The next 8 ports (9-16) are used for my &ldquo;Business Network&rdquo;.</li>
+<li>The next 7  (17-23) are used for my &ldquo;Lab Network&rdquo;.</li>
+<li>the last port (24) is used as a trunk for my &ldquo;Home, Business and home Lab&rdquo;.</li>
+</ul>
+<p>this allows me to only need one switch for my entire network, which saves space and electricity.</p>
+<h3 id="wan-connections-for-the-lab">WAN connections for the Lab</h3>
+<p>I have created a trunk from my &ldquo;main router&rdquo; that will have two VLANs (104 and 105).</p>
+<p>On my main router, I created two VLAN networks that I will then use as WAN connections for our lab.</p>
+<ul>
+<li>VLAN 104, 172.16.0.0/29</li>
+<li>VLAN 105, 172.17.0.0/29</li>
+</ul>
+<p>This goes into port 24 as a &ldquo;tagged&rdquo; VLAN, then on port 17 and 18 they will be &ldquo;untagged&rdquo;. That is then connected to OpnSense as gateways.</p>
+<p>We will then have two WAN networks to play with in the Lab.</p>
+<h3 id="opnsense">OpnSense</h3>
+<p>I will be installing OpnSense on a Virtual Machine and give the Virtual Machine access to the NIC ports via &ldquo;Linux bridges&rdquo;.</p>
+<p>This way it allows for easier and quick adding and removing ports as needed. It will also help with migration and clusters if you would like to do that. Passing (Passthrough) an entire NIC to the virtual machine is not needed and can actually be more of a pain at times to manage then just using bridges.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Honestly there is not much more for me to explain as I think the diagram explains a lot already. I will see how it goes, but I will most probably do a Youtube Video showing the installation process and how I went about setting up the networks from beginning to end.</p>
+<p>However since it will be a very time intensive task, I will be looking into splitting it up into a series of smaller videos, but I will see how things go and take it as it comes.
+But I&rsquo;m excited to start on this series and I hope you will enjoy it and learn a lot.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hardware/">Hardware</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+            <a href="/tags/networking/">Networking</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/dell-r710-how-to-quiet-the-fans/">
+        
+        
+            <div class="article-image">
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How To Make Your Dell R710 Quiet using Proxmox"
+                        
+                        data-hash="md5-tCaSr7N61VVdb/g&#43;OLdb&#43;A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How To Make Your Dell R710 Quiet using Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/h700-how-to-add-hdd-22-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How To Add Drives To The Dell PERC H700 RAID Controller"
+                        
+                        data-hash="md5-5WxprgS5E/6bDwbM6kSOZA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How To Add Drives To The Dell PERC H700 RAID Controller</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/old-server-new-home-lab-05-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Old Server New Home Lab"
+                        
+                        data-hash="md5-GRm2CsGaJxYpy4jRGIsUWQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Old Server New Home Lab</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/dell-openanage-server-administrator-12-01-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/dell-openanage-server-administrator-12-01-2024/splash.4377bfb20c4d8f6199ea0cea8947fb67_hu8f5e8ece1545cdc7772ac0a2783c4f41_43221_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3"
+                        
+                        data-hash="md5-Q3e/sgxNj2GZ6gzqiUf7Zw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/update_dell-r710-11-12-2023/">
+        
+        
+            <div class="article-image">
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Updating a Dell PowerEdge R710"
+                        
+                        data-hash="md5-ssvzDXMyIKqXdZIi75DO8g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Updating a Dell PowerEdge R710</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

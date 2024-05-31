@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this video we will setup Surfshark OpenVPN client on OpnSense.'>
+<title>Setup Surfshark OpenVPN Client on OpnSense</title>
+
+<link rel='canonical' href='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Setup Surfshark OpenVPN Client on OpnSense'>
+<meta property='og:description' content='In this video we will setup Surfshark OpenVPN client on OpnSense.'>
+<meta property='og:url' content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-03-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-03-22T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/splash.jpg' />
+<meta name="twitter:title" content="Setup Surfshark OpenVPN Client on OpnSense">
+<meta name="twitter:description" content="In this video we will setup Surfshark OpenVPN client on OpnSense."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#get-your-surfshark-credentials-and-server-location">Get your Surfshark credentials and server location</a></li>
+    <li><a href="#add-surfshark-to-our-certificate-authority">Add Surfshark to our &ldquo;Certificate Authority&rdquo;</a></li>
+    <li><a href="#creating-the-client-connection">Creating the client connection</a></li>
+    <li><a href="#assigning-and-creating-the-interface">Assigning and Creating the Interface</a></li>
+    <li><a href="#create-an-outbound-nat-rule">Create an Outbound NAT rule</a></li>
+    <li><a href="#edit-the-management-firewall-rules-to-route-the-traffic-through-the-vpn">Edit the Management firewall rules to route the traffic through the VPN.</a></li>
+    <li><a href="#test-the-connection">Test the connection</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/surfshark-client-opnsense-22-03-2024/">
+                <img src="/post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_800x0_resize_q75_box.jpg"
+                        srcset="/post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_800x0_resize_q75_box.jpg 800w, /post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Setup Surfshark OpenVPN Client on OpnSense" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/software/" >
+                Software
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+            <a href="/categories/networking/" >
+                Networking
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/surfshark-client-opnsense-22-03-2024/">Setup Surfshark OpenVPN Client on OpnSense</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            In this video we will setup Surfshark OpenVPN client on OpnSense.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">22 Mar 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/KNFyR6Dki4A" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<h2 id="intro">Intro</h2>
+<p>In this guide we will setup up a VPN client on OpnSense, this will allow us to create a gateway that we can use
+for all traffic we would like to use through a VPN. A common use is to route all IOT devices through the VPN
+connection so that our &ldquo;real&rdquo; public IP address can not be seen by these kind of devices.</p>
+<p>Setting up a Client VPN requires four main steps:</p>
+<ol>
+<li>Add VPN server as a &ldquo;Certificate Authority&rdquo;</li>
+<li>Create the VPN Client</li>
+<li>Assign and Enable the interface</li>
+<li>Set up the outbound firewall rules</li>
+</ol>
+<p>I have decided to use Surfshark as my VPN service since I have been using them for years, however you can do this with any OpnVPN provider (AirVPN for example).
+I would recommend that you double check the providers support / manuals for their recommended settings,
+but this guide will give you a starting point on how to get started.</p>
+<p>A Full guide by Shurfshark can be found here:
+<a class="link" href="https://support.surfshark.com/hc/en-us/articles/12434921071890-How-to-set-up-Surfshark-on-an-OPNsense-router"  target="_blank" rel="noopener"
+    >https://support.surfshark.com/hc/en-us/articles/12434921071890-How-to-set-up-Surfshark-on-an-OPNsense-router</a></p>
+<p>However a lot of steps that are incorrect in their guide and do not work for my setup, the DNS steps in particular.
+This guide is the steps that I used to set this all up.</p>
+<p>If you are interested in using Surfshark, you can use my affiliate link:
+<a class="link" href="https://surfshark.club/friend/7p3dwxCf"  target="_blank" rel="noopener"
+    >https://surfshark.club/friend/7p3dwxCf</a></p>
+<p>For more information about the referral program:
+<a class="link" href="https://surfshark.com/refer-a-friend"  target="_blank" rel="noopener"
+    >https://surfshark.com/refer-a-friend</a></p>
+<h2 id="get-your-surfshark-credentials-and-server-location">Get your Surfshark credentials and server location</h2>
+<p>Login to your Surfshark account and go to the following link to get your credentials and to see a list of VPN server locations you can connect to:
+<a class="link" href="https://my.surfshark.com/vpn/manual-setup/main/openvpn"  target="_blank" rel="noopener"
+    >https://my.surfshark.com/vpn/manual-setup/main/openvpn</a></p>
+<h2 id="add-surfshark-to-our-certificate-authority">Add Surfshark to our &ldquo;Certificate Authority&rdquo;</h2>
+<ol>
+<li>
+<p>Navigate to System &gt; Trust &gt; Authorities and click on the +Add button. Once there, you should be able to see the window below:
+<img src="/post/surfshark-client-opnsense-22-03-2024/1.jpg"
+	width="759"
+	height="767"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/1_hu45080e4ce1655aeb224eadedf9ea1029_85756_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/1_hu45080e4ce1655aeb224eadedf9ea1029_85756_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Authorities"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="98"
+		data-flex-basis="237px"
+	
+></p>
+</li>
+<li>
+<p>Give it a &ldquo;Descriptive Name&rdquo;, in this case I will call it <code>SurfShark_Auth</code></p>
+</li>
+<li>
+<p>Copy and paste the following Certificate data in to the &ldquo;Certificate Data&rdquo; field</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-----BEGIN CERTIFICATE-----
+</span></span><span class="line"><span class="cl">MIIFTTCCAzWgAwIBAgIJAMs9S3fqwv+mMA0GCSqGSIb3DQEBCwUAMD0xCzAJBgNV
+</span></span><span class="line"><span class="cl">BAYTAlZHMRIwEAYDVQQKDAlTdXJmc2hhcmsxGjAYBgNVBAMMEVN1cmZzaGFyayBS
+</span></span><span class="line"><span class="cl">b290IENBMB4XDTE4MDMxNDA4NTkyM1oXDTI4MDMxMTA4NTkyM1owPTELMAkGA1UE
+</span></span><span class="line"><span class="cl">BhMCVkcxEjAQBgNVBAoMCVN1cmZzaGFyazEaMBgGA1UEAwwRU3VyZnNoYXJrIFJv
+</span></span><span class="line"><span class="cl">b3QgQ0EwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDEGMNj0aisM63o
+</span></span><span class="line"><span class="cl">SkmVJyZPaYX7aPsZtzsxo6m6p5Wta3MGASoryRsBuRaH6VVa0fwbI1nw5ubyxkua
+</span></span><span class="line"><span class="cl">Na4v3zHVwuSq6F1p8S811+1YP1av+jqDcMyojH0ujZSHIcb/i5LtaHNXBQ3qN48C
+</span></span><span class="line"><span class="cl">c7sqBnTIIFpmb5HthQ/4pW+a82b1guM5dZHsh7q+LKQDIGmvtMtO1+NEnmj81BAp
+</span></span><span class="line"><span class="cl">FayiaD1ggvwDI4x7o/Y3ksfWSCHnqXGyqzSFLh8QuQrTmWUm84YHGFxoI1/8AKdI
+</span></span><span class="line"><span class="cl">yVoB6BjcaMKtKs/pbctk6vkzmYf0XmGovDKPQF6MwUekchLjB5gSBNnptSQ9kNgn
+</span></span><span class="line"><span class="cl">TLqi0OpSwI6ixX52Ksva6UM8P01ZIhWZ6ua/T/tArgODy5JZMW+pQ1A6L0b7egIe
+</span></span><span class="line"><span class="cl">ghpwKnPRG+5CzgO0J5UE6gv000mqbmC3CbiS8xi2xuNgruAyY2hUOoV9/BuBev8t
+</span></span><span class="line"><span class="cl">tE5ZCsJH3YlG6NtbZ9hPc61GiBSx8NJnX5QHyCnfic/X87eST/amZsZCAOJ5v4EP
+</span></span><span class="line"><span class="cl">SaKrItt+HrEFWZQIq4fJmHJNNbYvWzCE08AL+5/6Z+lxb/Bm3dapx2zdit3x2e+m
+</span></span><span class="line"><span class="cl">iGHekuiE8lQWD0rXD4+T+nDRi3X+kyt8Ex/8qRiUfrisrSHFzVMRungIMGdO9O/z
+</span></span><span class="line"><span class="cl">CINFrb7wahm4PqU2f12Z9TRCOTXciQIDAQABo1AwTjAdBgNVHQ4EFgQUYRpbQwyD
+</span></span><span class="line"><span class="cl">ahLMN3F2ony3+UqOYOgwHwYDVR0jBBgwFoAUYRpbQwyDahLMN3F2ony3+UqOYOgw
+</span></span><span class="line"><span class="cl">DAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAgEAn9zV7F/XVnFNZhHFrt0Z
+</span></span><span class="line"><span class="cl">S1Yqz+qM9CojLmiyblMFh0p7t+Hh+VKVgMwrz0LwDH4UsOosXA28eJPmech6/bjf
+</span></span><span class="line"><span class="cl">ymkoXISy/NUSTFpUChGO9RabGGxJsT4dugOw9MPaIVZffny4qYOc/rXDXDSfF2b+
+</span></span><span class="line"><span class="cl">303lLPI43y9qoe0oyZ1vtk/UKG75FkWfFUogGNbpOkuz+et5Y0aIEiyg0yh6/l5Q
+</span></span><span class="line"><span class="cl">5h8+yom0HZnREHhqieGbkaGKLkyu7zQ4D4tRK/mBhd8nv+09GtPEG+D5LPbabFVx
+</span></span><span class="line"><span class="cl">KjBMP4Vp24WuSUOqcGSsURHevawPVBfgmsxf1UCjelaIwngdh6WfNCRXa5QQPQTK
+</span></span><span class="line"><span class="cl">ubQvkvXONCDdhmdXQccnRX1nJWhPYi0onffvjsWUfztRypsKzX4dvM9k7xnIcGSG
+</span></span><span class="line"><span class="cl">EnCC4RCgt1UiZIj7frcCMssbA6vJ9naM0s7JF7N3VKeHJtqe1OCRHMYnWUZt9vrq
+</span></span><span class="line"><span class="cl">X6IoIHlZCoLlv39wFW9QNxelcAOCVbD+19MZ0ZXt7LitjIqe7yF5WxDQN4xru087
+</span></span><span class="line"><span class="cl">FzQ4Hfj7eH1SNLLyKZkA1eecjmRoi/OoqAt7afSnwtQLtMUc2bQDg6rHt5C0e4dC
+</span></span><span class="line"><span class="cl">LqP/9PGZTSJiwmtRHJ/N5qYWIh9ju83APvLm/AGBTR2pXmj9G3KdVOkpIC7L35dI
+</span></span><span class="line"><span class="cl">623cSEC3Q3UZutsEm/UplsM<span class="o">=</span>
+</span></span><span class="line"><span class="cl">-----END CERTIFICATE-----
+</span></span></code></pre></div><p><img src="/post/surfshark-client-opnsense-22-03-2024/2.jpg"
+	width="1500"
+	height="1151"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_282792_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_282792_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Authorities completed"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="312px"
+	
+></p>
+<ol start="4">
+<li>Save the certificate. You will see that the certificate is valid until 2028 from Surfshark.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/3.jpg"
+	width="1500"
+	height="1151"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_204981_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_204981_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Authorities cert"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="312px"
+	
+></p>
+<h2 id="creating-the-client-connection">Creating the client connection</h2>
+<ol>
+<li>
+<p>Navigate to VPN &gt; OpenVPN &gt; Clients (Legacy) and click on the +Add button. Once there, you should be able to see the window below:
+<img src="/post/surfshark-client-opnsense-22-03-2024/4.jpg"
+	width="1500"
+	height="794"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_185796_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_185796_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Client"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="453px"
+	
+></p>
+</li>
+<li>
+<p>Fill in the following:</p>
+</li>
+</ol>
+<p>Description: Any name you like, for example, <code>ShurfShark_UK</code>
+Server mode: Peer to Peer (SSL/TLS);
+Protocol: UDP (you can also use UDP4);
+Device mode: tun
+Interface: any</p>
+<p>Remote server:
+Host or address: <code>uk-lon.prod.surfshark.com</code> (change to the hostname of the server you are going to use chosen from the &ldquo;Get your Surfshark credentials and server location&rdquo; section)
+Port: 1194</p>
+<p>Retry DNS resolution: UnCheck
+Proxy host or address: Leave blank
+Proxy port: Leave blank
+Proxy Authentication: None</p>
+<p>USER AUTHENTICATION SETTINGS
+Username/Password: fill in your Surfshark Credentials from &ldquo;Get your Surfshark credentials and server location&rdquo; section</p>
+<p>CRYPTOGRAPHIC SETTINGS:
+TLS Authentication: Enabled – Authentication only
+TLS Shared Key: Paste the contents below</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-----BEGIN OpenVPN Static key V1-----
+</span></span><span class="line"><span class="cl">b02cb1d7c6fee5d4f89b8de72b51a8d0
+</span></span><span class="line"><span class="cl">c7b282631d6fc19be1df6ebae9e2779e
+</span></span><span class="line"><span class="cl">6d9f097058a31c97f57f0c35526a44ae
+</span></span><span class="line"><span class="cl">09a01d1284b50b954d9246725a1ead1f
+</span></span><span class="line"><span class="cl">f224a102ed9ab3da0152a15525643b2e
+</span></span><span class="line"><span class="cl">ee226c37041dc55539d475183b889a10
+</span></span><span class="line"><span class="cl">e18bb94f079a4a49888da566b9978346
+</span></span><span class="line"><span class="cl">0ece01daaf93548beea6c827d9674897
+</span></span><span class="line"><span class="cl">e7279ff1a19cb092659e8c1860fbad0d
+</span></span><span class="line"><span class="cl">b4ad0ad5732f1af4655dbd66214e552f
+</span></span><span class="line"><span class="cl">04ed8fd0104e1d4bf99c249ac229ce16
+</span></span><span class="line"><span class="cl">9d9ba22068c6c0ab742424760911d463
+</span></span><span class="line"><span class="cl">6aafb4b85f0c952a9ce4275bc821391a
+</span></span><span class="line"><span class="cl">a65fcd0d2394f006e3fba0fd34c4bc4a
+</span></span><span class="line"><span class="cl">b260f4b45dec3285875589c97d3087c9
+</span></span><span class="line"><span class="cl">134d3a3aa2f904512e85aa2dc2202498
+</span></span><span class="line"><span class="cl">-----END OpenVPN Static key V1-----
+</span></span></code></pre></div><p>Peer Certificate Authority: <code>SurfShark_Auth</code>
+Client Certificate: None (Username and Password required)
+Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)
+Auth Digest Algorithm: SHA512</p>
+<p>TUNNEL SETTINGS:
+IPv4 tunnel network: Leave blank
+IPv6 tunnel network: Leave blank
+IPv4 remote network: Leave blank
+IPv6 remote network: Leave blank
+Limit outgoing bandwidth: Leave blank
+Compression: No Preference
+Type-of-service: Leave unchecked
+Don’t pull routes: Check
+Don’t add/remove routes: Check</p>
+<p>ADVANCED CONFIGURATION:
+Advanced: Paste the contents down below</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">remote-random<span class="p">;</span>
+</span></span><span class="line"><span class="cl">tun-mtu 1500<span class="p">;</span>
+</span></span><span class="line"><span class="cl">tun-mtu-extra 32<span class="p">;</span>
+</span></span><span class="line"><span class="cl">mssfix 1450<span class="p">;</span>
+</span></span><span class="line"><span class="cl">persist-key<span class="p">;</span>
+</span></span><span class="line"><span class="cl">persist-tun<span class="p">;</span>
+</span></span><span class="line"><span class="cl">reneg-sec 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl">remote-cert-tls server<span class="p">;</span>
+</span></span></code></pre></div><p>Verbosity level: 3 (recommended)</p>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/6.jpg"
+	width="1500"
+	height="2527"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/6_hu30910665284931ace4f57faa1e01d828_379707_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/6_hu30910665284931ace4f57faa1e01d828_379707_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Client All Settings"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="142px"
+	
+></p>
+<ol start="6">
+<li>Click on Save.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/5.jpg"
+	width="2322"
+	height="396"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/5_hu5f299b5f3d0d701c1ef5afe858e66b6a_86905_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/5_hu5f299b5f3d0d701c1ef5afe858e66b6a_86905_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Client Completed"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="586"
+		data-flex-basis="1407px"
+	
+></p>
+<ol start="7">
+<li>Navigate to VPN &gt; OpenVPN &gt; Connection Status
+You should see that the connection is &ldquo;Connected&rdquo;.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/7.jpg"
+	width="1500"
+	height="433"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/7_hu5f299b5f3d0d701c1ef5afe858e66b6a_99837_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/7_hu5f299b5f3d0d701c1ef5afe858e66b6a_99837_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Client Connected"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="346"
+		data-flex-basis="831px"
+	
+></p>
+<h2 id="assigning-and-creating-the-interface">Assigning and Creating the Interface</h2>
+<ol>
+<li>
+<p>Navigate to Interfaces &gt; Assignments</p>
+</li>
+<li>
+<p>Add the &ldquo;VPN&rdquo; interface and give it a Description.</p>
+</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/8.jpg"
+	width="1500"
+	height="525"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_129759_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_129759_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Assign Interface"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<ol start="3">
+<li>
+<p>Click on the &ldquo;Add&rdquo; button and then the &ldquo;Save&rdquo; button.</p>
+</li>
+<li>
+<p>Navigate to the new interface you just created and then check the &ldquo;enabled&rdquo; checkbox.
+Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on the &ldquo;Apply Changes&rdquo; button</p>
+</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/9.jpg"
+	width="1500"
+	height="525"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_153326_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_153326_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Enable Interface"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<h2 id="create-an-outbound-nat-rule">Create an Outbound NAT rule</h2>
+<ol>
+<li>Navigate to Firewall &gt; NAT &gt; Outbound, select Hybrid outbound NAT rule generation (automatically generated rules are applied after manual rules), click Save and Apply Changes.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/10.jpg"
+	width="1500"
+	height="525"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_163311_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_163311_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Hybrid outbound"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<ol start="2">
+<li>Click on the +Add button on top, on the edit menu, select Interface as &ldquo;SurfShark_UK&rdquo;. Leave anything else as it is by default,</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/11.jpg"
+	width="1500"
+	height="525"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_135242_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_135242_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Create outbound rule"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<ol start="3">
+<li>Give it a description <code>SurfShark_UK_OUT</code> for example, click Save, and Apply Changes.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/12.jpg"
+	width="1500"
+	height="754"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_215861_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_215861_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="outbound rule created"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
+	
+></p>
+<h2 id="edit-the-management-firewall-rules-to-route-the-traffic-through-the-vpn">Edit the Management firewall rules to route the traffic through the VPN.</h2>
+<ol>
+<li>Navigate to Firewall -&gt; Rules -&gt; MANAGEMENT
+and that click on the edit button next to IPv4.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/13.jpg"
+	width="1500"
+	height="754"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_206290_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_206290_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Management network"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
+	
+></p>
+<ol start="2">
+<li>Scroll down and under Advanced features, select Gateway as <code>SurfShark_UK_VPNV4</code>. Click Save.</li>
+</ol>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/14.jpg"
+	width="1500"
+	height="754"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_199309_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_199309_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Set Gateway"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
+	
+></p>
+<h2 id="test-the-connection">Test the connection</h2>
+<p>If we do a simple speed test, we will see that our IP address and Location is now showing as &ldquo;London&rdquo;. The VPN gateway is ready to be used.</p>
+<p><img src="/post/surfshark-client-opnsense-22-03-2024/15.jpg"
+	width="1500"
+	height="754"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_99123_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_99123_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Location London"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/software/">Software</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+            <a href="/tags/networking/">Networking</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-dns-and-block-list-setup-12-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/splash.d2a2e890ea4bddd901281ae36d474a5a_hu30910665284931ace4f57faa1e01d828_246393_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense DNS and Block List Setup"
+                        
+                        data-hash="md5-0qLokOpL3dkBKBrjbUdKWg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense DNS and Block List Setup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/finishing-the-management-network-01-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu30910665284931ace4f57faa1e01d828_560198_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Finishing the Management Network"
+                        
+                        data-hash="md5-eu5OzKjDtQM0VLoUZ7ccWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Finishing the Management Network</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-vm-install-12-02-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu30910665284931ace4f57faa1e01d828_331877_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense Virtual Machine Installation on Proxmox"
+                        
+                        data-hash="md5-EkYERV2WjE18sTtZMGNn6A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense Virtual Machine Installation on Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/lab-wan-network-creation-02-02-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post LAB WAN Network Creation"
+                        
+                        data-hash="md5-XMYxXkMx4vA4jcbUXOtutg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">LAB WAN Network Creation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/home-lab-network-design-26-01-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Home Lab Network Design"
+                        
+                        data-hash="md5-Opl41oK5SNVCuiZG391zfg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Home Lab Network Design</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
