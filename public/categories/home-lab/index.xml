@@ -12,7 +12,16 @@
         <pubDate>Fri, 31 May 2024 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/post/multi-wan-uptime-monitoring/</guid>
-        <description>&lt;img src="http://localhost:1313/splash.jpg" alt="Featured image of post Multi WAN Uptime Monitoring" /&gt;&lt;h2 id=&#34;concept-and-design&#34;&gt;Concept and design&lt;/h2&gt;
+        <description>&lt;img src="http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg" alt="Featured image of post Multi WAN Uptime Monitoring" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/ouDQKa596hU&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;concept-and-design&#34;&gt;Concept and design&lt;/h2&gt;
 &lt;p&gt;In a previous video I made going over the different Multi WAN modes.
 I spoke about how you could route traffic over different WAN connections to create a form of load balancing.
 We can use that same concept for monitoring multiple WAN connections from a single monitoring application.&lt;/p&gt;

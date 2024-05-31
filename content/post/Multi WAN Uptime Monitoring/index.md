@@ -18,6 +18,8 @@ image = "splash.jpg"
 draft = false
 +++
 
+{{< youtube ouDQKa596hU >}}
+
 ## Concept and design
 
 In a previous video I made going over the different Multi WAN modes. 
