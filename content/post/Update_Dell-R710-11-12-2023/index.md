@@ -59,6 +59,10 @@ Due to the R710 being end-of-life it is difficult to find and get an easy to use
 
 https://forum.allenscloud.com/t/dell-r710-firmware/14
 
+Edited: 08-06-2024
+
+PS. just as an update. I do see that forum.allenscloud.com is not online anymore which is a shame. I have however uploaded the ISO to https://archive.org/details/r-710-bootable So hopefully that helps you.
+
 ![forum.allenscloud.com](8.jpg)
 
 ## Creating a bootable USB from the ISO
