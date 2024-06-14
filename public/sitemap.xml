@@ -3,36 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/home-lab/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/home-lab/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/multi-wan-uptime-monitoring/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/networking/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/networking/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/protect-opnsense-with-2fa-14-06-2024/</loc>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/software/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/software/</loc>
-    <lastmod>2024-05-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-06-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/multi-wan-uptime-monitoring/</loc>
     <lastmod>2024-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/</loc>
