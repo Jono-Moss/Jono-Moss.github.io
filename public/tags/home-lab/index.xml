@@ -6,7 +6,24 @@
         <description>Recent content in Home Lab on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/home-lab/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 15 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/home-lab/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How to install EVE-NG on Proxmox</title>
+        <link>http://localhost:1313/post/eve-ng-proxmox-12-07-2024/</link>
+        <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/eve-ng-proxmox-12-07-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/eve-ng-proxmox-12-07-2024/splash.jpg" alt="Featured image of post How to install EVE-NG on Proxmox" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/IEMYJscrykI&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+        </item>
+        <item>
         <title>Protect OpnSense with 2FA</title>
         <link>http://localhost:1313/post/protect-opnsense-with-2fa-14-06-2024/</link>
         <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>

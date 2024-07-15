@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this video we show you how to install EVE-NG on Proxmox&#39;.'>
+<title>How to install EVE-NG on Proxmox</title>
+
+<link rel='canonical' href='http://localhost:1313/post/eve-ng-proxmox-12-07-2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How to install EVE-NG on Proxmox'>
+<meta property='og:description' content='In this video we show you how to install EVE-NG on Proxmox&#39;.'>
+<meta property='og:url' content='http://localhost:1313/post/eve-ng-proxmox-12-07-2024/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:tag' content='Virtual Machine' /><meta property='article:published_time' content='2024-07-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-15T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/eve-ng-proxmox-12-07-2024/splash.jpg' />
+<meta name="twitter:title" content="How to install EVE-NG on Proxmox">
+<meta name="twitter:description" content="In this video we show you how to install EVE-NG on Proxmox&#39;."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/eve-ng-proxmox-12-07-2024/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#installation">Installation</a>
+      <ol>
+        <li><a href="#download-the-iso">Download the ISO</a></li>
+        <li><a href="#enable-nested-virtualisation">Enable Nested Virtualisation</a></li>
+        <li><a href="#create-the-virtual-machine">Create the Virtual Machine</a></li>
+        <li><a href="#eve-ng-installation">Eve-ng installation</a></li>
+        <li><a href="#access-the-web-ui">Access the Web UI</a></li>
+        <li><a href="#reconfigure-your-instance">Reconfigure your Instance</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/eve-ng-proxmox-12-07-2024/">
+                <img src="/post/eve-ng-proxmox-12-07-2024/splash_hu30910665284931ace4f57faa1e01d828_444982_800x0_resize_q75_box.jpg"
+                        srcset="/post/eve-ng-proxmox-12-07-2024/splash_hu30910665284931ace4f57faa1e01d828_444982_800x0_resize_q75_box.jpg 800w, /post/eve-ng-proxmox-12-07-2024/splash_hu30910665284931ace4f57faa1e01d828_444982_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post How to install EVE-NG on Proxmox" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/software/" >
+                Software
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+            <a href="/categories/networking/" >
+                Networking
+            </a>
+        
+            <a href="/categories/virtual-machine/" >
+                Virtual Machine
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/eve-ng-proxmox-12-07-2024/">How to install EVE-NG on Proxmox</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            In this video we show you how to install EVE-NG on Proxmox&#39;.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">15 Jul 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/IEMYJscrykI" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<h2 id="introduction">Introduction</h2>
+<p>Hi there, Jono here, on a regular basis, I need to test &ldquo;Use Cases&rdquo;, Software configurations and network setups for customers. I also wanted to start working on guides showing more advanced setups that would require multiple servers, networking equipment and cable which can be problematic, both in terms of cost and physical space.
+So I was thinking about how I could use my single home lab server to better achieve this &ldquo;juggling&rdquo; of tasks and that was when it hit me.</p>
+<p>Why not use Eve-ng or GNS3?</p>
+<p>Eve-ng or &ldquo;emulated virtual environments, next generation&rdquo; and GNS3 or &ldquo;Graphical Network Simulator - 3&rdquo; are in a sense &ldquo;hypervisors&rdquo; which allow you to create virtual machines or containers, which in Eve-ng are called &ldquo;nodes&rdquo; and in &ldquo;GNS3&rdquo; are called &ldquo;Appliances&rdquo;. These. are then used in a &ldquo;drag and drop&rdquo; fashion where you quickly and easily create virtual networks which can then be used. in real world deployment.</p>
+<p>In the past, I never really owned a device that was powerful enough to run these tools, but. now-a-days, hardware. has become so powerful, you can run these tools on relatively cheap laptops and PC&rsquo;s.</p>
+<p>Since it has been so long since I have tried them, I will be giving them both a try again. In this guide I will be using Eve-ng&rsquo;s community edition, and will do a few &ldquo;labs&rdquo; in it to give it a fair test. In future guides I will move over to GNS3 and after giving that a good test, I will make a video on my experiences.</p>
+<p>Now lets move onto the meat of this guide,  and that is how to install Eve-ng on a virtual machine in Proxmox.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="download-the-iso">Download the ISO</h3>
+<p>Download the community edition from:
+<a class="link" href="https://www.eve-ng.net/index.php/download/#DL-COMM"  target="_blank" rel="noopener"
+    >https://www.eve-ng.net/index.php/download/#DL-COMM</a>
+and upload it to Proxmox</p>
+<h3 id="enable-nested-virtualisation">Enable Nested Virtualisation</h3>
+<p>Nested virtualisation allows you to run a hypervisor within a virtual machine, which is how these tools work, we need to check that is is enabled on Proxmox. If I remember correctly,  it used to be disabled by default, however, will all my new Proxmox installations, It appears that it is now enabled by default</p>
+<p>Using SSH or using Proxmox&rsquo;s built in shell:
+// For Intel</p>
+<pre tabindex="0"><code>cat /sys/module/kvm_intel/parameters/nested
+</code></pre><p>// For AMD</p>
+<pre tabindex="0"><code>cat /sys/module/kvm_amd/parameters/nested
+</code></pre><p>It will either show a &ldquo;Y&rdquo; or &ldquo;N&rdquo;. &ldquo;Y&rdquo; to indicate if it is enabled or &ldquo;N&rdquo; if not.</p>
+<p>To enable nested virtualisation you just have to do a few simple things, I’d suggest to follow the official article,
+<a class="link" href="https://pve.proxmox.com/wiki/Nested_Virtualization"  target="_blank" rel="noopener"
+    >https://pve.proxmox.com/wiki/Nested_Virtualization</a>
+incase this changes in the future, but as of today, you can use this quick rundown to get up and running:</p>
+<p>// For Intel</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;options kvm-intel nested=Y&#34;</span> &gt; /etc/modprobe.d/kvm-intel.conf
+</span></span></code></pre></div><p>// For AMD</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;options kvm-amd nested=1&#34;</span> &gt; /etc/modprobe.d/kvm-amd.conf
+</span></span></code></pre></div><p>Reboot or reload the kernel module</p>
+<p>// For Intel</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modprobe -r kvm_intel
+</span></span><span class="line"><span class="cl">modprobe kvm_intel
+</span></span></code></pre></div><p>// For AMD</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modprobe -r kvm_amd
+</span></span><span class="line"><span class="cl">modprobe kvm_amd
+</span></span></code></pre></div><p>It is recommend to do a full reboot.
+After the reboot, check if the module is enabled.</p>
+<h3 id="create-the-virtual-machine">Create the Virtual Machine</h3>
+<p>Create a Virtual machine with the following:
+100GB Disk Space (More the merrier)
++- 4GB RAM (More the merrier)
+CPU set to &ldquo;Host&rdquo; (This is a must)
+Make sure to attach the Eve-ng ISO
+Attach it to a network that has internet access (This is a must)
+the rest is up to you.</p>
+<p>Just a quick notice, that in the video I set the HDD to use &ldquo;VirtIO&rdquo; in stead of &ldquo;SCSI&rdquo; as a saw a few people mention that they where getting better results. However I have not tested this claim myself. It is up to you to decide what you would like to use.</p>
+<h3 id="eve-ng-installation">Eve-ng installation</h3>
+<p>Eve-ng uses &ldquo;cloud-init&rdquo; to do a lot of the installation. So depending o the speed of your internet, this process can take a long time.
+once it is. completed, you will be presented with the configuration phase where you will be guided through configuring your instance.</p>
+<p>In this case I have set the IP to be 10.0.0.9</p>
+<h3 id="access-the-web-ui">Access the Web UI</h3>
+<p>once the installation is completed. You can goto the the instance IP in your favourite browser to access the Web UI.
+The default login details are:
+admin
+eve</p>
+<h3 id="reconfigure-your-instance">Reconfigure your Instance</h3>
+<p>If. you have made a mistake during the &ldquo;Configuration&rdquo; stage. You can do the following to run it again.</p>
+<p>SSH into it or directly via the console.</p>
+<p>Delete the &ldquo;Configured&rdquo; file</p>
+<pre tabindex="0"><code>rm -f /opt/ovf/.configured
+</code></pre><p>and then</p>
+<pre tabindex="0"><code>su -
+</code></pre><p>This will rerun the configuration stage.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>You will now have an Eve-ng Vm up and running, almost ready to use. All that is left is to create &ldquo;nodes&rdquo; that we can use.
+In the next guide, we will create an OpnSense &ldquo;node&rdquo; and I will show you the method I used to get access to the OpnSense WebUI of that &ldquo;node&rdquo; in order to use and configure it.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/software/">Software</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+            <a href="/tags/networking/">Networking</a>
+        
+            <a href="/tags/virtual-machine/">Virtual Machine</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/finishing-the-management-network-01-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu30910665284931ace4f57faa1e01d828_560198_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Finishing the Management Network"
+                        
+                        data-hash="md5-eu5OzKjDtQM0VLoUZ7ccWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Finishing the Management Network</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-vm-install-12-02-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu30910665284931ace4f57faa1e01d828_331877_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense Virtual Machine Installation on Proxmox"
+                        
+                        data-hash="md5-EkYERV2WjE18sTtZMGNn6A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense Virtual Machine Installation on Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/protect-opnsense-with-2fa-14-06-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/protect-opnsense-with-2fa-14-06-2024/splash.507fc925e6eb46a7bfa341377f92dc8e_hu30910665284931ace4f57faa1e01d828_246835_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Protect OpnSense with 2FA"
+                        
+                        data-hash="md5-UH/JJebrRqe/o0E3f5Lcjg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Protect OpnSense with 2FA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/multi-wan-uptime-monitoring/">
+        
+        
+            <div class="article-image">
+                <img src="/post/multi-wan-uptime-monitoring/splash.f13424567a6297598008e9702ad0eaca_hu30910665284931ace4f57faa1e01d828_320049_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Multi WAN Uptime Monitoring"
+                        
+                        data-hash="md5-8TQkVnpil1mACOlwKtDqyg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Multi WAN Uptime Monitoring</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/surfshark-client-opnsense-22-03-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/surfshark-client-opnsense-22-03-2024/splash.188b2db202b2cb2f03fb1ecb3ac572a6_hu30910665284931ace4f57faa1e01d828_534702_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Setup Surfshark OpenVPN Client on OpnSense"
+                        
+                        data-hash="md5-GIstsgKyyy8D&#43;x7LOsVypg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Setup Surfshark OpenVPN Client on OpnSense</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

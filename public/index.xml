@@ -6,7 +6,92 @@
         <description>Recent content on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Fri, 14 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 15 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How to install EVE-NG on Proxmox</title>
+        <link>http://localhost:1313/post/eve-ng-proxmox-12-07-2024/</link>
+        <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/eve-ng-proxmox-12-07-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/eve-ng-proxmox-12-07-2024/splash.jpg" alt="Featured image of post How to install EVE-NG on Proxmox" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/IEMYJscrykI&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Hi there, Jono here, on a regular basis, I need to test &amp;ldquo;Use Cases&amp;rdquo;, Software configurations and network setups for customers. I also wanted to start working on guides showing more advanced setups that would require multiple servers, networking equipment and cable which can be problematic, both in terms of cost and physical space.
+So I was thinking about how I could use my single home lab server to better achieve this &amp;ldquo;juggling&amp;rdquo; of tasks and that was when it hit me.&lt;/p&gt;
+&lt;p&gt;Why not use Eve-ng or GNS3?&lt;/p&gt;
+&lt;p&gt;Eve-ng or &amp;ldquo;emulated virtual environments, next generation&amp;rdquo; and GNS3 or &amp;ldquo;Graphical Network Simulator - 3&amp;rdquo; are in a sense &amp;ldquo;hypervisors&amp;rdquo; which allow you to create virtual machines or containers, which in Eve-ng are called &amp;ldquo;nodes&amp;rdquo; and in &amp;ldquo;GNS3&amp;rdquo; are called &amp;ldquo;Appliances&amp;rdquo;. These. are then used in a &amp;ldquo;drag and drop&amp;rdquo; fashion where you quickly and easily create virtual networks which can then be used. in real world deployment.&lt;/p&gt;
+&lt;p&gt;In the past, I never really owned a device that was powerful enough to run these tools, but. now-a-days, hardware. has become so powerful, you can run these tools on relatively cheap laptops and PC&amp;rsquo;s.&lt;/p&gt;
+&lt;p&gt;Since it has been so long since I have tried them, I will be giving them both a try again. In this guide I will be using Eve-ng&amp;rsquo;s community edition, and will do a few &amp;ldquo;labs&amp;rdquo; in it to give it a fair test. In future guides I will move over to GNS3 and after giving that a good test, I will make a video on my experiences.&lt;/p&gt;
+&lt;p&gt;Now lets move onto the meat of this guide,  and that is how to install Eve-ng on a virtual machine in Proxmox.&lt;/p&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;h3 id=&#34;download-the-iso&#34;&gt;Download the ISO&lt;/h3&gt;
+&lt;p&gt;Download the community edition from:
+&lt;a class=&#34;link&#34; href=&#34;https://www.eve-ng.net/index.php/download/#DL-COMM&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.eve-ng.net/index.php/download/#DL-COMM&lt;/a&gt;
+and upload it to Proxmox&lt;/p&gt;
+&lt;h3 id=&#34;enable-nested-virtualisation&#34;&gt;Enable Nested Virtualisation&lt;/h3&gt;
+&lt;p&gt;Nested virtualisation allows you to run a hypervisor within a virtual machine, which is how these tools work, we need to check that is is enabled on Proxmox. If I remember correctly,  it used to be disabled by default, however, will all my new Proxmox installations, It appears that it is now enabled by default&lt;/p&gt;
+&lt;p&gt;Using SSH or using Proxmox&amp;rsquo;s built in shell:
+// For Intel&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat /sys/module/kvm_intel/parameters/nested
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;// For AMD&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat /sys/module/kvm_amd/parameters/nested
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It will either show a &amp;ldquo;Y&amp;rdquo; or &amp;ldquo;N&amp;rdquo;. &amp;ldquo;Y&amp;rdquo; to indicate if it is enabled or &amp;ldquo;N&amp;rdquo; if not.&lt;/p&gt;
+&lt;p&gt;To enable nested virtualisation you just have to do a few simple things, I’d suggest to follow the official article,
+&lt;a class=&#34;link&#34; href=&#34;https://pve.proxmox.com/wiki/Nested_Virtualization&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://pve.proxmox.com/wiki/Nested_Virtualization&lt;/a&gt;
+incase this changes in the future, but as of today, you can use this quick rundown to get up and running:&lt;/p&gt;
+&lt;p&gt;// For Intel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;options kvm-intel nested=Y&amp;#34;&lt;/span&gt; &amp;gt; /etc/modprobe.d/kvm-intel.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;// For AMD&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;options kvm-amd nested=1&amp;#34;&lt;/span&gt; &amp;gt; /etc/modprobe.d/kvm-amd.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Reboot or reload the kernel module&lt;/p&gt;
+&lt;p&gt;// For Intel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;modprobe -r kvm_intel
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;modprobe kvm_intel
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;// For AMD&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;modprobe -r kvm_amd
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;modprobe kvm_amd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is recommend to do a full reboot.
+After the reboot, check if the module is enabled.&lt;/p&gt;
+&lt;h3 id=&#34;create-the-virtual-machine&#34;&gt;Create the Virtual Machine&lt;/h3&gt;
+&lt;p&gt;Create a Virtual machine with the following:
+100GB Disk Space (More the merrier)
++- 4GB RAM (More the merrier)
+CPU set to &amp;ldquo;Host&amp;rdquo; (This is a must)
+Make sure to attach the Eve-ng ISO
+Attach it to a network that has internet access (This is a must)
+the rest is up to you.&lt;/p&gt;
+&lt;p&gt;Just a quick notice, that in the video I set the HDD to use &amp;ldquo;VirtIO&amp;rdquo; in stead of &amp;ldquo;SCSI&amp;rdquo; as a saw a few people mention that they where getting better results. However I have not tested this claim myself. It is up to you to decide what you would like to use.&lt;/p&gt;
+&lt;h3 id=&#34;eve-ng-installation&#34;&gt;Eve-ng installation&lt;/h3&gt;
+&lt;p&gt;Eve-ng uses &amp;ldquo;cloud-init&amp;rdquo; to do a lot of the installation. So depending o the speed of your internet, this process can take a long time.
+once it is. completed, you will be presented with the configuration phase where you will be guided through configuring your instance.&lt;/p&gt;
+&lt;p&gt;In this case I have set the IP to be 10.0.0.9&lt;/p&gt;
+&lt;h3 id=&#34;access-the-web-ui&#34;&gt;Access the Web UI&lt;/h3&gt;
+&lt;p&gt;once the installation is completed. You can goto the the instance IP in your favourite browser to access the Web UI.
+The default login details are:
+admin
+eve&lt;/p&gt;
+&lt;h3 id=&#34;reconfigure-your-instance&#34;&gt;Reconfigure your Instance&lt;/h3&gt;
+&lt;p&gt;If. you have made a mistake during the &amp;ldquo;Configuration&amp;rdquo; stage. You can do the following to run it again.&lt;/p&gt;
+&lt;p&gt;SSH into it or directly via the console.&lt;/p&gt;
+&lt;p&gt;Delete the &amp;ldquo;Configured&amp;rdquo; file&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rm -f /opt/ovf/.configured
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and then&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This will rerun the configuration stage.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;You will now have an Eve-ng Vm up and running, almost ready to use. All that is left is to create &amp;ldquo;nodes&amp;rdquo; that we can use.
+In the next guide, we will create an OpnSense &amp;ldquo;node&amp;rdquo; and I will show you the method I used to get access to the OpnSense WebUI of that &amp;ldquo;node&amp;rdquo; in order to use and configure it.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Protect OpnSense with 2FA</title>
         <link>http://localhost:1313/post/protect-opnsense-with-2fa-14-06-2024/</link>
         <pubDate>Fri, 14 Jun 2024 00:00:00 +0000</pubDate>
