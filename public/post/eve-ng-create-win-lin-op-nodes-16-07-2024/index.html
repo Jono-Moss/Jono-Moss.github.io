@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
-<title>Multi WAN Uptime Monitoring</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this guide, I go over how to create a Windows, Linux and OpnSense node in EVE-NG'>
+<title>How to create a Windows, Linux and OpnSense node in EVE-NG</title>
 
-<link rel='canonical' href='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
+<link rel='canonical' href='http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Multi WAN Uptime Monitoring'>
-<meta property='og:description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
-<meta property='og:url' content='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How to create a Windows, Linux and OpnSense node in EVE-NG'>
+<meta property='og:description' content='In this guide, I go over how to create a Windows, Linux and OpnSense node in EVE-NG'>
+<meta property='og:url' content='http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/'>
 <meta property='og:site_name' content='Jonathan Moss'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
-<meta name="twitter:title" content="Multi WAN Uptime Monitoring">
-<meta name="twitter:description" content="In this guide we will look at how to monitor multiple WAN connections with a single monitoring software"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:tag' content='Virtual Machine' /><meta property='article:published_time' content='2024-07-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-16T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.jpg' />
+<meta name="twitter:title" content="How to create a Windows, Linux and OpnSense node in EVE-NG">
+<meta name="twitter:description" content="In this guide, I go over how to create a Windows, Linux and OpnSense node in EVE-NG"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -248,21 +248,28 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#concept-and-design">Concept and design</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#create-the-monitors">Create the monitors</a>
+    <li><a href="#nodes">Nodes</a>
       <ol>
-        <li><a href="#create-a-monitor">Create a monitor</a></li>
+        <li><a href="#node-vm-creations">Node VM Creations</a>
+          <ol>
+            <li><a href="#download-the-isos">Download the ISO&rsquo;s</a></li>
+            <li><a href="#create-the-folders-on-eve-ng">Create the folders on EVE-NG</a></li>
+            <li><a href="#copy-the-isos-to-the-folders">Copy the ISO&rsquo;s to the folders</a></li>
+            <li><a href="#create-the-virtual-disks-hdds-for-the-vms">Create The Virtual Disks (HDD&rsquo;s) for the VM&rsquo;s</a></li>
+            <li><a href="#installing-the-oses-on-the-vms--nodes">Installing the OSes on the VMs / Nodes</a></li>
+            <li><a href="#commit-vms">Commit VM&rsquo;s</a></li>
+            <li><a href="#removes-isos-from-the-machine">Removes ISO&rsquo;s from the machine</a></li>
+            <li><a href="#fix-file-permissions">Fix file Permissions</a></li>
+            <li><a href="#optional---compress-the-vms-hdds">Optional - Compress the VM&rsquo;s HDD&rsquo;s</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
-    <li><a href="#test-that-the-monitors-work">Test that the monitors work</a></li>
-    <li><a href="#firewall-rules">Firewall rules.</a>
+    <li><a href="#webui-access-method">WebUI Access Method</a>
       <ol>
-        <li><a href="#firewall-rule-concept">Firewall rule concept</a></li>
+        <li><a href="#to-setup-opnsense-web-ui-from-wan">To setup OpnSense web UI from wan</a></li>
       </ol>
     </li>
-    <li><a href="#test-that-the-monitors-work-individually">Test that the monitors work individually</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
   </ol>
 </nav>
         </div>
@@ -277,13 +284,13 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/post/multi-wan-uptime-monitoring/">
-                <img src="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg"
-                        srcset="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg 800w, /post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_1600x0_resize_q75_box.jpg 1600w"
+            <a href="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/">
+                <img src="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash_hu30910665284931ace4f57faa1e01d828_356401_800x0_resize_q75_box.jpg"
+                        srcset="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash_hu30910665284931ace4f57faa1e01d828_356401_800x0_resize_q75_box.jpg 800w, /post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash_hu30910665284931ace4f57faa1e01d828_356401_1600x0_resize_q75_box.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
-                        alt="Featured image of post Multi WAN Uptime Monitoring" />
+                        alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG" />
                 
             </a>
         </div>
@@ -305,17 +312,21 @@
                 Networking
             </a>
         
+            <a href="/categories/virtual-machine/" >
+                Virtual Machine
+            </a>
+        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/multi-wan-uptime-monitoring/">Multi WAN Uptime Monitoring</a>
+            <a href="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/">How to create a Windows, Linux and OpnSense node in EVE-NG</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            In this guide we will look at how to monitor multiple WAN connections with a single monitoring software
+            In this guide, I go over how to create a Windows, Linux and OpnSense node in EVE-NG
         </h3>
         
     </div>
@@ -336,7 +347,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">31 May 2024</time>
+                <time class="article-time--published">16 Jul 2024</time>
             </div>
         
 
@@ -351,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    5 minute read
+                    4 minute read
                 </time>
             </div>
         
@@ -366,181 +377,135 @@
     <section class="article-content">
     
     
-    <div class="video-wrapper">
-    <iframe loading="lazy" 
-            src="https://www.youtube.com/embed/ouDQKa596hU" 
-            allowfullscreen 
-            title="YouTube Video"
-    >
-    </iframe>
-</div>
-
-<h2 id="concept-and-design">Concept and design</h2>
-<p>In a previous video I made going over the different Multi WAN modes.
-I spoke about how you could route traffic over different WAN connections to create a form of load balancing.
-We can use that same concept for monitoring multiple WAN connections from a single monitoring application.</p>
-<p>In this guide, I will be using a monitoring application called &ldquo;Uptime Kuma&rdquo; mainly
-due to it being quick to install and extremely simple to setup. However this method will work for any monitoring software that uses a ping (ICMP) to monitor a devices presence.</p>
-<h2 id="installation">Installation</h2>
-<p>I have created an Ubuntu server VM that is on the &ldquo;Management&rdquo; network.
-I have given it a static IP of ```10.0.0.3</p>
-<pre tabindex="0"><code class="language-," data-lang=",">From there I have created an &#34;Uptime Kuma&#34; container that is ready to go.
-
-I simply create a folder in my users home folder called ```docker```
-and then created a folder in there called ```kuma```
-
-In the ```kuma``` folder, I then created a file in there called ```docker-compose.yml``` and a folder called ```data```. That is where all the data Uptime Kuma needs to store will go.
-
-
-Below is the docker-compose.yml file I used to get it running:
-
-``` YML 
-version: &#39;3.3&#39;
-
-services:
-  uptime-kuma:
-    image: louislam/uptime-kuma:1
-    container_name: uptime-kuma
-    volumes:
-      - ./data:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - 3001:3001  # &lt;Host Port&gt;:&lt;Container Port&gt;
-    restart: always
-    
-</code></pre><p>Once done, we can simply run the following:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker-compose up -d
-</span></span></code></pre></div><p>That will create and start the container.</p>
-<h2 id="create-the-monitors">Create the monitors</h2>
-<p>Once Uptime Kuma is up and running, we can goto:
-<code>http://&lt;your.servser.IP&gt;:3001</code>
-in your web browser of choice and we can create the following monitors. Change the <code>&lt;your.servser.IP&gt;</code> to the IP of your server.</p>
-<p>For this guide, we will create three monitors.</p>
+    <h2 id="nodes">Nodes</h2>
+<p>In this guide we will create a Windows 10, OpnSense and a Debian 12 node.<br>
+The official notes can be found on EVE-NG&rsquo;s website:<br>
+<a class="link" href="https://www.eve-ng.net/index.php/documentation/howtos/"  target="_blank" rel="noopener"
+    >https://www.eve-ng.net/index.php/documentation/howtos/</a></p>
+<p>There are guides on how to add and create all available nodes on EVE-NG. So it is recommended to have a look at them in order for you to add the nodes you require.</p>
+<h3 id="node-vm-creations">Node VM Creations</h3>
+<h4 id="download-the-isos">Download the ISO&rsquo;s</h4>
+<p>Download the desired ISO&rsquo;s. In my case I have downloaded:<br>
+OpnSense 24<br>
+Windows 10 (64 bit)<br>
+Debian 12 (net Installer)</p>
+<h4 id="create-the-folders-on-eve-ng">Create the folders on EVE-NG</h4>
+<p>SSH into the EVE-NG machine and create a folder in the:<br>
+<code>bash /opt/unetlab/addons/qemu/</code><br>
+folder<br>
+For example I created the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /opt/unetlab/addons/qemu/win-10x64Pro/
+</span></span><span class="line"><span class="cl">mkdir /opt/unetlab/addons/qemu/linux-debian-12/
+</span></span><span class="line"><span class="cl">mkdir /opt/unetlab/addons/qemu/opnsense-24/
+</span></span></code></pre></div><h4 id="copy-the-isos-to-the-folders">Copy the ISO&rsquo;s to the folders</h4>
+<p>Next I will use <code>SCP</code> to copy the ISO&rsquo;s. from my downloads folder into the desired folder we have created for the VM&rsquo;s.<br>
+It is important that we name the ISO <code>cdrom.iso</code> when we add it to the folder. Here are my <code>SCP</code> commands</p>
+<p>OpnSense:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp /Users/jono/Downloads/OPNsense-24.1-dvd-amd64.iso root@10.0.0.9:/opt/unetlab/addons/qemu/opnsense-24/cdrom.iso
+</span></span></code></pre></div><p>Debian 12:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp /Users/jono/Downloads/debian-12.6.0-amd64-netinst.iso root@10.0.0.9:/opt/unetlab/addons/qemu/linux-debian-12/cdrom.iso
+</span></span></code></pre></div><p>Windows 10:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp /Users/jono/Downloads/Win10_22H2_EnglishInternational_x64v1.iso root@10.0.0.9:/opt/unetlab/addons/qemu/win-10x64Pro/cdrom.iso
+</span></span></code></pre></div><h4 id="create-the-virtual-disks-hdds-for-the-vms">Create The Virtual Disks (HDD&rsquo;s) for the VM&rsquo;s</h4>
+<p>Next we need to create the virtual disks for each VM / Node to use.<br>
+SSH into the EVE-NG again and do the following:</p>
+<p>OpnSense:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/opnsense-24/
+</span></span><span class="line"><span class="cl">/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 10G
+</span></span></code></pre></div><p>Debian 12:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/linux-debian-12/
+</span></span><span class="line"><span class="cl">/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 30G
+</span></span></code></pre></div><p>Windows 10:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/win-10x64Pro/
+</span></span><span class="line"><span class="cl">/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 60G
+</span></span></code></pre></div><h4 id="installing-the-oses-on-the-vms--nodes">Installing the OSes on the VMs / Nodes</h4>
 <ol>
-<li>For the first WAN, we will call it Fibre</li>
-<li>For the second WAN, we will call it 5G</li>
-<li>For the VPN, we will call it VPN</li>
+<li>Log In to EVE-NG Using the &ldquo;HTML 5&rdquo; session.</li>
+<li>Create a new lab and add the newly created nodes.</li>
+<li>Connect the node to your home LAN cloud/internet in order for it to be able to get updates and fully install from the internet. However, do not add the Windows 10 node to the internet, this will just quickly allow us to bypass the &ldquo;Online Microsoft Account&rdquo; link stage.</li>
+<li>start each node and complete the installation of. the OSes.</li>
+<li>Once completed, Shutdown and stop each node.</li>
 </ol>
-<h3 id="create-a-monitor">Create a monitor</h3>
+<h4 id="commit-vms">Commit VM&rsquo;s</h4>
 <ol>
 <li>
-<p>Click on the <code>+ Add New Monitor</code> button on the top left to start creating a new monitor.</p>
+<p>Check lab ID number on EVE side bar “Lab details” and we need to also get the &ldquo;Node Number&rdquo;. number of each node which can be seen in the &ldquo;Nodes&rdquo; List</p>
 </li>
 <li>
-<p>Use the following:</p>
+<p>SSH into the EVE-NG machine and <code>cd</code> into the labs folder.</p>
 </li>
 </ol>
-<pre tabindex="0"><code>Monitor Type: ping
-Friendly Name: &#34;Fibre&#34;
-Hostname: 8.8.8.8
-Heartbeat Interval: 60 
-Retries: 2
-Heartbeat Retry Interval: 20
-Description: &#34;Fibre WAN Uptime&#34;
-</code></pre><ol start="3">
-<li>
-<p>Click the <code>save</code> button at the bottom to add the monitor.</p>
-</li>
-<li>
-<p>Now repeat this two more times, using the following:</p>
-</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/tmp/0/the-lab-id-here/
+</span></span></code></pre></div><ol start="3">
+<li>We will go into the nodes one by one and convert the temp VM to be the &ldquo;main&rdquo; vm for all future nodes of that type. For example</li>
 </ol>
-<pre tabindex="0"><code>Monitor Type: ping
-Friendly Name: &#34;5G&#34;
-Hostname: 1.1.1.1
-Heartbeat Interval: 60 
-Retries: 2
-Heartbeat Retry Interval: 20
-Description: &#34;5G WAN Uptime&#34;
-</code></pre><pre tabindex="0"><code>Monitor Type: ping
-Friendly Name: &#34;VPN&#34;
-Hostname: 9.9.9.9
-Heartbeat Interval: 60 
-Retries: 2
-Heartbeat Retry Interval: 20
-Description: &#34;VPN Uptime&#34;
-</code></pre><h2 id="test-that-the-monitors-work">Test that the monitors work</h2>
-<p>Now since  the server is on the &ldquo;Management&rdquo; network. The pings will most probably use the default WAN mode that you have set for that network. So in this instance it is on a &ldquo;failover&rdquo; WAN group that uses the &ldquo;Fibre&rdquo; WAN first and the &ldquo;5G&rdquo; WAN as the failover.</p>
-<p>So if we  unplug the &ldquo;Fibre&rdquo; connection, we should see that all the connections will be marked as down for a few moments, until the failover kicks in.</p>
-<p>This will let us know that the monitor are working, however we want to have the monitors monitor the desired individual WAN connections.</p>
-<p>We will do that on our Firewall by creating rules in order to route the pings through the correct WAN connection / Gateways.</p>
-<h2 id="firewall-rules">Firewall rules.</h2>
-<p>This is not an &ldquo;OpnSense&rdquo; specific feature.
-This will work with any firewall where you have the ability to create detailed firewall rules. You will just need to consult the user manual for that firewall in order to see how to create custom rules.</p>
-<p>However, in this guide I will use OpnSense as my firewall.</p>
-<h3 id="firewall-rule-concept">Firewall rule concept</h3>
-<p>The rule will allow <code>ICMP</code> traffic to <code>Pass</code> from the server with IP <code>&lt;your.server.IP&gt;</code> through a specific <code>Gateway</code> depending on the <code>destination IP</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/tmp/0/the-lab-id-here/0/
+</span></span><span class="line"><span class="cl">qemu-img commit virtioa.qcow2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/tmp/0/the-lab-id-here/1/
+</span></span><span class="line"><span class="cl">qemu-img commit virtioa.qcow2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/tmp/0/the-lab-id-here/2/
+</span></span><span class="line"><span class="cl">qemu-img commit virtioa.qcow2
+</span></span></code></pre></div><h4 id="removes-isos-from-the-machine">Removes ISO&rsquo;s from the machine</h4>
+<p>Now we need to <code>cd</code> into each the VM folders again and remove the ISO images.</p>
+<p>OpnSense:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/opnsense-24/
+</span></span><span class="line"><span class="cl">rm -f cdrom.iso
+</span></span></code></pre></div><p>Debian 12:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/linux-debian-12/
+</span></span><span class="line"><span class="cl">rm -f cdrom.iso
+</span></span></code></pre></div><p>Windows 10:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/win-10x64Pro/
+</span></span><span class="line"><span class="cl">rm -f cdrom.iso
+</span></span></code></pre></div><h4 id="fix-file-permissions">Fix file Permissions</h4>
+<p>lastly we need to run the following to fix any permission issues</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+</span></span></code></pre></div><h4 id="optional---compress-the-vms-hdds">Optional - Compress the VM&rsquo;s HDD&rsquo;s</h4>
 <ol>
-<li>Login to your Firewall.</li>
-<li>In OpnSens, I will go to the &ldquo;Management&rdquo; network in the &ldquo;Rules&rdquo; section and create a new rule.</li>
-<li>Use the following but change it to suit your setup.</li>
+<li>You can <code>cd</code> into each VM&rsquo;s folder again and sparsify the virtual disk to compress the them, for example to compress the windows 10 VM we will do the following:</li>
 </ol>
-<pre tabindex="0"><code>Action: Pass
-Interface: &lt;Your Network Name&gt;
-Direction: in
-TCP/IP Version: IPv4
-Protocol: ICMP
-ICMP Type: any
-Source:  Single host or Network
-&lt;your.server.ip&gt; / 32
-Destination:  Single host or Network
-&lt;ping.to.ip&gt; / 32
-Log: enabled (Optional)
-Description: Ping for Fibre Monitoring
-Gateway: &lt;Your Desired WAN Connection&gt;
-</code></pre><p>So for this guide / my network it will be the following:</p>
-<p>Fibre Uptime Monitoring:</p>
-<pre tabindex="0"><code>Action: Pass
-Interface: Management
-Direction: in
-TCP/IP Version: IPv4
-Protocol: ICMP
-ICMP Type: any
-Source:  Single host or Network
-&lt;your.server.ip&gt; / 32
-Destination:  Single host or Network
-8.8.8.8 / 32
-Log: enabled (Optional)
-Description: Ping for Fibre Monitoring
-Gateway: &lt;Your Desired WAN Connection&gt;
-</code></pre><p>5G Uptime Monitoring:</p>
-<pre tabindex="0"><code>Action: Pass
-Interface: Management
-Direction: in
-TCP/IP Version: IPv4
-Protocol: ICMP
-ICMP Type: any
-Source:  Single host or Network
-&lt;your.server.ip&gt; / 32
-Destination:  Single host or Network
-1.1.1.1 / 32
-Log: enabled (Optional)
-Description: Ping for 5G Monitoring
-Gateway: &lt;Your Desired WAN Connection&gt;
-</code></pre><p>VPN Uptime Monitoring:</p>
-<pre tabindex="0"><code>Action: Pass
-Interface: Management
-Direction: in
-TCP/IP Version: IPv4
-Protocol: ICMP
-ICMP Type: any
-Source:  Single host or Network
-&lt;your.server.ip&gt; / 32
-Destination:  Single host or Network
-9.9.9.9 / 32
-Log: enabled (Optional)
-Description: Ping for VPN Monitoring
-Gateway: &lt;Your Desired WAN Connection&gt;
-</code></pre><p>With those rules created and applied, we can test again and we should now get the desired results.</p>
-<h2 id="test-that-the-monitors-work-individually">Test that the monitors work individually</h2>
-<p>If we now unplug the first WAN connection in this case the &ldquo;Fibre&rdquo; WAN. We will see that only the &ldquo;Fibre&rdquo; monitor will show as &ldquo;down&rdquo;.</p>
-<p>If the &ldquo;VPN&rdquo; connection was connected on the &ldquo;Fibre&rdquo; WAN, that too will show as &ldquo;down&rdquo; until it reconnects to the next WAn connection.</p>
-<p>If we plug  it back in, the monitor will return to &ldquo;UP&rdquo;.</p>
-<p>You can now do this test on the &ldquo;5G&rdquo; WAN and you should get the expected results.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>This was a quick guide showing you how to monitor multiple WANs / Gateways using a single instance of your monitoring software.
-The power of firewall rules helps you achieve this setup and is a very quick and flexible option that doesn&rsquo;t require complicated network setups.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/unetlab/addons/qemu/win-10x64Pro/
+</span></span><span class="line"><span class="cl">virt-sparsify  --compress virtioa.qcow2 compressedvirtioa.qcow2
+</span></span></code></pre></div><p>This will take some time and another compressed image will be created in the same image directory</p>
+<ol start="2">
+<li>Rename the original image to virtioa-o.qcow2:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv virtioa.qcow2 virtioa-o.qcow2
+</span></span></code></pre></div><ol start="3">
+<li>Rename the compressed image name to virtioa.qcow2:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv compressedvirtioa.qcow2 virtioa.qcow2
+</span></span></code></pre></div><ol start="4">
+<li>now you can test your new compressed image on a lab, just wipe the node and start it.</li>
+</ol>
+<p>If the compressed node works fine, you can delete your original source image:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -f. virtioa-o.qcow2
+</span></span></code></pre></div><p><strong>Please note</strong>
+I tried to compress windows 10 and when using it, it would not boot correctly. I attempted this twice and had issues. So I reverted to use the original virtual disk.</p>
+<h2 id="webui-access-method">WebUI Access Method</h2>
+<h3 id="to-setup-opnsense-web-ui-from-wan">To setup OpnSense web UI from wan</h3>
+<ol>
+<li>in shell on opnsense: <code>pfctl -d</code></li>
+<li>You ca now access GUI via WAN IP</li>
+<li>disable the &ldquo;Block bogon&rdquo; traffic:
+<ol>
+<li>interfaces-&gt;WAN &ldquo;Untick&rdquo; both &ldquo;block private networks&rdquo; and block &ldquo;Bogon Networks&rdquo;</li>
+</ol>
+</li>
+<li>I would also go to Firewall &gt; Settings &gt; Advanced and check &ldquo;Disable anti-lockout&rdquo;.</li>
+<li>Firewall &ndash;&gt; Settings&ndash;&gt; Advanced &ldquo;Disable reply-to on WAN rules&rdquo;</li>
+<li>create the following Firewall rule.</li>
+</ol>
+<pre tabindex="0"><code>Firewall &gt; Rules &gt; WAN
 
+Click on the &#34;+&#34; to add a rule. Add this rule:
+
+Action: allow
+Source: any
+Destination: This Firewall
+Destination port: 443
+</code></pre>
 </section>
 
 
@@ -553,6 +518,8 @@ The power of firewall rules helps you achieve this setup and is a very quick and
             <a href="/tags/home-lab/">Home Lab</a>
         
             <a href="/tags/networking/">Networking</a>
+        
+            <a href="/tags/virtual-machine/">Virtual Machine</a>
         
     </section>
 
@@ -574,47 +541,23 @@ The power of firewall rules helps you achieve this setup and is a very quick and
             
                 
 <article class="has-image">
-    <a href="/post/surfshark-client-opnsense-22-03-2024/">
+    <a href="/post/eve-ng-proxmox-12-07-2024/">
         
         
             <div class="article-image">
-                <img src="/post/surfshark-client-opnsense-22-03-2024/splash.188b2db202b2cb2f03fb1ecb3ac572a6_hu30910665284931ace4f57faa1e01d828_534702_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/eve-ng-proxmox-12-07-2024/_hu30910665284931ace4f57faa1e01d828_444982_c5a4a27b734254d9ecb30d95b25a75c5.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post Setup Surfshark OpenVPN Client on OpnSense"
+                        alt="Featured image of post How to install EVE-NG on Proxmox"
                         
-                        data-hash="md5-GIstsgKyyy8D&#43;x7LOsVypg==">
+                        data-hash="md5-BbnM4sa6sIX8Yap3kyj/oA==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">Setup Surfshark OpenVPN Client on OpnSense</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/post/opnsense-dns-and-block-list-setup-12-03-2024/">
-        
-        
-            <div class="article-image">
-                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/_hu30910665284931ace4f57faa1e01d828_246393_a622abddaa7880a8012931caa0c272ff.jpg" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post OpnSense DNS and Block List Setup"
-                        
-                        data-hash="md5-0qLokOpL3dkBKBrjbUdKWg==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">OpnSense DNS and Block List Setup</h2>
+            <h2 class="article-title">How to install EVE-NG on Proxmox</h2>
         </div>
     </a>
 </article>
@@ -670,23 +613,47 @@ The power of firewall rules helps you achieve this setup and is a very quick and
             
                 
 <article class="has-image">
-    <a href="/post/lab-wan-network-creation-02-02-2024/">
+    <a href="/post/protect-opnsense-with-2fa-14-06-2024/">
         
         
             <div class="article-image">
-                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/protect-opnsense-with-2fa-14-06-2024/splash.507fc925e6eb46a7bfa341377f92dc8e_hu30910665284931ace4f57faa1e01d828_246835_250x150_fill_q75_box_smart1.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post LAB WAN Network Creation"
+                        alt="Featured image of post Protect OpnSense with 2FA"
                         
-                        data-hash="md5-XMYxXkMx4vA4jcbUXOtutg==">
+                        data-hash="md5-UH/JJebrRqe/o0E3f5Lcjg==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">LAB WAN Network Creation</h2>
+            <h2 class="article-title">Protect OpnSense with 2FA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/multi-wan-uptime-monitoring/">
+        
+        
+            <div class="article-image">
+                <img src="/post/multi-wan-uptime-monitoring/splash.f13424567a6297598008e9702ad0eaca_hu30910665284931ace4f57faa1e01d828_320049_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Multi WAN Uptime Monitoring"
+                        
+                        data-hash="md5-8TQkVnpil1mACOlwKtDqyg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Multi WAN Uptime Monitoring</h2>
         </div>
     </a>
 </article>
