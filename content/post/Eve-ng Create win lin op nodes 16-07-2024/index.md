@@ -20,7 +20,10 @@ image = "splash.jpg"
 draft = false
 +++
 
-## Nodes
+
+{{< youtube sytxWt-j3lk >}}
+
+## Intro
 
 In this guide we will create a Windows 10, OpnSense and a Debian 12 node.  
 The official notes can be found on EVE-NG's website:  

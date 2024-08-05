@@ -12,7 +12,16 @@
         <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/</guid>
-        <description>&lt;img src="http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.jpg" alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG" /&gt;&lt;h2 id=&#34;nodes&#34;&gt;Nodes&lt;/h2&gt;
+        <description>&lt;img src="http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.jpg" alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/sytxWt-j3lk&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
 &lt;p&gt;In this guide we will create a Windows 10, OpnSense and a Debian 12 node.&lt;br&gt;
 The official notes can be found on EVE-NG&amp;rsquo;s website:&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://www.eve-ng.net/index.php/documentation/howtos/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

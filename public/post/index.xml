@@ -6,7 +6,152 @@
         <description>Recent content in Posts on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 15 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How to create a Windows, Linux and OpnSense node in EVE-NG</title>
+        <link>http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/</link>
+        <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.jpg" alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/sytxWt-j3lk&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;
+&lt;p&gt;In this guide we will create a Windows 10, OpnSense and a Debian 12 node.&lt;br&gt;
+The official notes can be found on EVE-NG&amp;rsquo;s website:&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://www.eve-ng.net/index.php/documentation/howtos/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.eve-ng.net/index.php/documentation/howtos/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are guides on how to add and create all available nodes on EVE-NG. So it is recommended to have a look at them in order for you to add the nodes you require.&lt;/p&gt;
+&lt;h3 id=&#34;node-vm-creations&#34;&gt;Node VM Creations&lt;/h3&gt;
+&lt;h4 id=&#34;download-the-isos&#34;&gt;Download the ISO&amp;rsquo;s&lt;/h4&gt;
+&lt;p&gt;Download the desired ISO&amp;rsquo;s. In my case I have downloaded:&lt;br&gt;
+OpnSense 24&lt;br&gt;
+Windows 10 (64 bit)&lt;br&gt;
+Debian 12 (net Installer)&lt;/p&gt;
+&lt;h4 id=&#34;create-the-folders-on-eve-ng&#34;&gt;Create the folders on EVE-NG&lt;/h4&gt;
+&lt;p&gt;SSH into the EVE-NG machine and create a folder in the:&lt;br&gt;
+&lt;code&gt;bash /opt/unetlab/addons/qemu/&lt;/code&gt;&lt;br&gt;
+folder&lt;br&gt;
+For example I created the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /opt/unetlab/addons/qemu/win-10x64Pro/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /opt/unetlab/addons/qemu/linux-debian-12/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir /opt/unetlab/addons/qemu/opnsense-24/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;copy-the-isos-to-the-folders&#34;&gt;Copy the ISO&amp;rsquo;s to the folders&lt;/h4&gt;
+&lt;p&gt;Next I will use &lt;code&gt;SCP&lt;/code&gt; to copy the ISO&amp;rsquo;s. from my downloads folder into the desired folder we have created for the VM&amp;rsquo;s.&lt;br&gt;
+It is important that we name the ISO &lt;code&gt;cdrom.iso&lt;/code&gt; when we add it to the folder. Here are my &lt;code&gt;SCP&lt;/code&gt; commands&lt;/p&gt;
+&lt;p&gt;OpnSense:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp /Users/jono/Downloads/OPNsense-24.1-dvd-amd64.iso root@10.0.0.9:/opt/unetlab/addons/qemu/opnsense-24/cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Debian 12:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp /Users/jono/Downloads/debian-12.6.0-amd64-netinst.iso root@10.0.0.9:/opt/unetlab/addons/qemu/linux-debian-12/cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Windows 10:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;scp /Users/jono/Downloads/Win10_22H2_EnglishInternational_x64v1.iso root@10.0.0.9:/opt/unetlab/addons/qemu/win-10x64Pro/cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;create-the-virtual-disks-hdds-for-the-vms&#34;&gt;Create The Virtual Disks (HDD&amp;rsquo;s) for the VM&amp;rsquo;s&lt;/h4&gt;
+&lt;p&gt;Next we need to create the virtual disks for each VM / Node to use.&lt;br&gt;
+SSH into the EVE-NG again and do the following:&lt;/p&gt;
+&lt;p&gt;OpnSense:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/opnsense-24/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 10G
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Debian 12:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/linux-debian-12/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 30G
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Windows 10:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/win-10x64Pro/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/opt/qemu/bin/qemu-img create -f qcow2 virtioa.qcow2 60G
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;installing-the-oses-on-the-vms--nodes&#34;&gt;Installing the OSes on the VMs / Nodes&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Log In to EVE-NG Using the &amp;ldquo;HTML 5&amp;rdquo; session.&lt;/li&gt;
+&lt;li&gt;Create a new lab and add the newly created nodes.&lt;/li&gt;
+&lt;li&gt;Connect the node to your home LAN cloud/internet in order for it to be able to get updates and fully install from the internet. However, do not add the Windows 10 node to the internet, this will just quickly allow us to bypass the &amp;ldquo;Online Microsoft Account&amp;rdquo; link stage.&lt;/li&gt;
+&lt;li&gt;start each node and complete the installation of. the OSes.&lt;/li&gt;
+&lt;li&gt;Once completed, Shutdown and stop each node.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;commit-vms&#34;&gt;Commit VM&amp;rsquo;s&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Check lab ID number on EVE side bar “Lab details” and we need to also get the &amp;ldquo;Node Number&amp;rdquo;. number of each node which can be seen in the &amp;ldquo;Nodes&amp;rdquo; List&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SSH into the EVE-NG machine and &lt;code&gt;cd&lt;/code&gt; into the labs folder.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/tmp/0/the-lab-id-here/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;We will go into the nodes one by one and convert the temp VM to be the &amp;ldquo;main&amp;rdquo; vm for all future nodes of that type. For example&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/tmp/0/the-lab-id-here/0/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;qemu-img commit virtioa.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/tmp/0/the-lab-id-here/1/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;qemu-img commit virtioa.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/tmp/0/the-lab-id-here/2/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;qemu-img commit virtioa.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;removes-isos-from-the-machine&#34;&gt;Removes ISO&amp;rsquo;s from the machine&lt;/h4&gt;
+&lt;p&gt;Now we need to &lt;code&gt;cd&lt;/code&gt; into each the VM folders again and remove the ISO images.&lt;/p&gt;
+&lt;p&gt;OpnSense:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/opnsense-24/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Debian 12:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/linux-debian-12/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Windows 10:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/win-10x64Pro/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f cdrom.iso
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;fix-file-permissions&#34;&gt;Fix file Permissions&lt;/h4&gt;
+&lt;p&gt;lastly we need to run the following to fix any permission issues&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;optional---compress-the-vms-hdds&#34;&gt;Optional - Compress the VM&amp;rsquo;s HDD&amp;rsquo;s&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;You can &lt;code&gt;cd&lt;/code&gt; into each VM&amp;rsquo;s folder again and sparsify the virtual disk to compress the them, for example to compress the windows 10 VM we will do the following:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /opt/unetlab/addons/qemu/win-10x64Pro/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;virt-sparsify  --compress virtioa.qcow2 compressedvirtioa.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will take some time and another compressed image will be created in the same image directory&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Rename the original image to virtioa-o.qcow2:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv virtioa.qcow2 virtioa-o.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Rename the compressed image name to virtioa.qcow2:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv compressedvirtioa.qcow2 virtioa.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;now you can test your new compressed image on a lab, just wipe the node and start it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If the compressed node works fine, you can delete your original source image:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rm -f. virtioa-o.qcow2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;
+I tried to compress windows 10 and when using it, it would not boot correctly. I attempted this twice and had issues. So I reverted to use the original virtual disk.&lt;/p&gt;
+&lt;h2 id=&#34;webui-access-method&#34;&gt;WebUI Access Method&lt;/h2&gt;
+&lt;h3 id=&#34;to-setup-opnsense-web-ui-from-wan&#34;&gt;To setup OpnSense web UI from wan&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;in shell on opnsense: &lt;code&gt;pfctl -d&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You ca now access GUI via WAN IP&lt;/li&gt;
+&lt;li&gt;disable the &amp;ldquo;Block bogon&amp;rdquo; traffic:
+&lt;ol&gt;
+&lt;li&gt;interfaces-&amp;gt;WAN &amp;ldquo;Untick&amp;rdquo; both &amp;ldquo;block private networks&amp;rdquo; and block &amp;ldquo;Bogon Networks&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;I would also go to Firewall &amp;gt; Settings &amp;gt; Advanced and check &amp;ldquo;Disable anti-lockout&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Firewall &amp;ndash;&amp;gt; Settings&amp;ndash;&amp;gt; Advanced &amp;ldquo;Disable reply-to on WAN rules&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;create the following Firewall rule.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Firewall &amp;gt; Rules &amp;gt; WAN
+
+Click on the &amp;#34;+&amp;#34; to add a rule. Add this rule:
+
+Action: allow
+Source: any
+Destination: This Firewall
+Destination port: 443
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
         <title>How to install EVE-NG on Proxmox</title>
         <link>http://localhost:1313/post/eve-ng-proxmox-12-07-2024/</link>
         <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
