@@ -508,22 +508,22 @@ This guide is the steps that I used to set this all up.</p>
 <p>Fill in the following:</p>
 </li>
 </ol>
-<p>Description: Any name you like, for example, <code>ShurfShark_UK</code>
-Server mode: Peer to Peer (SSL/TLS);
-Protocol: UDP (you can also use UDP4);
-Device mode: tun
-Interface: any</p>
-<p>Remote server:
-Host or address: <code>uk-lon.prod.surfshark.com</code> (change to the hostname of the server you are going to use chosen from the &ldquo;Get your Surfshark credentials and server location&rdquo; section)
+<p>Description: Any name you like, for example, <code>ShurfShark_UK</code><br>
+Server mode: Peer to Peer (SSL/TLS);<br>
+Protocol: UDP (you can also use UDP4);<br>
+Device mode: tun<br>
+Interface: any<br>
+Remote server:
+Host or address: <code>uk-lon.prod.surfshark.com</code> (change to the hostname of the server you are going to use chosen from the &ldquo;Get your Surfshark credentials and server location&rdquo; section)<br>
 Port: 1194</p>
-<p>Retry DNS resolution: UnCheck
-Proxy host or address: Leave blank
-Proxy port: Leave blank
+<p>Retry DNS resolution: UnCheck<br>
+Proxy host or address: Leave blank<br>
+Proxy port: Leave blank<br>
 Proxy Authentication: None</p>
-<p>USER AUTHENTICATION SETTINGS
+<p>USER AUTHENTICATION SETTINGS<br>
 Username/Password: fill in your Surfshark Credentials from &ldquo;Get your Surfshark credentials and server location&rdquo; section</p>
-<p>CRYPTOGRAPHIC SETTINGS:
-TLS Authentication: Enabled – Authentication only
+<p>CRYPTOGRAPHIC SETTINGS:<br>
+TLS Authentication: Enabled – Authentication only<br>
 TLS Shared Key: Paste the contents below</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-----BEGIN OpenVPN Static key V1-----
 </span></span><span class="line"><span class="cl">b02cb1d7c6fee5d4f89b8de72b51a8d0
@@ -543,21 +543,21 @@ TLS Shared Key: Paste the contents below</p>
 </span></span><span class="line"><span class="cl">b260f4b45dec3285875589c97d3087c9
 </span></span><span class="line"><span class="cl">134d3a3aa2f904512e85aa2dc2202498
 </span></span><span class="line"><span class="cl">-----END OpenVPN Static key V1-----
-</span></span></code></pre></div><p>Peer Certificate Authority: <code>SurfShark_Auth</code>
-Client Certificate: None (Username and Password required)
-Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)
+</span></span></code></pre></div><p>Peer Certificate Authority: <code>SurfShark_Auth</code><br>
+Client Certificate: None (Username and Password required)<br>
+Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)<br>
 Auth Digest Algorithm: SHA512</p>
-<p>TUNNEL SETTINGS:
-IPv4 tunnel network: Leave blank
-IPv6 tunnel network: Leave blank
-IPv4 remote network: Leave blank
-IPv6 remote network: Leave blank
-Limit outgoing bandwidth: Leave blank
-Compression: No Preference
-Type-of-service: Leave unchecked
-Don’t pull routes: Check
+<p>TUNNEL SETTINGS:<br>
+IPv4 tunnel network: Leave blank<br>
+IPv6 tunnel network: Leave blank<br>
+IPv4 remote network: Leave blank<br>
+IPv6 remote network: Leave blank<br>
+Limit outgoing bandwidth: Leave blank<br>
+Compression: No Preference<br>
+Type-of-service: Leave unchecked<br>
+Don’t pull routes: Check<br>
 Don’t add/remove routes: Check</p>
-<p>ADVANCED CONFIGURATION:
+<p>ADVANCED CONFIGURATION:<br>
 Advanced: Paste the contents down below</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">remote-random<span class="p">;</span>
 </span></span><span class="line"><span class="cl">tun-mtu 1500<span class="p">;</span>

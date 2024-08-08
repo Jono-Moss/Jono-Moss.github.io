@@ -108,26 +108,25 @@ LqP/9PGZTSJiwmtRHJ/N5qYWIh9ju83APvLm/AGBTR2pXmj9G3KdVOkpIC7L35dI
 
 2. Fill in the following:
 
-Description: Any name you like, for example, ```ShurfShark_UK```
-Server mode: Peer to Peer (SSL/TLS);
-Protocol: UDP (you can also use UDP4);
-Device mode: tun
-Interface: any
-
+Description: Any name you like, for example, ```ShurfShark_UK```  
+Server mode: Peer to Peer (SSL/TLS);  
+Protocol: UDP (you can also use UDP4);  
+Device mode: tun  
+Interface: any  
 Remote server:
-Host or address: ```uk-lon.prod.surfshark.com``` (change to the hostname of the server you are going to use chosen from the "Get your Surfshark credentials and server location" section)
+Host or address: ```uk-lon.prod.surfshark.com``` (change to the hostname of the server you are going to use chosen from the "Get your Surfshark credentials and server location" section)  
 Port: 1194
 
-Retry DNS resolution: UnCheck
-Proxy host or address: Leave blank
-Proxy port: Leave blank
-Proxy Authentication: None
+Retry DNS resolution: UnCheck  
+Proxy host or address: Leave blank  
+Proxy port: Leave blank  
+Proxy Authentication: None  
 
-USER AUTHENTICATION SETTINGS
+USER AUTHENTICATION SETTINGS  
 Username/Password: fill in your Surfshark Credentials from "Get your Surfshark credentials and server location" section
 
-CRYPTOGRAPHIC SETTINGS:
-TLS Authentication: Enabled – Authentication only
+CRYPTOGRAPHIC SETTINGS:  
+TLS Authentication: Enabled – Authentication only  
 TLS Shared Key: Paste the contents below
 
 ```bash
@@ -151,23 +150,23 @@ b260f4b45dec3285875589c97d3087c9
 -----END OpenVPN Static key V1-----
 ```
 
-Peer Certificate Authority: ```SurfShark_Auth```
-Client Certificate: None (Username and Password required)
-Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)
-Auth Digest Algorithm: SHA512
+Peer Certificate Authority: ```SurfShark_Auth```  
+Client Certificate: None (Username and Password required)  
+Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)  
+Auth Digest Algorithm: SHA512  
 
-TUNNEL SETTINGS:
-IPv4 tunnel network: Leave blank
-IPv6 tunnel network: Leave blank
-IPv4 remote network: Leave blank
-IPv6 remote network: Leave blank
-Limit outgoing bandwidth: Leave blank
-Compression: No Preference
-Type-of-service: Leave unchecked
-Don’t pull routes: Check
-Don’t add/remove routes: Check
+TUNNEL SETTINGS:  
+IPv4 tunnel network: Leave blank  
+IPv6 tunnel network: Leave blank  
+IPv4 remote network: Leave blank  
+IPv6 remote network: Leave blank  
+Limit outgoing bandwidth: Leave blank  
+Compression: No Preference  
+Type-of-service: Leave unchecked  
+Don’t pull routes: Check  
+Don’t add/remove routes: Check  
 
-ADVANCED CONFIGURATION:
+ADVANCED CONFIGURATION:  
 Advanced: Paste the contents down below
 ```bash
 remote-random;
