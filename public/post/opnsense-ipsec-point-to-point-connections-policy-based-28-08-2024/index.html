@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this video we go over how to setup IPSec VPN (Point to Point) connections (Policy based) in OpnSense'>
+<title>OpnSense IPSec (Point to Point) connections (Policy based)</title>
+
+<link rel='canonical' href='http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='OpnSense IPSec (Point to Point) connections (Policy based)'>
+<meta property='og:description' content='In this video we go over how to setup IPSec VPN (Point to Point) connections (Policy based) in OpnSense'>
+<meta property='og:url' content='http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-08-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-28T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.png' />
+<meta name="twitter:title" content="OpnSense IPSec (Point to Point) connections (Policy based)">
+<meta name="twitter:description" content="In this video we go over how to setup IPSec VPN (Point to Point) connections (Policy based) in OpnSense"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="http://localhost:1313/" selected></option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#initial-setup">Initial Setup</a>
+      <ol>
+        <li><a href="#building-a">Building A</a></li>
+        <li><a href="#building-b">Building B</a></li>
+      </ol>
+    </li>
+    <li><a href="#setup">Setup</a>
+      <ol>
+        <li><a href="#step-1---key-pairs">Step 1 - Key pairs</a></li>
+        <li><a href="#step-2---setting-up-the-ipsec-connection">Step 2 - Setting up the IPsec connection</a>
+          <ol>
+            <li><a href="#general-settings">General settings</a></li>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#children">Children</a></li>
+          </ol>
+        </li>
+        <li><a href="#validate">Validate</a></li>
+        <li><a href="#install-firewall-policies">Install firewall policies</a></li>
+      </ol>
+    </li>
+    <li><a href="#extra-optionals">Extra Optionals</a>
+      <ol>
+        <li><a href="#tuning-considerations">Tuning considerations</a></li>
+        <li><a href="#note-regarding-ips-and-rss">Note regarding IPS and rss</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/">
+                <img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_800x0_resize_box_3.png"
+                        srcset="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_800x0_resize_box_3.png 800w, /post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="293" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense IPSec (Point to Point) connections (Policy based)" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/software/" >
+                Software
+            </a>
+        
+            <a href="/categories/home-lab/" >
+                Home Lab
+            </a>
+        
+            <a href="/categories/networking/" >
+                Networking
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/">OpnSense IPSec (Point to Point) connections (Policy based)</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            In this video we go over how to setup IPSec VPN (Point to Point) connections (Policy based) in OpnSense
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">28 Aug 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/884RX3dKeek" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+<h2 id="introduction">Introduction</h2>
+<p>This is how to connect two instances together using an IPSec connection.
+When setting up IPsec VPNs there are two main types of scenario’s with their own advantages and disadvantages. The two main types are:
+Policy based
+Route based (VTI)</p>
+<p>The main difference between the two is that the &ldquo;VTI&rdquo; method has the advantage that allows you to use standard or advanced routing technologies to forward traffic around tunnels.
+The Policy based method is easier and quicker to setup, however has. less flexibility.</p>
+<p>This guide will focus on setting up a &ldquo;Policy Based&rdquo; connection.</p>
+<h2 id="initial-setup">Initial Setup</h2>
+<p>Each instance needs to have at least one unique LAN IP subnet for each side of your connection. If you use the same subnet on both instances, OpnSense will route the traffic to the local subnet and not to the other instance.</p>
+<p><img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.png"
+	width="1225"
+	height="449"
+	srcset="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_480x0_resize_box_3.png 480w, /post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Network"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="272"
+		data-flex-basis="654px"
+	
+></p>
+<h3 id="building-a">Building A</h3>
+<p>Hostname: build1<br>
+WAN IP: 158.10.10.2<br>
+LAN Net: 192.168.10.0/24<br>
+OPNSENSE IP: 192.168.10.1<br>
+LAN DHCP Range: 192.168.10.100-192.168.10.200</p>
+<h3 id="building-b">Building B</h3>
+<p>Hostname: build1<br>
+WAN IP: 164.20.20.2<br>
+LAN Net: 192.168.20.0/24<br>
+OPNSENSE IP: 192.168.20.1<br>
+LAN DHCP Range: 192.168.20.100-192.168.20.200</p>
+<h2 id="setup">Setup</h2>
+<h3 id="step-1---key-pairs">Step 1 - Key pairs</h3>
+<p>Go to the VPN-&gt;IPsec-&gt;Key Pairs option in the menu and create a new key on both hosts, then copy the public part from Site A to Site B and vise versa. Keys may easily be generated with the gear button in the Key type field.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Name</th>
+<th>Key Type</th>
+<th>Generate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>B1</td>
+<td>ECDSA - NIST P-384</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>B2</td>
+<td>ECDSA - NIST P-384</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></div>
+<p>Click on the &ldquo;Gear&rdquo; Icon to Generate a key.
+Then using the Public Key Generated at each location From The Above:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Name</th>
+<th>Key Type</th>
+<th>Public Key</th>
+<th>Private Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>B2</td>
+<td>ECDSA - NIST P-384</td>
+<td>B2 Public Key</td>
+<td>Blank</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>B1</td>
+<td>ECDSA - NIST P-384</td>
+<td>B2 Public Key</td>
+<td>Blank</td>
+</tr>
+</tbody>
+</table></div>
+<p>Click Save.</p>
+<h3 id="step-2---setting-up-the-ipsec-connection">Step 2 - Setting up the IPsec connection</h3>
+<p>In order to setup a simple (and common) IPsec connection, we go to<br>
+VPN-&gt;IPsec-&gt;Connections and add a new entry.</p>
+<h4 id="general-settings">General settings</h4>
+<p>Side by side the following general settings need to be set in this case, which configures the first part of the security association between both sites:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Local addresses</th>
+<th>Remote addresses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>158.10.10.2</td>
+<td>164.20.20.2</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>164.20.20.2</td>
+<td>158.10.10.2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Press <!-- raw HTML omitted --> to go to the next step.</p>
+<h4 id="authentication">Authentication</h4>
+<p>Next we will need to add local authentication (add a new record in the local grid):</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Authentication</th>
+<th>Id</th>
+<th>Public Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>Public Key</td>
+<td>hostA</td>
+<td>hostA-key</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>Public Key</td>
+<td>hostB</td>
+<td>hostB-key</td>
+</tr>
+</tbody>
+</table></div>
+<p>Then we need to set Pre-Shared Key for remote authentication as well:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Authentication</th>
+<th>Id</th>
+<th>Public Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>Public Key</td>
+<td>hostB</td>
+<td>hostB-key</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>Public Key</td>
+<td>hostA</td>
+<td>hostA-key</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="children">Children</h4>
+<p>Finally we may add a child which will add security policies and kernel routes.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Mode</th>
+<th>Policies</th>
+<th>Local</th>
+<th>Remote</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>site A</td>
+<td>Tunnel</td>
+<td>checked</td>
+<td>192.168.10.0/24</td>
+<td>192.168.20.0/24</td>
+</tr>
+<tr>
+<td>site B</td>
+<td>Tunnel</td>
+<td>checked</td>
+<td>192.168.20.0/24</td>
+<td>192.168.10.0/24</td>
+</tr>
+</tbody>
+</table></div>
+<p>Save and apply</p>
+<p>Finally save the settings and check the &ldquo;IPSEC&rdquo; checkbox. hit apply on the connections page to establish the tunnel.</p>
+<h3 id="validate">Validate</h3>
+<p>Now can check if the tunnel is active on both side using the status overview in<br>
+VPN-&gt;IPsec-&gt;Status Overview</p>
+<h3 id="install-firewall-policies">Install firewall policies</h3>
+<p>With the tunnel active, all that remains is to accept traffic on this tunnel using the Firewall-&gt;Rules-&gt;IPsec menu option.</p>
+<p>In this guide I will just create a rule to allow all IPv4 traffic through, however in production you should only allow the traffic you want through. Do this for both buildings</p>
+<p><img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall.png"
+	width="1225"
+	height="311"
+	srcset="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall_hu4a30829e3d32edbb4e8d0956a504e58a_164848_480x0_resize_box_3.png 480w, /post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall_hu4a30829e3d32edbb4e8d0956a504e58a_164848_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="ALl Firewall"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="393"
+		data-flex-basis="945px"
+	
+></p>
+<p>Then Add the following Wan Rules:
+Firewall-&gt;Rules-&gt;WAN</p>
+<p>UDP  port 500<br>
+UDP port 4500<br>
+ESP</p>
+<p>Remember to set the source as the WAN IP from the opposite building.
+So for building 1, The source will be building 2&rsquo;s IP and vice versa.</p>
+<p>Building 1 rules  below:
+<img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall.png"
+	width="1225"
+	height="390"
+	srcset="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall_hua0742483e4f3c81abba809689893c7fd_208503_480x0_resize_box_3.png 480w, /post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall_hua0742483e4f3c81abba809689893c7fd_208503_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="B1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="314"
+		data-flex-basis="753px"
+	
+></p>
+<p>Building 2 rules  below:
+<img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall.png"
+	width="1225"
+	height="325"
+	srcset="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall_huf4b101293177db9d8910a58081034f41_162231_480x0_resize_box_3.png 480w, /post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall_huf4b101293177db9d8910a58081034f41_162231_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="B2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="376"
+		data-flex-basis="904px"
+	
+></p>
+<h2 id="extra-optionals">Extra Optionals</h2>
+<p>See the original OpnSense Documents for more information:
+<a class="link" href="https://docs.opnsense.org/manual/vpnet.html#ipsec"  target="_blank" rel="noopener"
+    >https://docs.opnsense.org/manual/vpnet.html#ipsec</a></p>
+<h3 id="tuning-considerations">Tuning considerations</h3>
+<p>Depending on the workload (many different IPsec flows or a single flow), it might help to enable multithreaded crypto mode on ipsec, in which case cryptographic packets are dispatched to multiple processors (especially when only a single tunnel is being used).</p>
+<p>In order to do so, add or change the following tunable in System ‣ Settings ‣ Tunables:</p>
+<p>Note</p>
+<ul>
+<li>net.inet.ipsec.async_crypto = 1</li>
+</ul>
+<p>To distribute load better over available cores in the system, it may help to enable receive side scaling. In which case the following tunables need to be changed:</p>
+<p>Note</p>
+<ul>
+<li>net.isr.bindthreads = 1</li>
+<li>net.isr.maxthreads = -1 &lt;– equal the number of cores in the machine</li>
+<li>net.inet.rss.enabled = 1</li>
+<li>net.inet.rss.bits = X (The amount of cores, see below)
+For rss bits use the following values:
+for 2-core systems, use ‘1’
+for 4-core systems, use ‘2’
+for 8-core systems, use ‘3’
+for 16-core systems, use ‘4’
+Etc.</li>
+</ul>
+<p>You will need to <strong>reboot</strong> the OpnSense Instance for the settings to work.</p>
+<h3 id="note-regarding-ips-and-rss">Note regarding IPS and rss</h3>
+<p>When Suricata is running in IPS mode, Netmap is utilized to fetch packets off the line for inspection. By default, OPNsense has configured Suricata in such a way that the packet which has passed inspection will be re-injected into the host networking stack for routing/firewalling purposes. The current Suricata/Netmap implementation limits this re-injection to one thread only. Work is underway to address this issue since the new Netmap API (V14+) is now capable of increasing this thread count. Until then, no benefit is gained from RSS when using IPS.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/software/">Software</a>
+        
+            <a href="/tags/home-lab/">Home Lab</a>
+        
+            <a href="/tags/networking/">Networking</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/opendns-on-opnsense-07-08-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opendns-on-opnsense-07-08-2024/_hu30910665284931ace4f57faa1e01d828_475528_bf0084ddd3e97db1a4fadce50ac9fb64.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Set up openDNS Service on OpnSense"
+                        
+                        data-hash="md5-oBZQgUXWKmiMIhlUOCP/RA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Set up openDNS Service on OpnSense</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/_hu30910665284931ace4f57faa1e01d828_356401_4c63391c2a3e41251d2b539e07115fd5.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG"
+                        
+                        data-hash="md5-vUBm7fih2DvmNZO08B5org==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to create a Windows, Linux and OpnSense node in EVE-NG</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/eve-ng-proxmox-12-07-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/eve-ng-proxmox-12-07-2024/splash.05b9cce2c6bab085fc61aa779328ffa0_hu30910665284931ace4f57faa1e01d828_444982_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How to install EVE-NG on Proxmox"
+                        
+                        data-hash="md5-BbnM4sa6sIX8Yap3kyj/oA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to install EVE-NG on Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/protect-opnsense-with-2fa-14-06-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/protect-opnsense-with-2fa-14-06-2024/splash.507fc925e6eb46a7bfa341377f92dc8e_hu30910665284931ace4f57faa1e01d828_246835_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Protect OpnSense with 2FA"
+                        
+                        data-hash="md5-UH/JJebrRqe/o0E3f5Lcjg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Protect OpnSense with 2FA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/multi-wan-uptime-monitoring/">
+        
+        
+            <div class="article-image">
+                <img src="/post/multi-wan-uptime-monitoring/splash.f13424567a6297598008e9702ad0eaca_hu30910665284931ace4f57faa1e01d828_320049_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Multi WAN Uptime Monitoring"
+                        
+                        data-hash="md5-8TQkVnpil1mACOlwKtDqyg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Multi WAN Uptime Monitoring</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2024 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

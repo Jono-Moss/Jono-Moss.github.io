@@ -6,7 +6,24 @@
         <description>Recent content in Networking on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/networking/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 07 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/networking/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Set up openDNS Service on OpnSense</title>
+        <link>http://localhost:1313/post/opendns-on-opnsense-07-08-2024/</link>
+        <pubDate>Wed, 07 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/opendns-on-opnsense-07-08-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/opendns-on-opnsense-07-08-2024/splash.jpg" alt="Featured image of post Set up openDNS Service on OpnSense" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/O1MT7G8DiB8&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+        </item>
+        <item>
         <title>How to create a Windows, Linux and OpnSense node in EVE-NG</title>
         <link>http://localhost:1313/post/eve-ng-create-win-lin-op-nodes-16-07-2024/</link>
         <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
@@ -590,22 +607,22 @@ This guide is the steps that I used to set this all up.&lt;/p&gt;
 &lt;p&gt;Fill in the following:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Description: Any name you like, for example, &lt;code&gt;ShurfShark_UK&lt;/code&gt;
-Server mode: Peer to Peer (SSL/TLS);
-Protocol: UDP (you can also use UDP4);
-Device mode: tun
-Interface: any&lt;/p&gt;
-&lt;p&gt;Remote server:
-Host or address: &lt;code&gt;uk-lon.prod.surfshark.com&lt;/code&gt; (change to the hostname of the server you are going to use chosen from the &amp;ldquo;Get your Surfshark credentials and server location&amp;rdquo; section)
+&lt;p&gt;Description: Any name you like, for example, &lt;code&gt;ShurfShark_UK&lt;/code&gt;&lt;br&gt;
+Server mode: Peer to Peer (SSL/TLS);&lt;br&gt;
+Protocol: UDP (you can also use UDP4);&lt;br&gt;
+Device mode: tun&lt;br&gt;
+Interface: any&lt;br&gt;
+Remote server:
+Host or address: &lt;code&gt;uk-lon.prod.surfshark.com&lt;/code&gt; (change to the hostname of the server you are going to use chosen from the &amp;ldquo;Get your Surfshark credentials and server location&amp;rdquo; section)&lt;br&gt;
 Port: 1194&lt;/p&gt;
-&lt;p&gt;Retry DNS resolution: UnCheck
-Proxy host or address: Leave blank
-Proxy port: Leave blank
+&lt;p&gt;Retry DNS resolution: UnCheck&lt;br&gt;
+Proxy host or address: Leave blank&lt;br&gt;
+Proxy port: Leave blank&lt;br&gt;
 Proxy Authentication: None&lt;/p&gt;
-&lt;p&gt;USER AUTHENTICATION SETTINGS
+&lt;p&gt;USER AUTHENTICATION SETTINGS&lt;br&gt;
 Username/Password: fill in your Surfshark Credentials from &amp;ldquo;Get your Surfshark credentials and server location&amp;rdquo; section&lt;/p&gt;
-&lt;p&gt;CRYPTOGRAPHIC SETTINGS:
-TLS Authentication: Enabled – Authentication only
+&lt;p&gt;CRYPTOGRAPHIC SETTINGS:&lt;br&gt;
+TLS Authentication: Enabled – Authentication only&lt;br&gt;
 TLS Shared Key: Paste the contents below&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-----BEGIN OpenVPN Static key V1-----
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b02cb1d7c6fee5d4f89b8de72b51a8d0
@@ -625,21 +642,21 @@ TLS Shared Key: Paste the contents below&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;b260f4b45dec3285875589c97d3087c9
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;134d3a3aa2f904512e85aa2dc2202498
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;-----END OpenVPN Static key V1-----
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Peer Certificate Authority: &lt;code&gt;SurfShark_Auth&lt;/code&gt;
-Client Certificate: None (Username and Password required)
-Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Peer Certificate Authority: &lt;code&gt;SurfShark_Auth&lt;/code&gt;&lt;br&gt;
+Client Certificate: None (Username and Password required)&lt;br&gt;
+Encryption Algorithm: AES-256-GCM (256 bit key, 125 bit block, TLS client \ server mode only)&lt;br&gt;
 Auth Digest Algorithm: SHA512&lt;/p&gt;
-&lt;p&gt;TUNNEL SETTINGS:
-IPv4 tunnel network: Leave blank
-IPv6 tunnel network: Leave blank
-IPv4 remote network: Leave blank
-IPv6 remote network: Leave blank
-Limit outgoing bandwidth: Leave blank
-Compression: No Preference
-Type-of-service: Leave unchecked
-Don’t pull routes: Check
+&lt;p&gt;TUNNEL SETTINGS:&lt;br&gt;
+IPv4 tunnel network: Leave blank&lt;br&gt;
+IPv6 tunnel network: Leave blank&lt;br&gt;
+IPv4 remote network: Leave blank&lt;br&gt;
+IPv6 remote network: Leave blank&lt;br&gt;
+Limit outgoing bandwidth: Leave blank&lt;br&gt;
+Compression: No Preference&lt;br&gt;
+Type-of-service: Leave unchecked&lt;br&gt;
+Don’t pull routes: Check&lt;br&gt;
 Don’t add/remove routes: Check&lt;/p&gt;
-&lt;p&gt;ADVANCED CONFIGURATION:
+&lt;p&gt;ADVANCED CONFIGURATION:&lt;br&gt;
 Advanced: Paste the contents down below&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;remote-random&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tun-mtu 1500&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
