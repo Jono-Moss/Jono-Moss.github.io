@@ -6,7 +6,383 @@
         <description>Recent content in Software on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 07 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/software/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 27 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/software/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How To Install GNS3 On Linux - Debian based</title>
+        <link>http://localhost:1313/post/-gns3-install-debian-27-09-2024/</link>
+        <pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/-gns3-install-debian-27-09-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/-gns3-install-debian-27-09-2024/splash.png" alt="Featured image of post How To Install GNS3 On Linux - Debian based" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;We will follow most of the steps in the official Installation guide on GNS3&amp;rsquo;s website, however
+during the installation and initial set up of GNS3. I ran into issues and errors, I will show you all the steps I went through to get GNS3 installed and running.&lt;/p&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;p&gt;The official installation guide for Linux can be found using the link below:
+&lt;a class=&#34;link&#34; href=&#34;https://docs.gns3.com/docs/getting-started/installation/linux/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.gns3.com/docs/getting-started/installation/linux/&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Refresh apt:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Install python and the required emulation &amp;amp; gui packages. When following the original guide, &amp;ldquo;dynamips&amp;rdquo; is not found. So in order to continue with the installation, we will remove
+it from this step and install it manually in the next step.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install python3 python3-pip pipx python3-pyqt5 python3-pyqt5.qtwebsockets python3-pyqt5.qtsvg qemu-kvm qemu-utils libvirt-clients libvirt-daemon-system virtinst  software-properties-common ca-certificates curl gnupg2 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;We will now install &amp;ldquo;dynamips&amp;rdquo;. First we need to download the dynamips package, then install it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget http://ftp.us.debian.org/debian/pool/non-free/d/dynamips/dynamips_0.2.14-1_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and then&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dpkg -i dynamips_0.2.14-1_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Use pipx to install gns3:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pipx install gns3-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pipx install gns3-gui
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We then add the &amp;ldquo;bin&amp;rdquo; directory to the &amp;ldquo;path&amp;rdquo; for the terminal to be able to find and run GNS3&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pipx ensurepath
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;To launch the GUI, we will need to prepare the virtual environment. Inject the GNS server and QT elements:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pipx inject gns3-gui gns3-server PyQt5
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Close and then reopen your terminal. You can then type &amp;ldquo;gns3&amp;rdquo; in the terminal to start it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gns3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fixing-issues-and-errors&#34;&gt;Fixing Issues and Errors&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;The first issue I ran into is that I would get an &amp;ldquo;libvirt Not Installed / virbr0 Missing&amp;rdquo; error when trying to add a &amp;ldquo;cloud&amp;rdquo; or &amp;ldquo;NAT&amp;rdquo; node. To fix this issue run the following command:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo virsh net-start default
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;The next issue I ran into was GNS3 throwing out an &amp;ldquo;No VPCS Path&amp;rdquo; error. We will need to do the following steps to fix it.&lt;/p&gt;
+&lt;p&gt;2.1  Install the library.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install vpcs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After doing this, GNS3 would complain that there is a &amp;ldquo;Mismatch in the VPCS versions&amp;rdquo;.
+In order to fix this, we now need to build the latest version of VPCS ourselves.&lt;/p&gt;
+&lt;p&gt;2.2 First we need to download the source code from Github:
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/GNS3/vpcs/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/GNS3/vpcs/releases&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Once downloaded, extract the &amp;ldquo;.zip&amp;rdquo; file and cd into the &amp;ldquo;src&amp;rdquo; folder&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; src
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;then run the following command to build the VPCS binary&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./mk.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once it has completed the build. We will remove the old version of VPCS.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm /usr/bin/vpcs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then copy the new version to &amp;ldquo;/usr/bin/&amp;rdquo;. So for example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cp /home/youtube/Downloads/vpcs-0.8.3/src/vpcs /usr/bin/vpcs
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That should be all the issues fixed. You can then run GNS3&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gns3
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>OpnSense IPSec (Point to Point) connections (Policy based)</title>
+        <link>http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/</link>
+        <pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.png" alt="Featured image of post OpnSense IPSec (Point to Point) connections (Policy based)" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/884RX3dKeek&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This is how to connect two instances together using an IPSec connection.
+When setting up IPsec VPNs there are two main types of scenario’s with their own advantages and disadvantages. The two main types are:
+Policy based
+Route based (VTI)&lt;/p&gt;
+&lt;p&gt;The main difference between the two is that the &amp;ldquo;VTI&amp;rdquo; method has the advantage that allows you to use standard or advanced routing technologies to forward traffic around tunnels.
+The Policy based method is easier and quicker to setup, however has. less flexibility.&lt;/p&gt;
+&lt;p&gt;This guide will focus on setting up a &amp;ldquo;Policy Based&amp;rdquo; connection.&lt;/p&gt;
+&lt;h2 id=&#34;initial-setup&#34;&gt;Initial Setup&lt;/h2&gt;
+&lt;p&gt;Each instance needs to have at least one unique LAN IP subnet for each side of your connection. If you use the same subnet on both instances, OpnSense will route the traffic to the local subnet and not to the other instance.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.png&#34;
+	width=&#34;1225&#34;
+	height=&#34;449&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_480x0_resize_box_3.png 480w, http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab_hu13d03dcacfd1bb554c264bf7e1c2d299_183052_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Network&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;272&#34;
+		data-flex-basis=&#34;654px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;building-a&#34;&gt;Building A&lt;/h3&gt;
+&lt;p&gt;Hostname: build1&lt;br&gt;
+WAN IP: 158.10.10.2&lt;br&gt;
+LAN Net: 192.168.10.0/24&lt;br&gt;
+OPNSENSE IP: 192.168.10.1&lt;br&gt;
+LAN DHCP Range: 192.168.10.100-192.168.10.200&lt;/p&gt;
+&lt;h3 id=&#34;building-b&#34;&gt;Building B&lt;/h3&gt;
+&lt;p&gt;Hostname: build1&lt;br&gt;
+WAN IP: 164.20.20.2&lt;br&gt;
+LAN Net: 192.168.20.0/24&lt;br&gt;
+OPNSENSE IP: 192.168.20.1&lt;br&gt;
+LAN DHCP Range: 192.168.20.100-192.168.20.200&lt;/p&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+&lt;h3 id=&#34;step-1---key-pairs&#34;&gt;Step 1 - Key pairs&lt;/h3&gt;
+&lt;p&gt;Go to the VPN-&amp;gt;IPsec-&amp;gt;Key Pairs option in the menu and create a new key on both hosts, then copy the public part from Site A to Site B and vise versa. Keys may easily be generated with the gear button in the Key type field.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Key Type&lt;/th&gt;
+&lt;th&gt;Generate&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;B1&lt;/td&gt;
+&lt;td&gt;ECDSA - NIST P-384&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;B2&lt;/td&gt;
+&lt;td&gt;ECDSA - NIST P-384&lt;/td&gt;
+&lt;td&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Click on the &amp;ldquo;Gear&amp;rdquo; Icon to Generate a key.
+Then using the Public Key Generated at each location From The Above:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Key Type&lt;/th&gt;
+&lt;th&gt;Public Key&lt;/th&gt;
+&lt;th&gt;Private Key&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;B2&lt;/td&gt;
+&lt;td&gt;ECDSA - NIST P-384&lt;/td&gt;
+&lt;td&gt;B2 Public Key&lt;/td&gt;
+&lt;td&gt;Blank&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;B1&lt;/td&gt;
+&lt;td&gt;ECDSA - NIST P-384&lt;/td&gt;
+&lt;td&gt;B2 Public Key&lt;/td&gt;
+&lt;td&gt;Blank&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Click Save.&lt;/p&gt;
+&lt;h3 id=&#34;step-2---setting-up-the-ipsec-connection&#34;&gt;Step 2 - Setting up the IPsec connection&lt;/h3&gt;
+&lt;p&gt;In order to setup a simple (and common) IPsec connection, we go to&lt;br&gt;
+VPN-&amp;gt;IPsec-&amp;gt;Connections and add a new entry.&lt;/p&gt;
+&lt;h4 id=&#34;general-settings&#34;&gt;General settings&lt;/h4&gt;
+&lt;p&gt;Side by side the following general settings need to be set in this case, which configures the first part of the security association between both sites:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Local addresses&lt;/th&gt;
+&lt;th&gt;Remote addresses&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;158.10.10.2&lt;/td&gt;
+&lt;td&gt;164.20.20.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;164.20.20.2&lt;/td&gt;
+&lt;td&gt;158.10.10.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Press &lt;!-- raw HTML omitted --&gt; to go to the next step.&lt;/p&gt;
+&lt;h4 id=&#34;authentication&#34;&gt;Authentication&lt;/h4&gt;
+&lt;p&gt;Next we will need to add local authentication (add a new record in the local grid):&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Authentication&lt;/th&gt;
+&lt;th&gt;Id&lt;/th&gt;
+&lt;th&gt;Public Keys&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;Public Key&lt;/td&gt;
+&lt;td&gt;hostA&lt;/td&gt;
+&lt;td&gt;hostA-key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;Public Key&lt;/td&gt;
+&lt;td&gt;hostB&lt;/td&gt;
+&lt;td&gt;hostB-key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Then we need to set Pre-Shared Key for remote authentication as well:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Authentication&lt;/th&gt;
+&lt;th&gt;Id&lt;/th&gt;
+&lt;th&gt;Public Keys&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;Public Key&lt;/td&gt;
+&lt;td&gt;hostB&lt;/td&gt;
+&lt;td&gt;hostB-key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;Public Key&lt;/td&gt;
+&lt;td&gt;hostA&lt;/td&gt;
+&lt;td&gt;hostA-key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;children&#34;&gt;Children&lt;/h4&gt;
+&lt;p&gt;Finally we may add a child which will add security policies and kernel routes.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;Policies&lt;/th&gt;
+&lt;th&gt;Local&lt;/th&gt;
+&lt;th&gt;Remote&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;site A&lt;/td&gt;
+&lt;td&gt;Tunnel&lt;/td&gt;
+&lt;td&gt;checked&lt;/td&gt;
+&lt;td&gt;192.168.10.0/24&lt;/td&gt;
+&lt;td&gt;192.168.20.0/24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;site B&lt;/td&gt;
+&lt;td&gt;Tunnel&lt;/td&gt;
+&lt;td&gt;checked&lt;/td&gt;
+&lt;td&gt;192.168.20.0/24&lt;/td&gt;
+&lt;td&gt;192.168.10.0/24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Save and apply&lt;/p&gt;
+&lt;p&gt;Finally save the settings and check the &amp;ldquo;IPSEC&amp;rdquo; checkbox. hit apply on the connections page to establish the tunnel.&lt;/p&gt;
+&lt;h3 id=&#34;validate&#34;&gt;Validate&lt;/h3&gt;
+&lt;p&gt;Now can check if the tunnel is active on both side using the status overview in&lt;br&gt;
+VPN-&amp;gt;IPsec-&amp;gt;Status Overview&lt;/p&gt;
+&lt;h3 id=&#34;install-firewall-policies&#34;&gt;Install firewall policies&lt;/h3&gt;
+&lt;p&gt;With the tunnel active, all that remains is to accept traffic on this tunnel using the Firewall-&amp;gt;Rules-&amp;gt;IPsec menu option.&lt;/p&gt;
+&lt;p&gt;In this guide I will just create a rule to allow all IPv4 traffic through, however in production you should only allow the traffic you want through. Do this for both buildings&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall.png&#34;
+	width=&#34;1225&#34;
+	height=&#34;311&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall_hu4a30829e3d32edbb4e8d0956a504e58a_164848_480x0_resize_box_3.png 480w, http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/IPsec-firewall_hu4a30829e3d32edbb4e8d0956a504e58a_164848_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ALl Firewall&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;393&#34;
+		data-flex-basis=&#34;945px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Then Add the following Wan Rules:
+Firewall-&amp;gt;Rules-&amp;gt;WAN&lt;/p&gt;
+&lt;p&gt;UDP  port 500&lt;br&gt;
+UDP port 4500&lt;br&gt;
+ESP&lt;/p&gt;
+&lt;p&gt;Remember to set the source as the WAN IP from the opposite building.
+So for building 1, The source will be building 2&amp;rsquo;s IP and vice versa.&lt;/p&gt;
+&lt;p&gt;Building 1 rules  below:
+&lt;img src=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall.png&#34;
+	width=&#34;1225&#34;
+	height=&#34;390&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall_hua0742483e4f3c81abba809689893c7fd_208503_480x0_resize_box_3.png 480w, http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/B1-Firewall_hua0742483e4f3c81abba809689893c7fd_208503_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;B1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;314&#34;
+		data-flex-basis=&#34;753px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Building 2 rules  below:
+&lt;img src=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall.png&#34;
+	width=&#34;1225&#34;
+	height=&#34;325&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall_huf4b101293177db9d8910a58081034f41_162231_480x0_resize_box_3.png 480w, http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/b2-Firewall_huf4b101293177db9d8910a58081034f41_162231_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;B2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;376&#34;
+		data-flex-basis=&#34;904px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;extra-optionals&#34;&gt;Extra Optionals&lt;/h2&gt;
+&lt;p&gt;See the original OpnSense Documents for more information:
+&lt;a class=&#34;link&#34; href=&#34;https://docs.opnsense.org/manual/vpnet.html#ipsec&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.opnsense.org/manual/vpnet.html#ipsec&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;tuning-considerations&#34;&gt;Tuning considerations&lt;/h3&gt;
+&lt;p&gt;Depending on the workload (many different IPsec flows or a single flow), it might help to enable multithreaded crypto mode on ipsec, in which case cryptographic packets are dispatched to multiple processors (especially when only a single tunnel is being used).&lt;/p&gt;
+&lt;p&gt;In order to do so, add or change the following tunable in System ‣ Settings ‣ Tunables:&lt;/p&gt;
+&lt;p&gt;Note&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;net.inet.ipsec.async_crypto = 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To distribute load better over available cores in the system, it may help to enable receive side scaling. In which case the following tunables need to be changed:&lt;/p&gt;
+&lt;p&gt;Note&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;net.isr.bindthreads = 1&lt;/li&gt;
+&lt;li&gt;net.isr.maxthreads = -1 &amp;lt;– equal the number of cores in the machine&lt;/li&gt;
+&lt;li&gt;net.inet.rss.enabled = 1&lt;/li&gt;
+&lt;li&gt;net.inet.rss.bits = X (The amount of cores, see below)
+For rss bits use the following values:
+for 2-core systems, use ‘1’
+for 4-core systems, use ‘2’
+for 8-core systems, use ‘3’
+for 16-core systems, use ‘4’
+Etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You will need to &lt;strong&gt;reboot&lt;/strong&gt; the OpnSense Instance for the settings to work.&lt;/p&gt;
+&lt;h3 id=&#34;note-regarding-ips-and-rss&#34;&gt;Note regarding IPS and rss&lt;/h3&gt;
+&lt;p&gt;When Suricata is running in IPS mode, Netmap is utilized to fetch packets off the line for inspection. By default, OPNsense has configured Suricata in such a way that the packet which has passed inspection will be re-injected into the host networking stack for routing/firewalling purposes. The current Suricata/Netmap implementation limits this re-injection to one thread only. Work is underway to address this issue since the new Netmap API (V14+) is now capable of increasing this thread count. Until then, no benefit is gained from RSS when using IPS.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Set up openDNS Service on OpnSense</title>
         <link>http://localhost:1313/post/opendns-on-opnsense-07-08-2024/</link>
         <pubDate>Wed, 07 Aug 2024 00:00:00 +0000</pubDate>
