@@ -12,9 +12,19 @@
         <pubDate>Fri, 27 Sep 2024 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/post/-gns3-install-debian-27-09-2024/</guid>
-        <description>&lt;img src="http://localhost:1313/post/-gns3-install-debian-27-09-2024/splash.png" alt="Featured image of post How To Install GNS3 On Linux - Debian based" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+        <description>&lt;img src="http://localhost:1313/post/-gns3-install-debian-27-09-2024/splash.png" alt="Featured image of post How To Install GNS3 On Linux - Debian based" /&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe loading=&#34;lazy&#34; 
+            src=&#34;https://www.youtube.com/embed/SE--UqXLShg&#34; 
+            allowfullscreen 
+            title=&#34;YouTube Video&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;We will follow most of the steps in the official Installation guide on GNS3&amp;rsquo;s website, however
-during the installation and initial set up of GNS3. I ran into issues and errors, I will show you all the steps I went through to get GNS3 installed and running.&lt;/p&gt;
+during the installation and initial set up of GNS3.&lt;br&gt;
+I ran into issues and errors, I will show you all the steps I went through to get GNS3 installed and running.&lt;/p&gt;
 &lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
 &lt;p&gt;The official installation guide for Linux can be found using the link below:
 &lt;a class=&#34;link&#34; href=&#34;https://docs.gns3.com/docs/getting-started/installation/linux/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -24,7 +34,9 @@ during the installation and initial set up of GNS3. I ran into issues and errors
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;Install python and the required emulation &amp;amp; gui packages. When following the original guide, &amp;ldquo;dynamips&amp;rdquo; is not found. So in order to continue with the installation, we will remove
+&lt;li&gt;Install python and the required emulation &amp;amp; gui packages.&lt;br&gt;
+When following the original guide, &amp;ldquo;dynamips&amp;rdquo; is not found.&lt;br&gt;
+So in order to continue with the installation, we will remove
 it from this step and install it manually in the next step.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install python3 python3-pip pipx python3-pyqt5 python3-pyqt5.qtwebsockets python3-pyqt5.qtsvg qemu-kvm qemu-utils libvirt-clients libvirt-daemon-system virtinst  software-properties-common ca-certificates curl gnupg2 
@@ -51,12 +63,14 @@ it from this step and install it manually in the next step.&lt;/li&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gns3
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fixing-issues-and-errors&#34;&gt;Fixing Issues and Errors&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;The first issue I ran into is that I would get an &amp;ldquo;libvirt Not Installed / virbr0 Missing&amp;rdquo; error when trying to add a &amp;ldquo;cloud&amp;rdquo; or &amp;ldquo;NAT&amp;rdquo; node. To fix this issue run the following command:&lt;/li&gt;
+&lt;li&gt;The first issue I ran into is that I would get a &amp;ldquo;libvirt Not Installed / virbr0 Missing&amp;rdquo; error when trying to add a &amp;ldquo;cloud&amp;rdquo; or &amp;ldquo;NAT&amp;rdquo; node.&lt;br&gt;
+To fix this issue run the following command:&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo virsh net-start default
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;The next issue I ran into was GNS3 throwing out an &amp;ldquo;No VPCS Path&amp;rdquo; error. We will need to do the following steps to fix it.&lt;/p&gt;
+&lt;p&gt;The next issue I ran into was GNS3 throwing out a &amp;ldquo;No VPCS Path&amp;rdquo; error.&lt;br&gt;
+We will need to do the following steps to fix it.&lt;/p&gt;
 &lt;p&gt;2.1  Install the library.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install vpcs
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After doing this, GNS3 would complain that there is a &amp;ldquo;Mismatch in the VPCS versions&amp;rdquo;.

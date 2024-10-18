@@ -17,10 +17,13 @@ image = "splash.png"
 draft = false
 +++
 
+{{< youtube SE--UqXLShg >}}
+
 ## Introduction
 
 We will follow most of the steps in the official Installation guide on GNS3's website, however 
-during the installation and initial set up of GNS3. I ran into issues and errors, I will show you all the steps I went through to get GNS3 installed and running. 
+during the installation and initial set up of GNS3.   
+I ran into issues and errors, I will show you all the steps I went through to get GNS3 installed and running. 
 
 ## Installation
 
@@ -32,7 +35,9 @@ https://docs.gns3.com/docs/getting-started/installation/linux/
 sudo apt update
 ```
 
-2. Install python and the required emulation & gui packages. When following the original guide, "dynamips" is not found. So in order to continue with the installation, we will remove
+2. Install python and the required emulation & gui packages.   
+When following the original guide, "dynamips" is not found.   
+So in order to continue with the installation, we will remove
 it from this step and install it manually in the next step. 
 ```bash
 sudo apt install python3 python3-pip pipx python3-pyqt5 python3-pyqt5.qtwebsockets python3-pyqt5.qtsvg qemu-kvm qemu-utils libvirt-clients libvirt-daemon-system virtinst  software-properties-common ca-certificates curl gnupg2 
@@ -74,13 +79,15 @@ gns3
 
 ## Fixing Issues and Errors
 
-1. The first issue I ran into is that I would get an "libvirt Not Installed / virbr0 Missing" error when trying to add a "cloud" or "NAT" node. To fix this issue run the following command:
+1. The first issue I ran into is that I would get a "libvirt Not Installed / virbr0 Missing" error when trying to add a "cloud" or "NAT" node.   
+To fix this issue run the following command:
 
 ```bash
 sudo virsh net-start default
 ```
 
-2. The next issue I ran into was GNS3 throwing out an "No VPCS Path" error. We will need to do the following steps to fix it.
+2. The next issue I ran into was GNS3 throwing out a "No VPCS Path" error.  
+We will need to do the following steps to fix it.
 
     2.1  Install the library.
     ```bash
