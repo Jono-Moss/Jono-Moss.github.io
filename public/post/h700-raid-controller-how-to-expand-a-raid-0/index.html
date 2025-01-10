@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='This is a guide will show you how to add a hard drive to a RAID 0 VD on a H700 RAID Controller.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This is a guide will show you how to add a hard drive to a RAID 0 VD on a H700 RAID Controller.">
 <title>How to add a new hard drive to an existing RAID 0 Virtual Disk on a H700 RAID Controller</title>
 
 <link rel='canonical' href='http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How to add a new hard drive to an existing RAID 0 Virtual Disk on a H700 RAID Controller'>
-<meta property='og:description' content='This is a guide will show you how to add a hard drive to a RAID 0 VD on a H700 RAID Controller.'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="How to add a new hard drive to an existing RAID 0 Virtual Disk on a H700 RAID Controller">
+<meta property='og:description' content="This is a guide will show you how to add a hard drive to a RAID 0 VD on a H700 RAID Controller.">
 <meta property='og:url' content='http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hardware' /><meta property='article:tag' content='Home Lab' /><meta property='article:published_time' content='2024-02-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-02-16T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="This is a guide will show you how to add a hard drive to a RAID 0 VD on a H700 RAID Controller."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -270,8 +249,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/h700-raid-controller-how-to-expand-a-raid-0/">
-                <img src="/post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu30910665284931ace4f57faa1e01d828_113929_800x0_resize_q75_box.jpg"
-                        srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu30910665284931ace4f57faa1e01d828_113929_800x0_resize_q75_box.jpg 800w, /post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu30910665284931ace4f57faa1e01d828_113929_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu5784255282950831058.jpg"
+                        srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu5784255282950831058.jpg 800w, /post/h700-raid-controller-how-to-expand-a-raid-0/splash_hu14316360018857971163.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -363,14 +342,14 @@
     </iframe>
 </div>
 
-<h2 id="introduction">Introduction</h2>
-<p>This is just a quick guide on how to add another drive to an existing RAID 0 virtual disk on th H700 RAID Controller.</p>
-<h3 id="a-use-case-scenario">A use case scenario:</h3>
-<p>I have a 500GB HDD that I use as a &ldquo;Directory&rdquo; disk in Proxmox to store &ldquo;ISO images&rdquo; and &ldquo;Virtual Machine HDDs&rdquo;.</p>
+<h2 id="introduction">Introduction
+</h2><p>This is just a quick guide on how to add another drive to an existing RAID 0 virtual disk on th H700 RAID Controller.</p>
+<h3 id="a-use-case-scenario">A use case scenario:
+</h3><p>I have a 500GB HDD that I use as a &ldquo;Directory&rdquo; disk in Proxmox to store &ldquo;ISO images&rdquo; and &ldquo;Virtual Machine HDDs&rdquo;.</p>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/1.jpg"
 	width="1200"
 	height="660"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_84557_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_84557_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu9188909962915473448.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/1_hu14254622500354921128.jpg 1024w"
 	loading="lazy"
 	
 		alt="Directory HDD"
@@ -384,7 +363,7 @@
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/2.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_65058_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_65058_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu6027037989279343325.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/2_hu18211940958813769012.jpg 1024w"
 	loading="lazy"
 	
 		alt="Directory Folder"
@@ -398,7 +377,7 @@
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/3.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_59259_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_59259_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu17765854008126694817.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/3_hu5143554806885657864.jpg 1024w"
 	loading="lazy"
 	
 		alt="Directory Folder"
@@ -413,7 +392,7 @@
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/8.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_85706_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_85706_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu7222973323081977494.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/8_hu9487109935637861415.jpg 1024w"
 	loading="lazy"
 	
 		alt="raid vd disk"
@@ -426,8 +405,8 @@
 ></p>
 <p>I would like to add another 500GB hard drive to it to increase the size of it.
 Below is the process on how to do it using the Dell OpenManage Server Administrator.</p>
-<h2 id="how-to-add-a-hard-drive-to-a-raid-0-virtual-disk-on-a-h700-controller">How to add a hard drive to a RAID 0 virtual disk on a H700 Controller</h2>
-<p><strong>Make sure to back up your files first, You never know if something will go wrong, So always make sure you have a working backup</strong></p>
+<h2 id="how-to-add-a-hard-drive-to-a-raid-0-virtual-disk-on-a-h700-controller">How to add a hard drive to a RAID 0 virtual disk on a H700 Controller
+</h2><p><strong>Make sure to back up your files first, You never know if something will go wrong, So always make sure you have a working backup</strong></p>
 <ol>
 <li>Login to the OpenManage Server Administrator Web UI</li>
 </ol>
@@ -444,7 +423,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/9.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_88475_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_88475_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8952374371511228219.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/9_hu4202602354257896954.jpg 1024w"
 	loading="lazy"
 	
 		alt="OpenManage Server Administrator"
@@ -461,7 +440,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/10.jpg"
 	width="1200"
 	height="286"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_49833_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_49833_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu13727015043033509290.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/10_hu14467932486038201754.jpg 1024w"
 	loading="lazy"
 	
 		alt="Reconfigure option"
@@ -478,7 +457,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/11.jpg"
 	width="1200"
 	height="286"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_47001_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_47001_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu9511891203734555255.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/11_hu13444169866608957211.jpg 1024w"
 	loading="lazy"
 	
 		alt="Select Disks"
@@ -500,7 +479,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/12.jpg"
 	width="1200"
 	height="286"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu5f299b5f3d0d701c1ef5afe858e66b6a_33411_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/12_hu5f299b5f3d0d701c1ef5afe858e66b6a_33411_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu13821017321105411432.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/12_hu17764702193986259457.jpg 1024w"
 	loading="lazy"
 	
 		alt="raid option"
@@ -522,7 +501,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/13.jpg"
 	width="1200"
 	height="636"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_79953_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_79953_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu11097992387430523554.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/13_hu10029439330651026587.jpg 1024w"
 	loading="lazy"
 	
 		alt="overview"
@@ -539,7 +518,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/4.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu10721814783378108534.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/4_hu24837442184259917.jpg 1024w"
 	loading="lazy"
 	
 		alt="Reconstructing in progress"
@@ -557,7 +536,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/15.jpg"
 	width="1200"
 	height="236"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_40620_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_40620_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu12184871070033129554.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8426809459532923475.jpg 1024w"
 	loading="lazy"
 	
 		alt="Reconstructing completed"
@@ -574,7 +553,7 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/16.jpg"
 	width="1200"
 	height="236"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_56065_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_56065_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu3594074771269465580.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/16_hu14433643069284441651.jpg 1024w"
 	loading="lazy"
 	
 		alt="reboot proxmox"
@@ -585,13 +564,13 @@ storage -&gt; PERC H700 Integrated -&gt; Virtual disks</li>
 		data-flex-basis="1220px"
 	
 ></p>
-<h2 id="about-the-process">About the process</h2>
-<p>The process is &ldquo;additive&rdquo;, so it is a non interrupting and non destructive process. You can continue to use the virtual disk while the &ldquo;Reconstructing&rdquo; is in progress.
+<h2 id="about-the-process">About the process
+</h2><p>The process is &ldquo;additive&rdquo;, so it is a non interrupting and non destructive process. You can continue to use the virtual disk while the &ldquo;Reconstructing&rdquo; is in progress.
 So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running on the RAID 0 virtual disk while it was still in progress.</p>
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/4.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu10721814783378108534.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/4_hu24837442184259917.jpg 1024w"
 	loading="lazy"
 	
 		alt="Reconstructing in progress"
@@ -605,7 +584,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/5.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_64028_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_64028_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8668378045799403624.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/5_hu4462545305450435541.jpg 1024w"
 	loading="lazy"
 	
 		alt="Creating VM on the disk"
@@ -619,7 +598,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/6.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_77514_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_77514_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu90222447387222390.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/6_hu13016849841013069285.jpg 1024w"
 	loading="lazy"
 	
 		alt="vm running while Reconstructing in progress"
@@ -633,7 +612,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
 <p><img src="/post/h700-raid-controller-how-to-expand-a-raid-0/7.jpg"
 	width="1200"
 	height="601"
-	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_77138_480x0_resize_q75_box.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_77138_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu12995772576256969245.jpg 480w, /post/h700-raid-controller-how-to-expand-a-raid-0/7_hu17194602324935808835.jpg 1024w"
 	loading="lazy"
 	
 		alt="Reconstructing still in progress"
@@ -680,7 +659,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
         
             <div class="article-image">
-                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu12252776230656566963.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -704,7 +683,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
         
             <div class="article-image">
-                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2880105974817315016.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -728,7 +707,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
         
             <div class="article-image">
-                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu15096498884190665594.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -752,7 +731,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
         
             <div class="article-image">
-                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu13242097979415000744.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -776,7 +755,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
         
             <div class="article-image">
-                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu3316767254082506059.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -809,12 +788,12 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -903,7 +882,7 @@ So for example I made an &ldquo;Ubuntu Virtual Machine&rdquo; saved and running 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

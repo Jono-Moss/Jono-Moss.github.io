@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='This is a guide on how to create an OpnSense virtual machine on Proxmox.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This is a guide on how to create an OpnSense virtual machine on Proxmox.">
 <title>OpnSense Virtual Machine Installation on Proxmox</title>
 
 <link rel='canonical' href='http://localhost:1313/post/opnsense-vm-install-12-02-2024/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='OpnSense Virtual Machine Installation on Proxmox'>
-<meta property='og:description' content='This is a guide on how to create an OpnSense virtual machine on Proxmox.'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="OpnSense Virtual Machine Installation on Proxmox">
+<meta property='og:description' content="This is a guide on how to create an OpnSense virtual machine on Proxmox.">
 <meta property='og:url' content='http://localhost:1313/post/opnsense-vm-install-12-02-2024/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:tag' content='Virtual Machine' /><meta property='article:published_time' content='2024-02-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-02-12T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/opnsense-vm-install-12-02-2024/Splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="This is a guide on how to create an OpnSense virtual machine on Proxmox."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/opnsense-vm-install-12-02-2024/Splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -279,8 +258,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/opnsense-vm-install-12-02-2024/">
-                <img src="/post/opnsense-vm-install-12-02-2024/Splash_hu30910665284931ace4f57faa1e01d828_331877_800x0_resize_q75_box.jpg"
-                        srcset="/post/opnsense-vm-install-12-02-2024/Splash_hu30910665284931ace4f57faa1e01d828_331877_800x0_resize_q75_box.jpg 800w, /post/opnsense-vm-install-12-02-2024/Splash_hu30910665284931ace4f57faa1e01d828_331877_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/opnsense-vm-install-12-02-2024/Splash_hu17357494509827145559.jpg"
+                        srcset="/post/opnsense-vm-install-12-02-2024/Splash_hu17357494509827145559.jpg 800w, /post/opnsense-vm-install-12-02-2024/Splash_hu5708607087396453844.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -380,20 +359,20 @@
     </iframe>
 </div>
 
-<h2 id="introduction">Introduction</h2>
-<p>The first step in creating our new OpnSense VM, is to get our network bridges setup and ready to use. Once we have that in order, we will move onto creating the virtual machine and attaching the network bridges to it.</p>
+<h2 id="introduction">Introduction
+</h2><p>The first step in creating our new OpnSense VM, is to get our network bridges setup and ready to use. Once we have that in order, we will move onto creating the virtual machine and attaching the network bridges to it.</p>
 <p>We will then move onto Installing OpnSense onto the virtual machine and do some initial configurations in the OpnSense shell.</p>
 <p>Lastly we will login to the OpnSense Web UI to add and configure all the network interfaces and services.</p>
 <p>This is going to be a long but very fun project, let&rsquo;s get started.</p>
-<h2 id="figuring-out-what-port-belongs-to-which-network-name">Figuring out what port belongs to which network name</h2>
-<ol>
+<h2 id="figuring-out-what-port-belongs-to-which-network-name">Figuring out what port belongs to which network name
+</h2><ol>
 <li>
 <p>An easy way on how to know which physical port belongs to the port name in Proxmox, is to do the following:</p>
 <p>Open Up two Proxmox web UI instances in your browser. One will have the &ldquo;Network&rdquo; section open and the other we will have the &ldquo;Shell&rdquo; open. Ps since my screen has a small real estate to work on, I will just have them open in tabs rather than two windows.</p>
 <p><img src="/post/opnsense-vm-install-12-02-2024/1.jpg"
 	width="1200"
 	height="715"
-	srcset="/post/opnsense-vm-install-12-02-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_122323_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_122323_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/1_hu7248502165781855676.jpg 480w, /post/opnsense-vm-install-12-02-2024/1_hu613420670941183187.jpg 1024w"
 	loading="lazy"
 	
 		alt="Proxmox Web UI"
@@ -412,7 +391,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/2.jpg"
 	width="1200"
 	height="207"
-	srcset="/post/opnsense-vm-install-12-02-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_55905_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_55905_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/2_hu11112366058122716134.jpg 480w, /post/opnsense-vm-install-12-02-2024/2_hu9194575729566341580.jpg 1024w"
 	loading="lazy"
 	
 		alt="ip a shell 1"
@@ -427,7 +406,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/3.jpg"
 	width="1200"
 	height="207"
-	srcset="/post/opnsense-vm-install-12-02-2024/3_hu5f299b5f3d0d701c1ef5afe858e66b6a_68444_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/3_hu5f299b5f3d0d701c1ef5afe858e66b6a_68444_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/3_hu8631026807304683640.jpg 480w, /post/opnsense-vm-install-12-02-2024/3_hu15331346938925412444.jpg 1024w"
 	loading="lazy"
 	
 		alt="network section 1"
@@ -444,7 +423,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/4.jpg"
 	width="1200"
 	height="900"
-	srcset="/post/opnsense-vm-install-12-02-2024/4_hu4fa883f32be73ce051e36a2d4f7d48d5_134555_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/4_hu4fa883f32be73ce051e36a2d4f7d48d5_134555_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/4_hu7535521763640944099.jpg 480w, /post/opnsense-vm-install-12-02-2024/4_hu6056533031851891586.jpg 1024w"
 	loading="lazy"
 	
 		alt="Labels"
@@ -464,7 +443,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/5.jpg"
 	width="1200"
 	height="535"
-	srcset="/post/opnsense-vm-install-12-02-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_85330_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_85330_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/5_hu5885329594330744190.jpg 480w, /post/opnsense-vm-install-12-02-2024/5_hu10023029241119899683.jpg 1024w"
 	loading="lazy"
 	
 		alt="WAN Connection to port 1"
@@ -480,7 +459,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/6.jpg"
 	width="1200"
 	height="330"
-	srcset="/post/opnsense-vm-install-12-02-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_57343_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_57343_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/6_hu15983297158221883721.jpg 480w, /post/opnsense-vm-install-12-02-2024/6_hu17770875503113314619.jpg 1024w"
 	loading="lazy"
 	
 		alt="port 1 association name"
@@ -495,7 +474,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/7.jpg"
 	width="1200"
 	height="594"
-	srcset="/post/opnsense-vm-install-12-02-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_57781_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_57781_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/7_hu113106840193356844.jpg 480w, /post/opnsense-vm-install-12-02-2024/7_hu15406911639773510271.jpg 1024w"
 	loading="lazy"
 	
 		alt="port 1 comment"
@@ -512,7 +491,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/8.jpg"
 	width="1200"
 	height="594"
-	srcset="/post/opnsense-vm-install-12-02-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_84863_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_84863_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/8_hu16678342587377383904.jpg 480w, /post/opnsense-vm-install-12-02-2024/8_hu6702512374010093240.jpg 1024w"
 	loading="lazy"
 	
 		alt="WAN Connection to port 3"
@@ -526,7 +505,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/9.jpg"
 	width="1200"
 	height="594"
-	srcset="/post/opnsense-vm-install-12-02-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_54499_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_54499_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/9_hu9951230768607684318.jpg 480w, /post/opnsense-vm-install-12-02-2024/9_hu18313199341639178486.jpg 1024w"
 	loading="lazy"
 	
 		alt="port 3  association name"
@@ -540,7 +519,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/10.jpg"
 	width="1200"
 	height="594"
-	srcset="/post/opnsense-vm-install-12-02-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_58244_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_58244_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/10_hu10162817471244679762.jpg 480w, /post/opnsense-vm-install-12-02-2024/10_hu4629707336511240292.jpg 1024w"
 	loading="lazy"
 	
 		alt="port 3 comment"
@@ -560,7 +539,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/11.jpg"
 	width="1200"
 	height="594"
-	srcset="/post/opnsense-vm-install-12-02-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_73687_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_73687_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/11_hu17630262283670671325.jpg 480w, /post/opnsense-vm-install-12-02-2024/11_hu1220196294773207335.jpg 1024w"
 	loading="lazy"
 	
 		alt="ports commented"
@@ -571,14 +550,14 @@
 		data-flex-basis="484px"
 	
 ></p>
-<h2 id="setup-the-network-bridges-on-proxmox">Setup the network bridges on Proxmox</h2>
-<ol>
+<h2 id="setup-the-network-bridges-on-proxmox">Setup the network bridges on Proxmox
+</h2><ol>
 <li>Click on the &ldquo;Create&rdquo; button and choose the &ldquo;Linux Bridge&rdquo; option.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/12.jpg"
 	width="932"
 	height="644"
-	srcset="/post/opnsense-vm-install-12-02-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_67796_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_67796_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/12_hu10486479687962083770.jpg 480w, /post/opnsense-vm-install-12-02-2024/12_hu7848842597418078116.jpg 1024w"
 	loading="lazy"
 	
 		alt="create bridge button"
@@ -595,7 +574,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/13.jpg"
 	width="1200"
 	height="624"
-	srcset="/post/opnsense-vm-install-12-02-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_57832_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_57832_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/13_hu18290051071372500943.jpg 480w, /post/opnsense-vm-install-12-02-2024/13_hu15528763063058906316.jpg 1024w"
 	loading="lazy"
 	
 		alt="create bridge WAN 1"
@@ -612,7 +591,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/14.jpg"
 	width="1200"
 	height="478"
-	srcset="/post/opnsense-vm-install-12-02-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_75016_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_75016_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/14_hu7667791925632472171.jpg 480w, /post/opnsense-vm-install-12-02-2024/14_hu17014390818540984315.jpg 1024w"
 	loading="lazy"
 	
 		alt="create bridge connections all"
@@ -629,7 +608,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/22.jpg"
 	width="1200"
 	height="542"
-	srcset="/post/opnsense-vm-install-12-02-2024/22_hu5f299b5f3d0d701c1ef5afe858e66b6a_46076_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/22_hu5f299b5f3d0d701c1ef5afe858e66b6a_46076_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/22_hu11498988344837511770.jpg 480w, /post/opnsense-vm-install-12-02-2024/22_hu18234937095343043366.jpg 1024w"
 	loading="lazy"
 	
 		alt="VLAN Aware"
@@ -646,7 +625,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/15.jpg"
 	width="762"
 	height="328"
-	srcset="/post/opnsense-vm-install-12-02-2024/15_hu5f299b5f3d0d701c1ef5afe858e66b6a_38966_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/15_hu5f299b5f3d0d701c1ef5afe858e66b6a_38966_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/15_hu18261016390422099582.jpg 480w, /post/opnsense-vm-install-12-02-2024/15_hu16948618447462958818.jpg 1024w"
 	loading="lazy"
 	
 		alt="Apply Networks"
@@ -658,8 +637,8 @@
 	
 ></p>
 <p>We are now ready to move onto downloading the OpnSense ISO.</p>
-<h2 id="downloading-the-opnsense-iso">Downloading the OpnSense ISO</h2>
-<ol>
+<h2 id="downloading-the-opnsense-iso">Downloading the OpnSense ISO
+</h2><ol>
 <li>Goto the OpnSense download page and make sure to get the &ldquo;DVD&rdquo; version.
 <a class="link" href="https://opnsense.org/download/"  target="_blank" rel="noopener"
     >https://opnsense.org/download/</a></li>
@@ -667,7 +646,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/16.jpg"
 	width="1200"
 	height="697"
-	srcset="/post/opnsense-vm-install-12-02-2024/16_hu8f5e8ece1545cdc7772ac0a2783c4f41_77669_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/16_hu8f5e8ece1545cdc7772ac0a2783c4f41_77669_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/16_hu13563737721135072982.jpg 480w, /post/opnsense-vm-install-12-02-2024/16_hu96329434039387686.jpg 1024w"
 	loading="lazy"
 	
 		alt="ISO Download"
@@ -684,7 +663,7 @@
 <p><img src="/post/opnsense-vm-install-12-02-2024/17.jpg"
 	width="724"
 	height="472"
-	srcset="/post/opnsense-vm-install-12-02-2024/17_hu5f299b5f3d0d701c1ef5afe858e66b6a_24862_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/17_hu5f299b5f3d0d701c1ef5afe858e66b6a_24862_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/17_hu14799637212355498294.jpg 480w, /post/opnsense-vm-install-12-02-2024/17_hu3262903975028305458.jpg 1024w"
 	loading="lazy"
 	
 		alt="ISO Extracted"
@@ -702,7 +681,7 @@ From there select the &ldquo;upload&rdquo; button.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/18.jpg"
 	width="1200"
 	height="409"
-	srcset="/post/opnsense-vm-install-12-02-2024/18_hu5f299b5f3d0d701c1ef5afe858e66b6a_51722_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/18_hu5f299b5f3d0d701c1ef5afe858e66b6a_51722_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/18_hu17712698907443019899.jpg 480w, /post/opnsense-vm-install-12-02-2024/18_hu9819837236451887476.jpg 1024w"
 	loading="lazy"
 	
 		alt="Upload Button"
@@ -719,7 +698,7 @@ From there select the &ldquo;upload&rdquo; button.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/19.jpg"
 	width="980"
 	height="546"
-	srcset="/post/opnsense-vm-install-12-02-2024/19_hu5f299b5f3d0d701c1ef5afe858e66b6a_41646_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/19_hu5f299b5f3d0d701c1ef5afe858e66b6a_41646_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/19_hu15713842591358093833.jpg 480w, /post/opnsense-vm-install-12-02-2024/19_hu9119476216128392028.jpg 1024w"
 	loading="lazy"
 	
 		alt="Upload iso"
@@ -736,7 +715,7 @@ From there select the &ldquo;upload&rdquo; button.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/20.jpg"
 	width="1200"
 	height="542"
-	srcset="/post/opnsense-vm-install-12-02-2024/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_50175_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_50175_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/20_hu7548655585092401656.jpg 480w, /post/opnsense-vm-install-12-02-2024/20_hu12707447659998263449.jpg 1024w"
 	loading="lazy"
 	
 		alt="Uploaded ISO"
@@ -750,7 +729,7 @@ From there select the &ldquo;upload&rdquo; button.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/21.jpg"
 	width="1200"
 	height="542"
-	srcset="/post/opnsense-vm-install-12-02-2024/21_hu5f299b5f3d0d701c1ef5afe858e66b6a_58800_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/21_hu5f299b5f3d0d701c1ef5afe858e66b6a_58800_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/21_hu5312529944285945213.jpg 480w, /post/opnsense-vm-install-12-02-2024/21_hu9085314259155758790.jpg 1024w"
 	loading="lazy"
 	
 		alt="ISO"
@@ -761,14 +740,14 @@ From there select the &ldquo;upload&rdquo; button.</li>
 		data-flex-basis="531px"
 	
 ></p>
-<h2 id="creating-the-virtual-machine">Creating the Virtual Machine</h2>
-<ol>
+<h2 id="creating-the-virtual-machine">Creating the Virtual Machine
+</h2><ol>
 <li>Click on the &ldquo;Create VM&rdquo; blue button on the top right of the Proxmox UI.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/23.jpg"
 	width="1200"
 	height="542"
-	srcset="/post/opnsense-vm-install-12-02-2024/23_hu5f299b5f3d0d701c1ef5afe858e66b6a_51724_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/23_hu5f299b5f3d0d701c1ef5afe858e66b6a_51724_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/23_hu18344999150600057361.jpg 480w, /post/opnsense-vm-install-12-02-2024/23_hu8320712301949414971.jpg 1024w"
 	loading="lazy"
 	
 		alt="Create VM Button"
@@ -785,7 +764,7 @@ From there select the &ldquo;upload&rdquo; button.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/24.jpg"
 	width="1200"
 	height="321"
-	srcset="/post/opnsense-vm-install-12-02-2024/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_23117_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_23117_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/24_hu3457176779281136197.jpg 480w, /post/opnsense-vm-install-12-02-2024/24_hu6032079579890358523.jpg 1024w"
 	loading="lazy"
 	
 		alt="Advanced is Checked"
@@ -804,7 +783,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/25.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/25_hu5f299b5f3d0d701c1ef5afe858e66b6a_65882_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/25_hu5f299b5f3d0d701c1ef5afe858e66b6a_65882_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/25_hu17569407689399875630.jpg 480w, /post/opnsense-vm-install-12-02-2024/25_hu8539307342706394682.jpg 1024w"
 	loading="lazy"
 	
 		alt="Give VM a Name"
@@ -821,7 +800,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/26.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_62170_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_62170_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/26_hu12347001325302025523.jpg 480w, /post/opnsense-vm-install-12-02-2024/26_hu5222735361982428524.jpg 1024w"
 	loading="lazy"
 	
 		alt="Select ISO"
@@ -838,7 +817,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/27.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/27_hu5f299b5f3d0d701c1ef5afe858e66b6a_55334_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/27_hu5f299b5f3d0d701c1ef5afe858e66b6a_55334_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/27_hu395472811114025780.jpg 480w, /post/opnsense-vm-install-12-02-2024/27_hu15899762218123983528.jpg 1024w"
 	loading="lazy"
 	
 		alt="System Settings"
@@ -855,7 +834,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/28.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/28_hu5f299b5f3d0d701c1ef5afe858e66b6a_71480_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/28_hu5f299b5f3d0d701c1ef5afe858e66b6a_71480_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/28_hu7639724437143156432.jpg 480w, /post/opnsense-vm-install-12-02-2024/28_hu17085973163882286989.jpg 1024w"
 	loading="lazy"
 	
 		alt="Disks Settings"
@@ -873,7 +852,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/29.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/29_hu8f5e8ece1545cdc7772ac0a2783c4f41_105738_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/29_hu8f5e8ece1545cdc7772ac0a2783c4f41_105738_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/29_hu18072217741120647426.jpg 480w, /post/opnsense-vm-install-12-02-2024/29_hu13111229642833449591.jpg 1024w"
 	loading="lazy"
 	
 		alt="CPU Settings"
@@ -890,7 +869,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/30.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/30_hu5f299b5f3d0d701c1ef5afe858e66b6a_51826_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/30_hu5f299b5f3d0d701c1ef5afe858e66b6a_51826_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/30_hu2769395268153728374.jpg 480w, /post/opnsense-vm-install-12-02-2024/30_hu10528039030081022023.jpg 1024w"
 	loading="lazy"
 	
 		alt="Memory Settings"
@@ -907,7 +886,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/31.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/31_hu5f299b5f3d0d701c1ef5afe858e66b6a_67741_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/31_hu5f299b5f3d0d701c1ef5afe858e66b6a_67741_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/31_hu17060182704934481550.jpg 480w, /post/opnsense-vm-install-12-02-2024/31_hu13794003168169109301.jpg 1024w"
 	loading="lazy"
 	
 		alt="Network Settings"
@@ -924,7 +903,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/32.jpg"
 	width="1200"
 	height="869"
-	srcset="/post/opnsense-vm-install-12-02-2024/32_hu5f299b5f3d0d701c1ef5afe858e66b6a_82995_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/32_hu5f299b5f3d0d701c1ef5afe858e66b6a_82995_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/32_hu10550551627278760635.jpg 480w, /post/opnsense-vm-install-12-02-2024/32_hu18246715300366594015.jpg 1024w"
 	loading="lazy"
 	
 		alt="Complete Settings"
@@ -942,7 +921,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/33.jpg"
 	width="1200"
 	height="438"
-	srcset="/post/opnsense-vm-install-12-02-2024/33_hu8f5e8ece1545cdc7772ac0a2783c4f41_81182_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/33_hu8f5e8ece1545cdc7772ac0a2783c4f41_81182_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/33_hu10813457750178369144.jpg 480w, /post/opnsense-vm-install-12-02-2024/33_hu1577783402108467778.jpg 1024w"
 	loading="lazy"
 	
 		alt="Add Network"
@@ -959,7 +938,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/34.jpg"
 	width="1162"
 	height="674"
-	srcset="/post/opnsense-vm-install-12-02-2024/34_hu5f299b5f3d0d701c1ef5afe858e66b6a_77862_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/34_hu5f299b5f3d0d701c1ef5afe858e66b6a_77862_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/34_hu13471507829394318391.jpg 480w, /post/opnsense-vm-install-12-02-2024/34_hu7272798774752019806.jpg 1024w"
 	loading="lazy"
 	
 		alt="Add next Network"
@@ -976,7 +955,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/35.jpg"
 	width="1162"
 	height="674"
-	srcset="/post/opnsense-vm-install-12-02-2024/35_hu5f299b5f3d0d701c1ef5afe858e66b6a_77545_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/35_hu5f299b5f3d0d701c1ef5afe858e66b6a_77545_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/35_hu2884437429227513141.jpg 480w, /post/opnsense-vm-install-12-02-2024/35_hu17335187467444263777.jpg 1024w"
 	loading="lazy"
 	
 		alt="All Bridges Added firewall on"
@@ -990,7 +969,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/36.jpg"
 	width="1162"
 	height="674"
-	srcset="/post/opnsense-vm-install-12-02-2024/36_hu5f299b5f3d0d701c1ef5afe858e66b6a_98812_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/36_hu5f299b5f3d0d701c1ef5afe858e66b6a_98812_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/36_hu15908559019894482247.jpg 480w, /post/opnsense-vm-install-12-02-2024/36_hu7541027429713391261.jpg 1024w"
 	loading="lazy"
 	
 		alt="All Bridges Added"
@@ -1001,8 +980,8 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 		data-flex-basis="413px"
 	
 ></p>
-<h2 id="installing-opnsense">Installing OpnSense</h2>
-<ol>
+<h2 id="installing-opnsense">Installing OpnSense
+</h2><ol>
 <li>
 <p>Make sure that there are no Network cables plugged into the OpnSense ports. We will connect them later.</p>
 </li>
@@ -1013,7 +992,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/37.jpg"
 	width="1200"
 	height="484"
-	srcset="/post/opnsense-vm-install-12-02-2024/37_hu8f5e8ece1545cdc7772ac0a2783c4f41_44836_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/37_hu8f5e8ece1545cdc7772ac0a2783c4f41_44836_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/37_hu11433341059260298236.jpg 480w, /post/opnsense-vm-install-12-02-2024/37_hu10159486832662408836.jpg 1024w"
 	loading="lazy"
 	
 		alt="Start VM"
@@ -1030,7 +1009,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/38.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/38_hu8f5e8ece1545cdc7772ac0a2783c4f41_86915_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/38_hu8f5e8ece1545cdc7772ac0a2783c4f41_86915_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/38_hu11911750768456959596.jpg 480w, /post/opnsense-vm-install-12-02-2024/38_hu3676399903177378591.jpg 1024w"
 	loading="lazy"
 	
 		alt="Booted VM up"
@@ -1050,7 +1029,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/40.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/40_hu8f5e8ece1545cdc7772ac0a2783c4f41_90499_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/40_hu8f5e8ece1545cdc7772ac0a2783c4f41_90499_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/40_hu15643658036666098971.jpg 480w, /post/opnsense-vm-install-12-02-2024/40_hu7695806595447153007.jpg 1024w"
 	loading="lazy"
 	
 		alt="Installer start screen"
@@ -1072,7 +1051,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/41.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/41_hu8f5e8ece1545cdc7772ac0a2783c4f41_76176_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/41_hu8f5e8ece1545cdc7772ac0a2783c4f41_76176_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/41_hu13241641637573755677.jpg 480w, /post/opnsense-vm-install-12-02-2024/41_hu12958910529805367483.jpg 1024w"
 	loading="lazy"
 	
 		alt="UFS"
@@ -1089,7 +1068,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/42.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/42_hu8f5e8ece1545cdc7772ac0a2783c4f41_66279_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/42_hu8f5e8ece1545cdc7772ac0a2783c4f41_66279_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/42_hu8612918211959119158.jpg 480w, /post/opnsense-vm-install-12-02-2024/42_hu9876820514136812858.jpg 1024w"
 	loading="lazy"
 	
 		alt="install disk"
@@ -1106,7 +1085,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/43.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/43_hu8f5e8ece1545cdc7772ac0a2783c4f41_56431_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/43_hu8f5e8ece1545cdc7772ac0a2783c4f41_56431_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/43_hu18388318630160281842.jpg 480w, /post/opnsense-vm-install-12-02-2024/43_hu7196105030222828540.jpg 1024w"
 	loading="lazy"
 	
 		alt="swap partition prompt"
@@ -1123,7 +1102,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/44.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/44_hu8f5e8ece1545cdc7772ac0a2783c4f41_59152_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/44_hu8f5e8ece1545cdc7772ac0a2783c4f41_59152_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/44_hu11704916113564824564.jpg 480w, /post/opnsense-vm-install-12-02-2024/44_hu2047610919096531022.jpg 1024w"
 	loading="lazy"
 	
 		alt="confirm prompt"
@@ -1140,7 +1119,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/45.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/45_hu8f5e8ece1545cdc7772ac0a2783c4f41_60322_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/45_hu8f5e8ece1545cdc7772ac0a2783c4f41_60322_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/45_hu861630890775212677.jpg 480w, /post/opnsense-vm-install-12-02-2024/45_hu7409375293647326101.jpg 1024w"
 	loading="lazy"
 	
 		alt="installing"
@@ -1157,7 +1136,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/46.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/46_hu8f5e8ece1545cdc7772ac0a2783c4f41_67158_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/46_hu8f5e8ece1545cdc7772ac0a2783c4f41_67158_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/46_hu11023956708180699271.jpg 480w, /post/opnsense-vm-install-12-02-2024/46_hu7762520039507644468.jpg 1024w"
 	loading="lazy"
 	
 		alt="completed menu"
@@ -1171,7 +1150,7 @@ Click on the &ldquo;Next&rdquo; button once you have done so.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/47.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/47_hu8f5e8ece1545cdc7772ac0a2783c4f41_59603_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/47_hu8f5e8ece1545cdc7772ac0a2783c4f41_59603_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/47_hu16859736729288539937.jpg 480w, /post/opnsense-vm-install-12-02-2024/47_hu13576096009507090215.jpg 1024w"
 	loading="lazy"
 	
 		alt="Set password menu"
@@ -1189,7 +1168,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/48.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/48_hu8f5e8ece1545cdc7772ac0a2783c4f41_66826_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/48_hu8f5e8ece1545cdc7772ac0a2783c4f41_66826_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/48_hu4135014876488646331.jpg 480w, /post/opnsense-vm-install-12-02-2024/48_hu7167381078201354371.jpg 1024w"
 	loading="lazy"
 	
 		alt="Complete Install"
@@ -1203,7 +1182,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/49.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/49_hu8f5e8ece1545cdc7772ac0a2783c4f41_46113_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/49_hu8f5e8ece1545cdc7772ac0a2783c4f41_46113_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/49_hu15521133154121300978.jpg 480w, /post/opnsense-vm-install-12-02-2024/49_hu10509298634390843286.jpg 1024w"
 	loading="lazy"
 	
 		alt="remove ISO"
@@ -1220,7 +1199,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/50.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/50_hu8f5e8ece1545cdc7772ac0a2783c4f41_75106_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/50_hu8f5e8ece1545cdc7772ac0a2783c4f41_75106_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/50_hu2846845898311416080.jpg 480w, /post/opnsense-vm-install-12-02-2024/50_hu6594512000536536767.jpg 1024w"
 	loading="lazy"
 	
 		alt="Restarting"
@@ -1231,14 +1210,14 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 		data-flex-basis="566px"
 	
 ></p>
-<h2 id="creating-the-networks-in-opnsense-terminal">Creating the networks in OpnSense terminal</h2>
-<ol>
+<h2 id="creating-the-networks-in-opnsense-terminal">Creating the networks in OpnSense terminal
+</h2><ol>
 <li>Connect the WAN 1 cable into the WAN Port 1, and Connect a cable into the &ldquo;Management&rdquo; Network. We will use this &ldquo;Management LAN&rdquo; connection to connect directly to the OpnSense web UI later on.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/51.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/51_hu8f5e8ece1545cdc7772ac0a2783c4f41_95162_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/51_hu8f5e8ece1545cdc7772ac0a2783c4f41_95162_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/51_hu1376802192058138222.jpg 480w, /post/opnsense-vm-install-12-02-2024/51_hu12577499492397844348.jpg 1024w"
 	loading="lazy"
 	
 		alt="Initial Cable Connections"
@@ -1255,7 +1234,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/52.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/52_hu8f5e8ece1545cdc7772ac0a2783c4f41_64196_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/52_hu8f5e8ece1545cdc7772ac0a2783c4f41_64196_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/52_hu6523999566529538651.jpg 480w, /post/opnsense-vm-install-12-02-2024/52_hu2210948381608077094.jpg 1024w"
 	loading="lazy"
 	
 		alt="root login"
@@ -1272,7 +1251,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/53.jpg"
 	width="1200"
 	height="280"
-	srcset="/post/opnsense-vm-install-12-02-2024/53_hu5f299b5f3d0d701c1ef5afe858e66b6a_38672_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/53_hu5f299b5f3d0d701c1ef5afe858e66b6a_38672_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/53_hu35459698527493727.jpg 480w, /post/opnsense-vm-install-12-02-2024/53_hu7276783195906756240.jpg 1024w"
 	loading="lazy"
 	
 		alt="Assign Interfaces"
@@ -1289,7 +1268,7 @@ When you select it, go into the &ldquo;Hardware&rdquo; section of the VM again a
 <p><img src="/post/opnsense-vm-install-12-02-2024/54.jpg"
 	width="1200"
 	height="280"
-	srcset="/post/opnsense-vm-install-12-02-2024/54_hu5f299b5f3d0d701c1ef5afe858e66b6a_40790_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/54_hu5f299b5f3d0d701c1ef5afe858e66b6a_40790_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/54_hu1141683702545674052.jpg 480w, /post/opnsense-vm-install-12-02-2024/54_hu5071330148616735553.jpg 1024w"
 	loading="lazy"
 	
 		alt="lagg vlan prompts"
@@ -1307,7 +1286,7 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <p><img src="/post/opnsense-vm-install-12-02-2024/55.jpg"
 	width="1200"
 	height="498"
-	srcset="/post/opnsense-vm-install-12-02-2024/55_hu5f299b5f3d0d701c1ef5afe858e66b6a_65271_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/55_hu5f299b5f3d0d701c1ef5afe858e66b6a_65271_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/55_hu15520220910066323330.jpg 480w, /post/opnsense-vm-install-12-02-2024/55_hu5205370427230110611.jpg 1024w"
 	loading="lazy"
 	
 		alt="Bridge Names"
@@ -1321,7 +1300,7 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <p><img src="/post/opnsense-vm-install-12-02-2024/56.jpg"
 	width="1200"
 	height="306"
-	srcset="/post/opnsense-vm-install-12-02-2024/56_hu8f5e8ece1545cdc7772ac0a2783c4f41_56548_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/56_hu8f5e8ece1545cdc7772ac0a2783c4f41_56548_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/56_hu9342888360670674786.jpg 480w, /post/opnsense-vm-install-12-02-2024/56_hu13811729269818073728.jpg 1024w"
 	loading="lazy"
 	
 		alt="cmd assign wan"
@@ -1338,7 +1317,7 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <p><img src="/post/opnsense-vm-install-12-02-2024/57.jpg"
 	width="1200"
 	height="306"
-	srcset="/post/opnsense-vm-install-12-02-2024/57_hu5f299b5f3d0d701c1ef5afe858e66b6a_48682_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/57_hu5f299b5f3d0d701c1ef5afe858e66b6a_48682_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/57_hu1548495778732690259.jpg 480w, /post/opnsense-vm-install-12-02-2024/57_hu10825082683787157566.jpg 1024w"
 	loading="lazy"
 	
 		alt="cmd assign lan"
@@ -1355,7 +1334,7 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <p><img src="/post/opnsense-vm-install-12-02-2024/58.jpg"
 	width="1200"
 	height="306"
-	srcset="/post/opnsense-vm-install-12-02-2024/58_hu5f299b5f3d0d701c1ef5afe858e66b6a_42734_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/58_hu5f299b5f3d0d701c1ef5afe858e66b6a_42734_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/58_hu14676209249065094383.jpg 480w, /post/opnsense-vm-install-12-02-2024/58_hu11498094790362426275.jpg 1024w"
 	loading="lazy"
 	
 		alt="cmd assign completed"
@@ -1372,7 +1351,7 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <p><img src="/post/opnsense-vm-install-12-02-2024/59.jpg"
 	width="1200"
 	height="517"
-	srcset="/post/opnsense-vm-install-12-02-2024/59_hu8f5e8ece1545cdc7772ac0a2783c4f41_71190_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/59_hu8f5e8ece1545cdc7772ac0a2783c4f41_71190_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/59_hu17237399841367918835.jpg 480w, /post/opnsense-vm-install-12-02-2024/59_hu11682085909243356540.jpg 1024w"
 	loading="lazy"
 	
 		alt="get lan ip"
@@ -1386,15 +1365,15 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 <ol start="9">
 <li>You can now type in &ldquo;0&rdquo; and press &ldquo;Enter / Return&rdquo; to logout of the shell.</li>
 </ol>
-<h2 id="creating-the-last-two-networks-in-opnsense-web-ui">Creating the last two networks in OpnSense web UI</h2>
-<h3 id="connect-the-last-cable">Connect the last cable</h3>
-<ol>
+<h2 id="creating-the-last-two-networks-in-opnsense-web-ui">Creating the last two networks in OpnSense web UI
+</h2><h3 id="connect-the-last-cable">Connect the last cable
+</h3><ol>
 <li>We can now plug in the second WAN cable into our OpnSense VM as we are going to create that interface and network soon.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/87.jpg"
 	width="1200"
 	height="900"
-	srcset="/post/opnsense-vm-install-12-02-2024/87_hu4fa883f32be73ce051e36a2d4f7d48d5_132200_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/87_hu4fa883f32be73ce051e36a2d4f7d48d5_132200_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/87_hu4787072198632206872.jpg 480w, /post/opnsense-vm-install-12-02-2024/87_hu18027147924589935311.jpg 1024w"
 	loading="lazy"
 	
 		alt="Plug in 2nd"
@@ -1405,15 +1384,15 @@ This will be called &ldquo;vtnet0&rdquo; on OpenSense. So we will now type &ldqu
 		data-flex-basis="320px"
 	
 ></p>
-<h3 id="assigning-the-interfaces">Assigning the interfaces</h3>
-<ol>
+<h3 id="assigning-the-interfaces">Assigning the interfaces
+</h3><ol>
 <li>Connect your laptop / PC directly to the LAN network we just created, (the to be management network). OpnSense will give you an IP
 address in the range of the Lan &ldquo;192.168.1.1/24&rdquo;. So I was given &ldquo;192.168.1.101&rdquo;</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/60.jpg"
 	width="1200"
 	height="847"
-	srcset="/post/opnsense-vm-install-12-02-2024/60_hu8f5e8ece1545cdc7772ac0a2783c4f41_134614_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/60_hu8f5e8ece1545cdc7772ac0a2783c4f41_134614_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/60_hu10704789310565599296.jpg 480w, /post/opnsense-vm-install-12-02-2024/60_hu1511176442163115004.jpg 1024w"
 	loading="lazy"
 	
 		alt="initial cable from OpnSense"
@@ -1427,7 +1406,7 @@ address in the range of the Lan &ldquo;192.168.1.1/24&rdquo;. So I was given &ld
 <img src="/post/opnsense-vm-install-12-02-2024/61.jpg"
 	width="1200"
 	height="822"
-	srcset="/post/opnsense-vm-install-12-02-2024/61_hu8f5e8ece1545cdc7772ac0a2783c4f41_169673_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/61_hu8f5e8ece1545cdc7772ac0a2783c4f41_169673_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/61_hu10160521201894855061.jpg 480w, /post/opnsense-vm-install-12-02-2024/61_hu15127511239367124479.jpg 1024w"
 	loading="lazy"
 	
 		alt="initial cable to laptop"
@@ -1441,7 +1420,7 @@ address in the range of the Lan &ldquo;192.168.1.1/24&rdquo;. So I was given &ld
 <img src="/post/opnsense-vm-install-12-02-2024/62.jpg"
 	width="1200"
 	height="851"
-	srcset="/post/opnsense-vm-install-12-02-2024/62_hu8f5e8ece1545cdc7772ac0a2783c4f41_87842_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/62_hu8f5e8ece1545cdc7772ac0a2783c4f41_87842_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/62_hu17449273413076265464.jpg 480w, /post/opnsense-vm-install-12-02-2024/62_hu8282798269212074415.jpg 1024w"
 	loading="lazy"
 	
 		alt="given lan ip"
@@ -1460,7 +1439,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/63.jpg"
 	width="1200"
 	height="693"
-	srcset="/post/opnsense-vm-install-12-02-2024/63_hu8f5e8ece1545cdc7772ac0a2783c4f41_37226_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/63_hu8f5e8ece1545cdc7772ac0a2783c4f41_37226_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/63_hu2234235120579096519.jpg 480w, /post/opnsense-vm-install-12-02-2024/63_hu10690195265297143914.jpg 1024w"
 	loading="lazy"
 	
 		alt="login screen"
@@ -1477,7 +1456,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/64.jpg"
 	width="1200"
 	height="429"
-	srcset="/post/opnsense-vm-install-12-02-2024/64_hu8f5e8ece1545cdc7772ac0a2783c4f41_54581_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/64_hu8f5e8ece1545cdc7772ac0a2783c4f41_54581_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/64_hu1732405672444573997.jpg 480w, /post/opnsense-vm-install-12-02-2024/64_hu7709596138525238817.jpg 1024w"
 	loading="lazy"
 	
 		alt="wizard screen"
@@ -1494,7 +1473,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/65.jpg"
 	width="1200"
 	height="508"
-	srcset="/post/opnsense-vm-install-12-02-2024/65_hu8f5e8ece1545cdc7772ac0a2783c4f41_56313_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/65_hu8f5e8ece1545cdc7772ac0a2783c4f41_56313_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/65_hu12128720965297948729.jpg 480w, /post/opnsense-vm-install-12-02-2024/65_hu13445582677105320524.jpg 1024w"
 	loading="lazy"
 	
 		alt="assign interface screen"
@@ -1511,7 +1490,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/66.jpg"
 	width="1200"
 	height="696"
-	srcset="/post/opnsense-vm-install-12-02-2024/66_hu5f299b5f3d0d701c1ef5afe858e66b6a_53010_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/66_hu5f299b5f3d0d701c1ef5afe858e66b6a_53010_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/66_hu1936517329839507413.jpg 480w, /post/opnsense-vm-install-12-02-2024/66_hu4471057184638002458.jpg 1024w"
 	loading="lazy"
 	
 		alt="assign WAN2 interface"
@@ -1528,7 +1507,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/67.jpg"
 	width="1200"
 	height="696"
-	srcset="/post/opnsense-vm-install-12-02-2024/67_hu5f299b5f3d0d701c1ef5afe858e66b6a_55681_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/67_hu5f299b5f3d0d701c1ef5afe858e66b6a_55681_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/67_hu12783103016279916395.jpg 480w, /post/opnsense-vm-install-12-02-2024/67_hu14675914532316281488.jpg 1024w"
 	loading="lazy"
 	
 		alt="assign TRUNK interface"
@@ -1545,7 +1524,7 @@ You can allow the security warning as OpnSense is using a self signed certificat
 <p><img src="/post/opnsense-vm-install-12-02-2024/68.jpg"
 	width="1200"
 	height="696"
-	srcset="/post/opnsense-vm-install-12-02-2024/68_hu5f299b5f3d0d701c1ef5afe858e66b6a_52115_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/68_hu5f299b5f3d0d701c1ef5afe858e66b6a_52115_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/68_hu10766149825939669838.jpg 480w, /post/opnsense-vm-install-12-02-2024/68_hu5443773785041372787.jpg 1024w"
 	loading="lazy"
 	
 		alt="save interfaces"
@@ -1556,15 +1535,15 @@ You can allow the security warning as OpnSense is using a self signed certificat
 		data-flex-basis="413px"
 	
 ></p>
-<h3 id="enabling-the-interfaces-and-setting-ips">Enabling the interfaces and setting IPs</h3>
-<ol>
+<h3 id="enabling-the-interfaces-and-setting-ips">Enabling the interfaces and setting IPs
+</h3><ol>
 <li>Now we need to enable the interfaces and set their IP types.
 Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/69.jpg"
 	width="1200"
 	height="511"
-	srcset="/post/opnsense-vm-install-12-02-2024/69_hu5f299b5f3d0d701c1ef5afe858e66b6a_48755_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/69_hu5f299b5f3d0d701c1ef5afe858e66b6a_48755_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/69_hu5557281312352892866.jpg 480w, /post/opnsense-vm-install-12-02-2024/69_hu4326036805966785022.jpg 1024w"
 	loading="lazy"
 	
 		alt="enable TRUNK interface"
@@ -1582,7 +1561,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/70.jpg"
 	width="1200"
 	height="337"
-	srcset="/post/opnsense-vm-install-12-02-2024/70_hu8f5e8ece1545cdc7772ac0a2783c4f41_37956_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/70_hu8f5e8ece1545cdc7772ac0a2783c4f41_37956_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/70_hu16138540677891789348.jpg 480w, /post/opnsense-vm-install-12-02-2024/70_hu10730530592278513305.jpg 1024w"
 	loading="lazy"
 	
 		alt="saved TRUNK interface"
@@ -1599,7 +1578,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/71.jpg"
 	width="1200"
 	height="337"
-	srcset="/post/opnsense-vm-install-12-02-2024/71_hu8f5e8ece1545cdc7772ac0a2783c4f41_38178_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/71_hu8f5e8ece1545cdc7772ac0a2783c4f41_38178_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/71_hu8666493861487382368.jpg 480w, /post/opnsense-vm-install-12-02-2024/71_hu4201223539639683854.jpg 1024w"
 	loading="lazy"
 	
 		alt="enable wan2 interface"
@@ -1616,7 +1595,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/72.jpg"
 	width="1200"
 	height="337"
-	srcset="/post/opnsense-vm-install-12-02-2024/72_hu5f299b5f3d0d701c1ef5afe858e66b6a_35086_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/72_hu5f299b5f3d0d701c1ef5afe858e66b6a_35086_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/72_hu17705037122111596195.jpg 480w, /post/opnsense-vm-install-12-02-2024/72_hu11400931895192133887.jpg 1024w"
 	loading="lazy"
 	
 		alt="set dncp WAN2 interface"
@@ -1633,7 +1612,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/73.jpg"
 	width="1200"
 	height="407"
-	srcset="/post/opnsense-vm-install-12-02-2024/73_hu5f299b5f3d0d701c1ef5afe858e66b6a_38623_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/73_hu5f299b5f3d0d701c1ef5afe858e66b6a_38623_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/73_hu7052172933232662149.jpg 480w, /post/opnsense-vm-install-12-02-2024/73_hu7473781654021435182.jpg 1024w"
 	loading="lazy"
 	
 		alt="apply interface"
@@ -1650,7 +1629,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/74.jpg"
 	width="1200"
 	height="650"
-	srcset="/post/opnsense-vm-install-12-02-2024/74_hu8f5e8ece1545cdc7772ac0a2783c4f41_85728_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/74_hu8f5e8ece1545cdc7772ac0a2783c4f41_85728_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/74_hu9867238579917125671.jpg 480w, /post/opnsense-vm-install-12-02-2024/74_hu4558598021379555405.jpg 1024w"
 	loading="lazy"
 	
 		alt="confirmed interface"
@@ -1661,15 +1640,15 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 		data-flex-basis="443px"
 	
 ></p>
-<h2 id="changing-the-name-ip-address-and-dhcp-range-of-the-management-network">Changing the Name, IP address and DHCP range of the management network</h2>
-<p>The last step we will do on this guide is set up the management network. In the next guide we will setup the managed switch to help distribute the management network and we will setup a Wifi access point for easier connection to the lab.</p>
+<h2 id="changing-the-name-ip-address-and-dhcp-range-of-the-management-network">Changing the Name, IP address and DHCP range of the management network
+</h2><p>The last step we will do on this guide is set up the management network. In the next guide we will setup the managed switch to help distribute the management network and we will setup a Wifi access point for easier connection to the lab.</p>
 <ol>
 <li>Click on the &ldquo;LAN&rdquo; Interface under the &ldquo;Interfaces&rdquo; section. Change the description from &ldquo;LAN&rdquo; to &ldquo;Management&rdquo;.</li>
 </ol>
 <p><img src="/post/opnsense-vm-install-12-02-2024/75.jpg"
 	width="1200"
 	height="306"
-	srcset="/post/opnsense-vm-install-12-02-2024/75_hu8f5e8ece1545cdc7772ac0a2783c4f41_39917_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/75_hu8f5e8ece1545cdc7772ac0a2783c4f41_39917_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/75_hu17886546931999402159.jpg 480w, /post/opnsense-vm-install-12-02-2024/75_hu8973362028395590199.jpg 1024w"
 	loading="lazy"
 	
 		alt="management description change"
@@ -1686,7 +1665,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/76.jpg"
 	width="1200"
 	height="306"
-	srcset="/post/opnsense-vm-install-12-02-2024/76_hu5f299b5f3d0d701c1ef5afe858e66b6a_32378_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/76_hu5f299b5f3d0d701c1ef5afe858e66b6a_32378_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/76_hu5532945929647080929.jpg 480w, /post/opnsense-vm-install-12-02-2024/76_hu7550861399741352622.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management IPv6 change"
@@ -1703,7 +1682,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/77.jpg"
 	width="1200"
 	height="268"
-	srcset="/post/opnsense-vm-install-12-02-2024/77_hu5f299b5f3d0d701c1ef5afe858e66b6a_25679_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/77_hu5f299b5f3d0d701c1ef5afe858e66b6a_25679_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/77_hu1229376182233027606.jpg 480w, /post/opnsense-vm-install-12-02-2024/77_hu3870800003924729678.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management IP change"
@@ -1726,7 +1705,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/78.jpg"
 	width="1200"
 	height="436"
-	srcset="/post/opnsense-vm-install-12-02-2024/78_hu8f5e8ece1545cdc7772ac0a2783c4f41_49391_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/78_hu8f5e8ece1545cdc7772ac0a2783c4f41_49391_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/78_hu1995769678070698767.jpg 480w, /post/opnsense-vm-install-12-02-2024/78_hu4830190174218471250.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management DHCP Screen"
@@ -1741,7 +1720,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/79.jpg"
 	width="1200"
 	height="436"
-	srcset="/post/opnsense-vm-install-12-02-2024/79_hu8f5e8ece1545cdc7772ac0a2783c4f41_54294_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/79_hu8f5e8ece1545cdc7772ac0a2783c4f41_54294_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/79_hu7227198212779989462.jpg 480w, /post/opnsense-vm-install-12-02-2024/79_hu126699045127923410.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management wrong Subnet"
@@ -1759,7 +1738,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/80.jpg"
 	width="1200"
 	height="404"
-	srcset="/post/opnsense-vm-install-12-02-2024/80_hu5f299b5f3d0d701c1ef5afe858e66b6a_37109_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/80_hu5f299b5f3d0d701c1ef5afe858e66b6a_37109_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/80_hu13095344950975462787.jpg 480w, /post/opnsense-vm-install-12-02-2024/80_hu16867508852008299276.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management set range"
@@ -1775,7 +1754,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <img src="/post/opnsense-vm-install-12-02-2024/81.jpg"
 	width="1200"
 	height="448"
-	srcset="/post/opnsense-vm-install-12-02-2024/81_hu5f299b5f3d0d701c1ef5afe858e66b6a_39560_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/81_hu5f299b5f3d0d701c1ef5afe858e66b6a_39560_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/81_hu17583644719885081000.jpg 480w, /post/opnsense-vm-install-12-02-2024/81_hu9660151762117922665.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management set range save"
@@ -1792,7 +1771,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/82.jpg"
 	width="1200"
 	height="232"
-	srcset="/post/opnsense-vm-install-12-02-2024/82_hu5f299b5f3d0d701c1ef5afe858e66b6a_24767_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/82_hu5f299b5f3d0d701c1ef5afe858e66b6a_24767_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/82_hu16925018887619314034.jpg 480w, /post/opnsense-vm-install-12-02-2024/82_hu6875810094512556581.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management DHCP Stopped"
@@ -1809,7 +1788,7 @@ Click on the &ldquo;TRUNK&rdquo; interface that we just created.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/83.jpg"
 	width="1200"
 	height="193"
-	srcset="/post/opnsense-vm-install-12-02-2024/83_hu8f5e8ece1545cdc7772ac0a2783c4f41_29627_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/83_hu8f5e8ece1545cdc7772ac0a2783c4f41_29627_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/83_hu4732906621517626966.jpg 480w, /post/opnsense-vm-install-12-02-2024/83_hu2176047235303413434.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management interface apply"
@@ -1828,7 +1807,7 @@ Wait for about two minutes and then do the following:</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/84.jpg"
 	width="1200"
 	height="618"
-	srcset="/post/opnsense-vm-install-12-02-2024/84_hu5f299b5f3d0d701c1ef5afe858e66b6a_57249_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/84_hu5f299b5f3d0d701c1ef5afe858e66b6a_57249_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/84_hu590119388715119554.jpg 480w, /post/opnsense-vm-install-12-02-2024/84_hu17754101855616665481.jpg 1024w"
 	loading="lazy"
 	
 		alt="New IP received"
@@ -1848,7 +1827,7 @@ to login to the OpnSense UI again.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/85.jpg"
 	width="1200"
 	height="414"
-	srcset="/post/opnsense-vm-install-12-02-2024/85_hu8f5e8ece1545cdc7772ac0a2783c4f41_34203_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/85_hu8f5e8ece1545cdc7772ac0a2783c4f41_34203_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/85_hu13117885790972763576.jpg 480w, /post/opnsense-vm-install-12-02-2024/85_hu770066233750562894.jpg 1024w"
 	loading="lazy"
 	
 		alt="New login"
@@ -1865,7 +1844,7 @@ to login to the OpnSense UI again.</li>
 <p><img src="/post/opnsense-vm-install-12-02-2024/86.jpg"
 	width="1200"
 	height="765"
-	srcset="/post/opnsense-vm-install-12-02-2024/86_hu5f299b5f3d0d701c1ef5afe858e66b6a_56644_480x0_resize_q75_box.jpg 480w, /post/opnsense-vm-install-12-02-2024/86_hu5f299b5f3d0d701c1ef5afe858e66b6a_56644_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/opnsense-vm-install-12-02-2024/86_hu11723422148395285123.jpg 480w, /post/opnsense-vm-install-12-02-2024/86_hu12646007459117361311.jpg 1024w"
 	loading="lazy"
 	
 		alt="Completed"
@@ -1876,8 +1855,8 @@ to login to the OpnSense UI again.</li>
 		data-flex-basis="376px"
 	
 ></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>We now officially have an OpnSense VM running and ready to be used in our Lab. In the next guide I will go through how to once again split the managed switch into more parts for us to join our management network to and then move the Proxmox instance to. We will also add a Wifi access point to the network for easier connection to our Lab.</p>
+<h2 id="conclusion">Conclusion
+</h2><p>We now officially have an OpnSense VM running and ready to be used in our Lab. In the next guide I will go through how to once again split the managed switch into more parts for us to join our management network to and then move the Proxmox instance to. We will also add a Wifi access point to the network for easier connection to our Lab.</p>
 <p>Have fun with your new OpnSense VM.</p>
 
 </section>
@@ -1919,7 +1898,7 @@ to login to the OpnSense UI again.</li>
         
         
             <div class="article-image">
-                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu12252776230656566963.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1943,7 +1922,7 @@ to login to the OpnSense UI again.</li>
         
         
             <div class="article-image">
-                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2880105974817315016.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1967,7 +1946,7 @@ to login to the OpnSense UI again.</li>
         
         
             <div class="article-image">
-                <img src="/post/dell-openanage-server-administrator-12-01-2024/splash.4377bfb20c4d8f6199ea0cea8947fb67_hu8f5e8ece1545cdc7772ac0a2783c4f41_43221_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/dell-openanage-server-administrator-12-01-2024/splash.4377bfb20c4d8f6199ea0cea8947fb67_hu11067800685606856896.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1991,7 +1970,7 @@ to login to the OpnSense UI again.</li>
         
         
             <div class="article-image">
-                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu11451766359703548736.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2015,7 +1994,7 @@ to login to the OpnSense UI again.</li>
         
         
             <div class="article-image">
-                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu15096498884190665594.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2048,12 +2027,12 @@ to login to the OpnSense UI again.</li>
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -2142,7 +2121,7 @@ to login to the OpnSense UI again.</li>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

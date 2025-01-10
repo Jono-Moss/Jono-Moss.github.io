@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In this guide we go over how to create an OpnSense Dashboard Widget">
+<title>OpnSense - How To Create A Custom Dashboard Widget</title>
+
+<link rel='canonical' href='http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="OpnSense - How To Create A Custom Dashboard Widget">
+<meta property='og:description' content="In this guide we go over how to create an OpnSense Dashboard Widget">
+<meta property='og:url' content='http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/'>
+<meta property='og:site_name' content='Jonathan Moss'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Development' /><meta property='article:published_time' content='2024-12-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-06T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/splash.jpg' />
+<meta name="twitter:title" content="OpnSense - How To Create A Custom Dashboard Widget">
+<meta name="twitter:description" content="In this guide we go over how to create an OpnSense Dashboard Widget"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/splash.jpg' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jono-Moss'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#the-development-environment">The Development Environment</a>
+      <ol>
+        <li><a href="#opnsense-vm">OpnSense VM</a></li>
+        <li><a href="#ubuntu-vm">Ubuntu VM</a></li>
+      </ol>
+    </li>
+    <li><a href="#widget-file-structure">Widget File Structure</a>
+      <ol>
+        <li><a href="#files-that-make-the-widget">Files That make The Widget</a></li>
+      </ol>
+    </li>
+    <li><a href="#accessing-the-folders-and-files">Accessing the folders and Files</a></li>
+    <li><a href="#create-the-files">Create the Files</a>
+      <ol>
+        <li><a href="#the-widget-file">The &ldquo;Widget&rdquo; File</a></li>
+        <li><a href="#the-core-file">The &ldquo;Core&rdquo; File</a></li>
+      </ol>
+    </li>
+    <li><a href="#let-the-development-begin">Let the Development Begin</a>
+      <ol>
+        <li><a href="#the-core-file-1">The &ldquo;Core&rdquo; File</a></li>
+        <li><a href="#the-widget-file-1">The &ldquo;Widget&rdquo; File</a>
+          <ol>
+            <li><a href="#constructor">Constructor</a></li>
+            <li><a href="#getmarkup">getMarkup()</a></li>
+            <li><a href="#onmarkuprendered">onMarkupRendered()</a></li>
+            <li><a href="#onwidgettick">onWidgetTick()</a></li>
+            <li><a href="#onwidgetclose">onWidgetClose()</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#the-dangers-of-downloading-widgets">The dangers of downloading widgets</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/opnsense-dashboard-widget-06-12-2024/">
+                <img src="/post/opnsense-dashboard-widget-06-12-2024/splash_hu10524486208641525078.jpg"
+                        srcset="/post/opnsense-dashboard-widget-06-12-2024/splash_hu10524486208641525078.jpg 800w, /post/opnsense-dashboard-widget-06-12-2024/splash_hu6727238119546528788.jpg 1600w"
+                        width="800" 
+                        height="358" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense - How To Create A Custom Dashboard Widget" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/software/" >
+                Software
+            </a>
+        
+            <a href="/categories/development/" >
+                Development
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/opnsense-dashboard-widget-06-12-2024/">OpnSense - How To Create A Custom Dashboard Widget</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            In this guide we go over how to create an OpnSense Dashboard Widget
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">06 Dec 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    10 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction
+</h2><p>Here is a quick write up of how to create your own dashboard widget on OpnSense.<br>
+At the time of writing this, I am using OpnSense version 24.7.
+The original documents can be found at:<br>
+<a class="link" href="https://docs.opnsense.org/development/frontend/dashboard.html"  target="_blank" rel="noopener"
+    >https://docs.opnsense.org/development/frontend/dashboard.html</a>
+We will be taking the existing widgets and merge them into one big widget with our own styling and layout. The purpose on this guide is not to be a javascript and  html development tutorial, but instead show the basics of how to start developing a widget.</p>
+<p>The code and examples can be downloaded from GitHub:<br>
+<a class="link" href="https://github.com/Jono-Moss/guides/tree/main/OpnSense%20Dashboard%20Widget"  target="_blank" rel="noopener"
+    >https://github.com/Jono-Moss/guides/tree/main/OpnSense%20Dashboard%20Widget</a></p>
+<h2 id="the-development-environment">The Development Environment
+</h2><p>At the time of writing this, I was doing a few network designs and projects using GNS3.
+So I decided to make a &ldquo;Lab&rdquo; on there and turn that into a small development environment.<br>
+The lab consisted of 4 &ldquo;Appliances&rdquo;:</p>
+<ol>
+<li>Cloud - to give us access to the internet</li>
+<li>OpnSense VM</li>
+<li>An Ubuntu VM (We will use this as our development machine)</li>
+<li>A basic switch (This is not really needed)</li>
+</ol>
+<p><img src="/post/opnsense-dashboard-widget-06-12-2024/1.jpg"
+	width="1920"
+	height="1080"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/1_hu17542189062530623946.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/1_hu3638503620387489744.jpg 1024w"
+	loading="lazy"
+	
+		alt="Lab Setup"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>Make sure to set / change the &ldquo;Console&rdquo; setting for both  the OpnSense and Ubuntu VM to be &ldquo;Spice Agent&rdquo;.</p>
+<p>Once the lab is setup, we will move to setting up the &ldquo;Appliances&rdquo;</p>
+<h3 id="opnsense-vm">OpnSense VM
+</h3><p>The first thing you will need to do is assign the interfaces so that OpnSense knows<br>
+which is your WAN interface and  which is your LAN interface.<br>
+This can be done by &ldquo;Double Clicking&rdquo; on the OpnSense Appliance, login using the default login details:<br>
+user: root<br>
+pass: opnsense<br>
+Then using the &ldquo;Assign Interfaces&rdquo; option in the menu.</p>
+<p>Once that id done, we need to enable <code>SSH</code> access for the root user so that we can access the files on OpnSense.</p>
+<p>I did this via the &ldquo;Web UI&rdquo;, using the Ubuntu VM. Since the default LAN IP is set to be:<br>
+192.168.1.1/24<br>
+I &ldquo;Double Clicked&rdquo; on the Ubuntu VM to open it and used Firefox to access the &ldquo;web UI&rdquo; on 192.168.1.1.</p>
+<p>From there head over to:<br>
+System-&gt;Settings-&gt;Administration<br>
+Then enable the <code>Secure Shell Server</code>, <code>Permit Root User Login</code> and <code>Permit Password Login</code>.<br>
+Save and Apply the changes.<br>
+We now are able to use sFTP to access the files on OpnSense.</p>
+<p><img src="/post/opnsense-dashboard-widget-06-12-2024/2.jpg"
+	width="1657"
+	height="926"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/2_hu107056679740965531.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/2_hu13291947008027049332.jpg 1024w"
+	loading="lazy"
+	
+		alt="Enable SSH"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="429px"
+	
+></p>
+<h3 id="ubuntu-vm">Ubuntu VM
+</h3><p>You  may use whatever program you would like to use to develop the widget,<br>
+since it is only HTML and Javascript, there is no need for any &ldquo;heavy IDE&rdquo;.
+I started just using Ubuntu&rsquo;s default text editor but moved to  installing VSCode as I
+wanted things like code folding that I  was not getting from the default editor.</p>
+<h2 id="widget-file-structure">Widget File Structure
+</h2><p>There are 4 main locations that you will use to store your files for dashboard widgets
+to work:</p>
+<ul>
+<li>Widgets are stored in:<br>
+/usr/local/opnsense/www/js/widgets/</li>
+<li>Were your widgets &ldquo;core file&rdquo; will be stored:<br>
+/usr/local/opnsense/www/js/widgets/Metadata/</li>
+<li>CSS file for styling, however I suggest sticking to inline CSS:<br>
+/usr/local/opnsense/www/css/dashboard.css</li>
+<li>Images can be stored in the &ldquo;themes&rdquo; directory:<br>
+/ui/themes/</li>
+</ul>
+<h3 id="files-that-make-the-widget">Files That make The Widget
+</h3><p>There are 2 main files that make a widget:</p>
+<ol>
+<li>The &ldquo;core&rdquo; .xml file, which is used to register the widget in OpnSense and store &ldquo;Localisation&rdquo; info.</li>
+<li>The &ldquo;widget&rdquo; .js file, which is where all the widget logic and UI is created.</li>
+</ol>
+<p>The &ldquo;core&rdquo; file is stored in the <code>/usr/local/opnsense/www/js/widgets/Metadata/</code> folder.<br>
+You can name it anything you like, in this guide we will call it <code>jonoCustomwidget.xml</code></p>
+<p>The &ldquo;widget&rdquo; file is created an stored in the <code>/usr/local/opnsense/www/js/widgets/</code> folder.
+You can name it anything you like, in this guide we will call it <code>JonoCustom.js</code></p>
+<p>With that in mind, I will go over how to access the folders and files in order to start developing your widget.</p>
+<h2 id="accessing-the-folders-and-files">Accessing the folders and Files
+</h2><p>Ubuntu&rsquo;s &ldquo;file explorer&rdquo; has the ability to access files directly using sFTP, so we can easily
+access the files on OpnSense using that feature.</p>
+<ol>
+<li>Open the &ldquo;file explorer&rdquo; and click on the <code>Other Locations</code> option at the bottom left.
+<img src="/post/opnsense-dashboard-widget-06-12-2024/3.jpg"
+	width="789"
+	height="491"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/3_hu9712383050301540345.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/3_hu2617004867995762272.jpg 1024w"
+	loading="lazy"
+	
+		alt="other locations"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></li>
+<li>Then in the input at the bottom, you can use the following to access the files:<br>
+<code>ssh://opnsenseip</code><br>
+or<br>
+<code>sftp://opnsense-ip</code>
+So in this guide it will be:
+<code>ssh://192.168.1.1</code><br>
+or<br>
+<code>sftp://192.168.1.1</code><br>
+<img src="/post/opnsense-dashboard-widget-06-12-2024/4.jpg"
+	width="336"
+	height="42"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/4_hu12344438867962509555.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/4_hu18004197145845666907.jpg 1024w"
+	loading="lazy"
+	
+		alt="other locations"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="800"
+		data-flex-basis="1920px"
+	
+></li>
+<li>You will be prompted to enter in your OpnSense credentials to get access.
+<img src="/post/opnsense-dashboard-widget-06-12-2024/5.jpg"
+	width="792"
+	height="493"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/5_hu5000654943412074896.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/5_hu1727594751128335849.jpg 1024w"
+	loading="lazy"
+	
+		alt="credentials"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></li>
+<li>You will then be taken to the users home folder, in my case, since I logged into OpnSense using the root user, I will be taken to the root users home folder which is currently empty.<br>
+<img src="/post/opnsense-dashboard-widget-06-12-2024/6.jpg"
+	width="792"
+	height="493"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/6_hu9964699273509243606.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/6_hu11525680744578429719.jpg 1024w"
+	loading="lazy"
+	
+		alt="root home"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></li>
+<li>From there, you can click on the &ldquo;IP Address&rdquo; at the top navigation pane and remove the &ldquo;Trailing path&rdquo;, in this to go back out of the &ldquo;root home&rdquo; folder and out to the top most path / folder of OpnSense.<br>
+So in my case I will change it from <code>sftp://192.168.1.1/root</code> back to  <code>sftp://192.168.1.1</code>
+and then press the <code>Enter</code> key on my  keyboard to go to the main path.
+<img src="/post/opnsense-dashboard-widget-06-12-2024/7.jpg"
+	width="792"
+	height="493"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/7_hu11663706857422448422.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/7_hu15067816128988749625.jpg 1024w"
+	loading="lazy"
+	
+		alt="top path"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></li>
+<li>We can now &ldquo;visually&rdquo; navigate the OpnSense file system easily. <br>
+From here we will navigate to the main widget folder which is located at:<br>
+<code>/usr/local/opnsense/www/js/widgets/</code><br>
+<img src="/post/opnsense-dashboard-widget-06-12-2024/8.jpg"
+	width="792"
+	height="493"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/8_hu18376066468696601028.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/8_hu2885081539524985013.jpg 1024w"
+	loading="lazy"
+	
+		alt="top path"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="385px"
+	
+></li>
+</ol>
+<h2 id="create-the-files">Create the Files
+</h2><h3 id="the-widget-file">The &ldquo;Widget&rdquo; File
+</h3><p>We will start with creating the &ldquo;widget&rdquo; js file. To do this, open the IDE that you will use to develop the widget.<br>
+In the IDE, create a new &ldquo;js&rdquo; file, navigate to the <code>/usr/local/opnsense/www/js/widgets/</code> folder and save it.<br>
+Since we have it open in the Ubuntu file explorer, we can access the folder via the UI by selecting it on the left menu panel.<br>
+<img src="/post/opnsense-dashboard-widget-06-12-2024/9.jpg"
+	width="1195"
+	height="643"
+	srcset="/post/opnsense-dashboard-widget-06-12-2024/9_hu12272062619269345971.jpg 480w, /post/opnsense-dashboard-widget-06-12-2024/9_hu10527292861768238781.jpg 1024w"
+	loading="lazy"
+	
+		alt="save widget file"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="446px"
+	
+>
+You can name it whatever you like, in this guide I will name it:
+<code>JonoCustom.js</code></p>
+<h3 id="the-core-file">The &ldquo;Core&rdquo; File
+</h3><p>Using the same steps as above. Create an XML file in the following folder, name it whatever you like:<br>
+<code>/usr/local/opnsense/www/js/widgets/Metadata/</code>
+In this guide I named it <code>jonoCustomwidget.xml</code></p>
+<h2 id="let-the-development-begin">Let the Development Begin
+</h2><p>The code and examples can be downloaded from GitHub:<br>
+<a class="link" href="https://github.com/Jono-Moss/guides/tree/main/OpnSense%20Dashboard%20Widget"  target="_blank" rel="noopener"
+    >https://github.com/Jono-Moss/guides/tree/main/OpnSense%20Dashboard%20Widget</a></p>
+<h3 id="the-core-file-1">The &ldquo;Core&rdquo; File
+</h3><p>You can copy and paste the code below into your XML file, I will explain each section to you:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;metadata&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;jonoCustomwidget&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;filename&gt;</span>JonoCustom.js<span class="nt">&lt;/filename&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;link&gt;</span>https://jonomoss.com<span class="nt">&lt;/link&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;endpoints&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;endpoint&gt;</span>/api/diagnostics/system/systemResources<span class="nt">&lt;/endpoint&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/endpoints&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;translations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;title&gt;</span>Jono Custom Widget<span class="nt">&lt;/title&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;used&gt;</span>Used<span class="nt">&lt;/used&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;free&gt;</span>Free<span class="nt">&lt;/free&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;firewall&gt;</span>Firewall Logs<span class="nt">&lt;/firewall&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;action&gt;</span>Action<span class="nt">&lt;/action&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;time&gt;</span>Time<span class="nt">&lt;/time&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;interface&gt;</span>Interface<span class="nt">&lt;/interface&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;source&gt;</span>Source<span class="nt">&lt;/source&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;destination&gt;</span>Destination<span class="nt">&lt;/destination&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;port&gt;</span>Port<span class="nt">&lt;/port&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;matchedrule&gt;</span>Matched rule<span class="nt">&lt;/matchedrule&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;interfaces&gt;</span>Interfaces<span class="nt">&lt;/interfaces&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;services&gt;</span>Services<span class="nt">&lt;/services&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;noservices&gt;</span>No services found<span class="nt">&lt;/noservices&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;running&gt;</span>Running<span class="nt">&lt;/running&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;stopped&gt;</span>Stopped<span class="nt">&lt;/stopped&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;restart&gt;</span>Restart<span class="nt">&lt;/restart&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;stop&gt;</span>Stop<span class="nt">&lt;/stop&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;start&gt;</span>Start<span class="nt">&lt;/start&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;gateway&gt;</span>Gateways<span class="nt">&lt;/gateway&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;rtt&gt;</span>RTT<span class="nt">&lt;/rtt&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;rttd&gt;</span>RTTd<span class="nt">&lt;/rttd&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;loss&gt;</span>Loss<span class="nt">&lt;/loss&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/translations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/jonoCustomwidget&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/metadata&gt;</span>
+</span></span></code></pre></div><ol>
+<li>The first parent &ldquo;tag&rdquo; in the XML file needs to be <code>&lt;metadata&gt;&lt;/metadata&gt;</code> this tells OpnSense what the content inside it will be linked to / be about.<br>
+You need to always have this in the core file.</li>
+<li>The next tag in the <code>&lt;metadata&gt;&lt;/metadata&gt;</code> will be what you want to call your widget.    In this case we will call it <code>&lt;jonoCustomwidget&gt;&lt;/jonoCustomwidget&gt; </code> This is what you will see in the &ldquo;Widget List&rdquo; when adding it to the dashboard.</li>
+<li>The next tag in the <code>&lt;jonoCustomwidget&gt;&lt;/jonoCustomwidget&gt; </code> section is the <code>&lt;filename&gt;JonoCustom.js&lt;/filename&gt;</code>.<br>
+This tells OpnSense what the name of the &ldquo;Widget&rdquo; js file is.<br>
+In the previous file creation section. We create and named the &ldquo;widget&rdquo; file <code>JonoCustom.js</code>.
+So it is very important that it matches the name  of the file you created.</li>
+<li>The <code>&lt;link&gt;https://jonomoss.com&lt;/link&gt;</code> tag is not really used, but it is be a nice place to put a link to where a developer or user can get more info about the widget.</li>
+<li>The <code>&lt;endpoints&gt;&lt;/endpoints&gt;</code> section is where you will tell OpnSense what &ldquo;endpoints&rdquo; the widget will be using. From there OpnSense will see if the current logged in user has access to those endpoints (ACL). All the endpoints can be found in the development documentations at:  <a class="link" href="https://docs.opnsense.org/development/api.html"  target="_blank" rel="noopener"
+    >https://docs.opnsense.org/development/api.html</a></li>
+</ol>
+<p><strong>Important</strong></p>
+<blockquote>
+<p>In this guide and example I forgot to add all the end points. However since I login to the OpnSense web UI via the &ldquo;root&rdquo; user, the widget will still work. If however a user who does not have access to the endpoints uses this widget, they will run into errors.</p>
+</blockquote>
+<ol start="6">
+<li>The <code> &lt;translations&gt;&lt;/translations&gt;</code> section is used  for static text in your widget, you can give the tag any name and that will be used to reference the value  / text in it. <code>&lt;keyName&gt;&lt;/keyName&gt;</code>. As an example, you  can create a &ldquo;translation&rdquo; with the key as <code>&lt;title&gt;My Widget&lt;/title&gt;</code> and in the &ldquo;widget&rdquo; file, you can reference and use the &ldquo;My Widget&rdquo; text by using the  following code:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">translations</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span> 
+</span></span></code></pre></div><h3 id="the-widget-file-1">The &ldquo;Widget&rdquo; File
+</h3><ol>
+<li>When creating your widget, your class has to extend one of the three base classes:<br>
+BaseWidget<br>
+BaseTableWidget<br>
+BaseGaugeWidget</li>
+</ol>
+<p>The BaseTableWidget and BaseGaugeWidget both extend the BaseWidget but have some built in functions to be able to speed up the creation of either a &ldquo;table&rdquo; based widget or a &ldquo;gauge&rdquo; based widget.
+when I started this guide, I was focusing on creating a &ldquo;Firewall Log&rdquo; widget. So I started by extending the <code>BaseTableWidget</code>. However, as I got more knowledgeable and comfortable with how the widgets worked. I stopped using OpnSense&rsquo;s table functions and instead wrote my own. I did not change the extends to be <code>BaseWidget</code>, however it does not really make a difference to my widget.</p>
+<p>So in this guide the class we will create will be as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">Jono</span> <span class="kr">extends</span> <span class="nx">BaseTableWidget</span> <span class="p">{}</span>
+</span></span></code></pre></div><ol start="2">
+<li>There are 5 main functions that OpnSense triggers when you use your widget,<br>
+The following are the main functions:</li>
+</ol>
+<ul>
+<li>constructor - Run once when widget is created</li>
+<li>getMarkup - Run once when widget is started</li>
+<li>onMarkupRendered - called once after &ldquo;getMarkup&rdquo; is completed</li>
+<li>onWidgetTick - Run every tick, you can set the &ldquo;tick rate&rdquo; in the constructor, this is where you get and refresh the widgets data</li>
+<li>onWidgetClose - Run once when widget is closed</li>
+</ul>
+<h4 id="constructor">Constructor
+</h4><p>The only things we will do in the constructor is set the &ldquo;tick rate&rdquo; and  add a &ldquo;locked&rdquo; variable that the &ldquo;service&rdquo; system needed to keep track of its state.</p>
+<p>These variables are declared in the parent class, we are just setting the values in our child class.</p>
+<h4 id="getmarkup">getMarkup()
+</h4><p>The getMarkup() function is then called after the constructor, this is used to create the main HTML structure of the widget.<br>
+Since I want to have multiple widgets in one, my getMarkup() function was looking messy and become difficult to follow.<br>
+So what I decided to do was  to create a separate  function for each widget section I wanted and then called them here.<br>
+I have made comments in the file so it should be easy to follow. Doing it this way also allows for me to easily extract the different  widgets code out of this file and use them else where if I want to create a new widget in the future.</p>
+<p>The next thing that I did was to add a function that will include all the CSS into my widget. When I was using the CSS file that the OpnSense documents recommended<br>
+<code>/usr/local/opnsense/www/css/dashboard.css</code><br>
+I noticed that after OpnSense did an update. All my CSS was removed from that file.<br>
+So instead I decided to move all the CSS into the widget itself and add it to  the html in this getMarkup() function.<br>
+Now updates will not interfere with the widget.</p>
+<h4 id="onmarkuprendered">onMarkupRendered()
+</h4><p>This is called after the getMarkup() function.<br>
+The purpose of this function is to add more data to the main widget HTML structure
+but could only be done once the initial structure is on the DOM.</p>
+<h4 id="onwidgettick">onWidgetTick()
+</h4><p>This is where the magic happens, all the data your widget need to get and then render to the screen is done here.<br>
+Just like the above functions, I have created a separate function for each section so that it is more organised and easier for me to follow.</p>
+<p>The general process of the data fetching and updating goes as follows:</p>
+<ol>
+<li>If needed, clear the existing data from the DOM (remove from section)</li>
+<li>Call and get the data from the api endpoint.</li>
+<li>Once the data is received, map the data to an HTML object / snippets.</li>
+<li>Append or replace the data to the main HTML structure.</li>
+<li>When the next tick is met, repeat.</li>
+</ol>
+<h4 id="onwidgetclose">onWidgetClose()
+</h4><p>The last function onWidgetClose() calls the onWidgetClose() function in the parent class. This does garbage collection and destructor things.</p>
+<h2 id="the-dangers-of-downloading-widgets">The dangers of downloading widgets
+</h2><p>As a side note, please be very careful of just downloading and  using any widget.
+Since you can run basically any javascript and HTML code, a bad actor can inject malicious code and
+get access to information you  do not want them to have.
+A quick example could be: <br>
+A form with hidden fields can be added to the widget, for example &ldquo;username&rdquo; and &ldquo;password&rdquo;. <br>
+Your browser could then auto fill the fields with saved data you have (for example your login details you log into OpnSense with) and then using javascript, can then auto send those details
+to them.<br>
+So be very careful and make sure to always check the code before using it on your own OpnSense instance.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/software/">Software</a>
+        
+            <a href="/tags/development/">Development</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/-gns3-install-debian-27-09-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/-gns3-install-debian-27-09-2024/splash.a71ee31748e4ff92278f1cc4242a1cd3.a71ee31748e4ff92278f1cc4242a1cd3_hu187078013761779831.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How To Install GNS3 On Linux - Debian based"
+                        
+                        data-hash="md5-px7jF0jk/5InjxzEJCoc0w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How To Install GNS3 On Linux - Debian based</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/lab.d8edb1eee8730a4a695eceb6e76e09d7.d8edb1eee8730a4a695eceb6e76e09d7_hu182676436881124498.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post OpnSense IPSec (Point to Point) connections (Policy based)"
+                        
+                        data-hash="md5-2O2x7uhzCkppXs62524J1w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpnSense IPSec (Point to Point) connections (Policy based)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/opendns-on-opnsense-07-08-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/opendns-on-opnsense-07-08-2024/splash.a016508145d62a688c2219543823ff44.a016508145d62a688c2219543823ff44_hu4007266029784752816.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Set up openDNS Service on OpnSense"
+                        
+                        data-hash="md5-oBZQgUXWKmiMIhlUOCP/RA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Set up openDNS Service on OpnSense</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/eve-ng-create-win-lin-op-nodes-16-07-2024/splash.bd4066edf8a1d83be63593b4f01e68ae.bd4066edf8a1d83be63593b4f01e68ae_hu13658818985528884592.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How to create a Windows, Linux and OpnSense node in EVE-NG"
+                        
+                        data-hash="md5-vUBm7fih2DvmNZO08B5org==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to create a Windows, Linux and OpnSense node in EVE-NG</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/eve-ng-proxmox-12-07-2024/">
+        
+        
+            <div class="article-image">
+                <img src="/post/eve-ng-proxmox-12-07-2024/splash.05b9cce2c6bab085fc61aa779328ffa0.05b9cce2c6bab085fc61aa779328ffa0_hu7603083287451278784.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How to install EVE-NG on Proxmox"
+                        
+                        data-hash="md5-BbnM4sa6sIX8Yap3kyj/oA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to install EVE-NG on Proxmox</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2025 Jonathan Moss
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

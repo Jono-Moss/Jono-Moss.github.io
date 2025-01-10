@@ -21,14 +21,14 @@
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;This is just a quick guide on how to add another drive to an existing RAID 0 virtual disk on th H700 RAID Controller.&lt;/p&gt;
-&lt;h3 id=&#34;a-use-case-scenario&#34;&gt;A use case scenario:&lt;/h3&gt;
-&lt;p&gt;I have a 500GB HDD that I use as a &amp;ldquo;Directory&amp;rdquo; disk in Proxmox to store &amp;ldquo;ISO images&amp;rdquo; and &amp;ldquo;Virtual Machine HDDs&amp;rdquo;.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;This is just a quick guide on how to add another drive to an existing RAID 0 virtual disk on th H700 RAID Controller.&lt;/p&gt;
+&lt;h3 id=&#34;a-use-case-scenario&#34;&gt;A use case scenario:
+&lt;/h3&gt;&lt;p&gt;I have a 500GB HDD that I use as a &amp;ldquo;Directory&amp;rdquo; disk in Proxmox to store &amp;ldquo;ISO images&amp;rdquo; and &amp;ldquo;Virtual Machine HDDs&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/1.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;660&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_84557_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_84557_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu9188909962915473448.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/1_hu14254622500354921128.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Directory HDD&#34;
@@ -42,7 +42,7 @@
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/2.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_65058_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_65058_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu6027037989279343325.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/2_hu18211940958813769012.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Directory Folder&#34;
@@ -56,7 +56,7 @@
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/3.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_59259_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_59259_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu17765854008126694817.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/3_hu5143554806885657864.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Directory Folder&#34;
@@ -71,7 +71,7 @@
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/8.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_85706_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_85706_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu7222973323081977494.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/8_hu9487109935637861415.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;raid vd disk&#34;
@@ -84,8 +84,8 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;I would like to add another 500GB hard drive to it to increase the size of it.
 Below is the process on how to do it using the Dell OpenManage Server Administrator.&lt;/p&gt;
-&lt;h2 id=&#34;how-to-add-a-hard-drive-to-a-raid-0-virtual-disk-on-a-h700-controller&#34;&gt;How to add a hard drive to a RAID 0 virtual disk on a H700 Controller&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Make sure to back up your files first, You never know if something will go wrong, So always make sure you have a working backup&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;how-to-add-a-hard-drive-to-a-raid-0-virtual-disk-on-a-h700-controller&#34;&gt;How to add a hard drive to a RAID 0 virtual disk on a H700 Controller
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Make sure to back up your files first, You never know if something will go wrong, So always make sure you have a working backup&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Login to the OpenManage Server Administrator Web UI&lt;/li&gt;
 &lt;/ol&gt;
@@ -102,7 +102,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/9.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_88475_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_88475_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu8952374371511228219.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/9_hu4202602354257896954.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;OpenManage Server Administrator&#34;
@@ -119,7 +119,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/10.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;286&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_49833_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_49833_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu13727015043033509290.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/10_hu14467932486038201754.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reconfigure option&#34;
@@ -136,7 +136,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/11.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;286&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_47001_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_47001_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu9511891203734555255.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/11_hu13444169866608957211.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Select Disks&#34;
@@ -158,7 +158,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/12.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;286&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu5f299b5f3d0d701c1ef5afe858e66b6a_33411_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu5f299b5f3d0d701c1ef5afe858e66b6a_33411_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu13821017321105411432.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/12_hu17764702193986259457.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;raid option&#34;
@@ -180,7 +180,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/13.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;636&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_79953_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_79953_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu11097992387430523554.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/13_hu10029439330651026587.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;overview&#34;
@@ -197,7 +197,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu10721814783378108534.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu24837442184259917.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reconstructing in progress&#34;
@@ -215,7 +215,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/15.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;236&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_40620_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_40620_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu12184871070033129554.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/15_hu8426809459532923475.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reconstructing completed&#34;
@@ -232,7 +232,7 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/16.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;236&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_56065_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_56065_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu3594074771269465580.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/16_hu14433643069284441651.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;reboot proxmox&#34;
@@ -243,13 +243,13 @@ storage -&amp;gt; PERC H700 Integrated -&amp;gt; Virtual disks&lt;/li&gt;
 		data-flex-basis=&#34;1220px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;about-the-process&#34;&gt;About the process&lt;/h2&gt;
-&lt;p&gt;The process is &amp;ldquo;additive&amp;rdquo;, so it is a non interrupting and non destructive process. You can continue to use the virtual disk while the &amp;ldquo;Reconstructing&amp;rdquo; is in progress.
+&lt;h2 id=&#34;about-the-process&#34;&gt;About the process
+&lt;/h2&gt;&lt;p&gt;The process is &amp;ldquo;additive&amp;rdquo;, so it is a non interrupting and non destructive process. You can continue to use the virtual disk while the &amp;ldquo;Reconstructing&amp;rdquo; is in progress.
 So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and running on the RAID 0 virtual disk while it was still in progress.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_77721_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu10721814783378108534.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/4_hu24837442184259917.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reconstructing in progress&#34;
@@ -263,7 +263,7 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/5.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_64028_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_64028_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu8668378045799403624.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/5_hu4462545305450435541.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Creating VM on the disk&#34;
@@ -277,7 +277,7 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/6.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_77514_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_77514_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu90222447387222390.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/6_hu13016849841013069285.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;vm running while Reconstructing in progress&#34;
@@ -291,7 +291,7 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/7.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;601&#34;
-	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_77138_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_77138_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu12995772576256969245.jpg 480w, http://localhost:1313/post/h700-raid-controller-how-to-expand-a-raid-0/7_hu17194602324935808835.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Reconstructing still in progress&#34;
@@ -336,10 +336,10 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;home-lab-network-design&#34;&gt;Home Lab Network Design&lt;/h2&gt;
-&lt;p&gt;I wanted to share the design of the network I will be creating and using in my new home / office lab setup. I will briefly go over the requirements of what in my opinion every lab network should have and how I will achieve this with as little hardware as possible.&lt;/p&gt;
-&lt;h2 id=&#34;the-requirements&#34;&gt;The requirements&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;home-lab-network-design&#34;&gt;Home Lab Network Design
+&lt;/h2&gt;&lt;p&gt;I wanted to share the design of the network I will be creating and using in my new home / office lab setup. I will briefly go over the requirements of what in my opinion every lab network should have and how I will achieve this with as little hardware as possible.&lt;/p&gt;
+&lt;h2 id=&#34;the-requirements&#34;&gt;The requirements
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Dual WAN ports. It is very important to learn how to use and work in a multi WAN environment. Most medium to large companies will have to use a Multi WAN network, so learning how to work with them in your Lab is important.&lt;/p&gt;
 &lt;/li&gt;
@@ -350,12 +350,12 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;p&gt;The last requirement will then be to have a &amp;ldquo;LAN Port&amp;rdquo; that we can use for what ever we need to as this series continues. For example we will most probably use this port as a &amp;ldquo;Trunk&amp;rdquo; for VLANs. We will most probably use it to create VLANs such as &amp;ldquo;IOT/Mobile, Office and Guests&amp;rdquo; which we can then connect to another Managed switch to grow the network over time.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;the-design&#34;&gt;The Design&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;Please note that this will change as the network grows or as needed.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-design&#34;&gt;The Design
+&lt;/h2&gt;&lt;p&gt;&lt;em&gt;Please note that this will change as the network grows or as needed.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/home-lab-network-design-26-01-2024/splash.jpg&#34;
 	width=&#34;1072&#34;
 	height=&#34;621&#34;
-	srcset=&#34;http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu13067320253886577319.jpg 480w, http://localhost:1313/post/home-lab-network-design-26-01-2024/splash_hu16454602841338080287.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Network Diagram&#34;
@@ -366,8 +366,8 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 		data-flex-basis=&#34;414px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;managed-switch&#34;&gt;Managed Switch&lt;/h3&gt;
-&lt;p&gt;The heart of my network is the &amp;ldquo;TP-Link TL-SG1024DE&amp;rdquo; managed switch. I have been using it for years and it has been an incredible switch for me. I use VLANs (802.1Q) to be able to split the switch up into the different networks.&lt;/p&gt;
+&lt;h3 id=&#34;managed-switch&#34;&gt;Managed Switch
+&lt;/h3&gt;&lt;p&gt;The heart of my network is the &amp;ldquo;TP-Link TL-SG1024DE&amp;rdquo; managed switch. I have been using it for years and it has been an incredible switch for me. I use VLANs (802.1Q) to be able to split the switch up into the different networks.&lt;/p&gt;
 &lt;p&gt;I use it in the following way:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;The first 8 ports (1-8) are used from my &amp;ldquo;Home Network&amp;rdquo;.&lt;/li&gt;
@@ -376,8 +376,8 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;li&gt;the last port (24) is used as a trunk for my &amp;ldquo;Home, Business and home Lab&amp;rdquo;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;this allows me to only need one switch for my entire network, which saves space and electricity.&lt;/p&gt;
-&lt;h3 id=&#34;wan-connections-for-the-lab&#34;&gt;WAN connections for the Lab&lt;/h3&gt;
-&lt;p&gt;I have created a trunk from my &amp;ldquo;main router&amp;rdquo; that will have two VLANs (104 and 105).&lt;/p&gt;
+&lt;h3 id=&#34;wan-connections-for-the-lab&#34;&gt;WAN connections for the Lab
+&lt;/h3&gt;&lt;p&gt;I have created a trunk from my &amp;ldquo;main router&amp;rdquo; that will have two VLANs (104 and 105).&lt;/p&gt;
 &lt;p&gt;On my main router, I created two VLAN networks that I will then use as WAN connections for our lab.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;VLAN 104, 172.16.0.0/29&lt;/li&gt;
@@ -385,11 +385,11 @@ So for example I made an &amp;ldquo;Ubuntu Virtual Machine&amp;rdquo; saved and 
 &lt;/ul&gt;
 &lt;p&gt;This goes into port 24 as a &amp;ldquo;tagged&amp;rdquo; VLAN, then on port 17 and 18 they will be &amp;ldquo;untagged&amp;rdquo;. That is then connected to OpnSense as gateways.&lt;/p&gt;
 &lt;p&gt;We will then have two WAN networks to play with in the Lab.&lt;/p&gt;
-&lt;h3 id=&#34;opnsense&#34;&gt;OpnSense&lt;/h3&gt;
-&lt;p&gt;I will be installing OpnSense on a Virtual Machine and give the Virtual Machine access to the NIC ports via &amp;ldquo;Linux bridges&amp;rdquo;.&lt;/p&gt;
+&lt;h3 id=&#34;opnsense&#34;&gt;OpnSense
+&lt;/h3&gt;&lt;p&gt;I will be installing OpnSense on a Virtual Machine and give the Virtual Machine access to the NIC ports via &amp;ldquo;Linux bridges&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;This way it allows for easier and quick adding and removing ports as needed. It will also help with migration and clusters if you would like to do that. Passing (Passthrough) an entire NIC to the virtual machine is not needed and can actually be more of a pain at times to manage then just using bridges.&lt;/p&gt;
-&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
-&lt;p&gt;Honestly there is not much more for me to explain as I think the diagram explains a lot already. I will see how it goes, but I will most probably do a Youtube Video showing the installation process and how I went about setting up the networks from beginning to end.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h3&gt;&lt;p&gt;Honestly there is not much more for me to explain as I think the diagram explains a lot already. I will see how it goes, but I will most probably do a Youtube Video showing the installation process and how I went about setting up the networks from beginning to end.&lt;/p&gt;
 &lt;p&gt;However since it will be a very time intensive task, I will be looking into splitting it up into a series of smaller videos, but I will see how things go and take it as it comes.
 But I&amp;rsquo;m excited to start on this series and I hope you will enjoy it and learn a lot.&lt;/p&gt;
 </description>
@@ -409,8 +409,8 @@ But I&amp;rsquo;m excited to start on this series and I hope you will enjoy it a
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;how-will-we-achieve-this&#34;&gt;How will we achieve this?&lt;/h2&gt;
-&lt;p&gt;In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
+&lt;h2 id=&#34;how-will-we-achieve-this&#34;&gt;How will we achieve this?
+&lt;/h2&gt;&lt;p&gt;In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
 The script will need to use two main components to achieve this:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;ipmitool for Debian (Proxmox) to use use ipmi protocols in the cli.&lt;/li&gt;
@@ -419,13 +419,13 @@ The script will need to use two main components to achieve this:&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;Just as a side note, I have created a &amp;ldquo;Management&amp;rdquo; (10.0.0.0/24) network were things such as the iDRAC and other other management related software / devices are connected to. Having a separate and tightly locked down network where all the IT infrastructure is managed is very important.&lt;/p&gt;
 &lt;p&gt;I will do a write up on my network design in a future post, but for now I wanted to get this post out to help people silence their server and also help save some electricity in the process.&lt;/p&gt;
-&lt;h2 id=&#34;set-your-idrac-lan-settings-and-main-admin-user&#34;&gt;Set your iDRAC LAN Settings and main admin user&lt;/h2&gt;
-&lt;p&gt;In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &amp;ldquo;Admin&amp;rdquo; user we can use to login and administrate the server.&lt;/p&gt;
+&lt;h2 id=&#34;set-your-idrac-lan-settings-and-main-admin-user&#34;&gt;Set your iDRAC LAN Settings and main admin user
+&lt;/h2&gt;&lt;p&gt;In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &amp;ldquo;Admin&amp;rdquo; user we can use to login and administrate the server.&lt;/p&gt;
 &lt;p&gt;make sure to have your iDRAC NIC connected to your desired network
 &lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu18174131023807372716.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/8_hu2677620323442158972.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;cable connection&#34;
@@ -444,7 +444,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu2411230857364870208.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/2_hu14305635541632078713.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;bios screen&#34;
@@ -461,7 +461,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu1200365773324186690.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/3_hu4328307570800005474.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;IPMI On&#34;
@@ -478,7 +478,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu17307248343914457389.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/4_hu6696847633051047551.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Lan Section&#34;
@@ -492,7 +492,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu2814240398869505723.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/5_hu9219488478227214844.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Lan Settings&#34;
@@ -509,7 +509,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu3337522834265341653.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/6_hu7723406076389305298.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;user section&#34;
@@ -526,7 +526,7 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;800&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu8884064234017932140.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/7_hu15589907767503043968.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;user settings&#34;
@@ -540,8 +540,8 @@ Turn on your server and press the &amp;ldquo;CTRL + E&amp;rdquo; key on your key
 &lt;ol start=&#34;6&#34;&gt;
 &lt;li&gt;press &lt;code&gt;ESC&lt;/code&gt; to exit and save your changes.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;create-a-new-idrac-user-for-our-script&#34;&gt;Create a new iDRAC user for our script&lt;/h2&gt;
-&lt;p&gt;We don&amp;rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
+&lt;h2 id=&#34;create-a-new-idrac-user-for-our-script&#34;&gt;Create a new iDRAC user for our script
+&lt;/h2&gt;&lt;p&gt;We don&amp;rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
 We will instead create a new user that we will give permissions to use the IPMI.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Login to your iDRAC web portal entering your iDRAC IP address in your browser, mine is as follows:
@@ -550,7 +550,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;665&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu15047791058217599135.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/1_hu5518155607846115775.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;iDRAC Web&#34;
@@ -572,7 +572,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9.jpg&#34;
 	width=&#34;1006&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu2404481764149524793.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/9_hu10602185151978643384.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;iDRAC Menu&#34;
@@ -589,7 +589,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10.jpg&#34;
 	width=&#34;1006&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu3561587383961023412.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/10_hu12240187665025222968.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;network section Menu&#34;
@@ -606,7 +606,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11.jpg&#34;
 	width=&#34;1006&#34;
 	height=&#34;892&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu7966757779011494270.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/11_hu10823135452834859978.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;user  section&#34;
@@ -623,7 +623,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;648&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu6364155986394511575.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/12_hu11245897128768407006.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;id select&#34;
@@ -640,7 +640,7 @@ https://10.0.0.4/login.html&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;523&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu2620343910551736913.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/13_hu8986062986650386062.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Configure User&#34;
@@ -665,7 +665,7 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;613&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu17776374719881967696.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/14_hu8934149398663873027.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;user settings&#34;
@@ -679,12 +679,12 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;ol start=&#34;8&#34;&gt;
 &lt;li&gt;Scroll to the bottom of the page and click “Apply” to create the new user.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;ipmi-encryption&#34;&gt;IPMI Encryption&lt;/h2&gt;
-&lt;p&gt;Under the &lt;code&gt;Network&lt;/code&gt; section of the &lt;code&gt;iDRAC Settings&lt;/code&gt;. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &amp;ldquo;0&amp;rdquo;.&lt;/p&gt;
+&lt;h2 id=&#34;ipmi-encryption&#34;&gt;IPMI Encryption
+&lt;/h2&gt;&lt;p&gt;Under the &lt;code&gt;Network&lt;/code&gt; section of the &lt;code&gt;iDRAC Settings&lt;/code&gt;. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &amp;ldquo;0&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;589&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu2313075504308294838.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/15_hu10244641985735509128.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;IPMI Encryption&#34;
@@ -695,12 +695,12 @@ Everything else should be default, which will effectively be no permissions.&lt;
 		data-flex-basis=&#34;488px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;install-ipmi-tools-on-proxmox&#34;&gt;Install IPMI Tools on Proxmox&lt;/h2&gt;
-&lt;p&gt;I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.&lt;/p&gt;
+&lt;h2 id=&#34;install-ipmi-tools-on-proxmox&#34;&gt;Install IPMI Tools on Proxmox
+&lt;/h2&gt;&lt;p&gt;I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;449&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu7062122804682138209.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/16_hu16020303315984034604.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Proxmox Terminal&#34;
@@ -722,7 +722,7 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;566&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu5192722578223947591.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/17_hu2572196401432798350.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;command&#34;
@@ -736,7 +736,7 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;566&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu9262104901419834797.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/18_hu9815799238588046229.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ipmitool installed&#34;
@@ -762,7 +762,7 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;566&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu5401035964624730060.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/19_hu16152946771569044569.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ipmitool test&#34;
@@ -773,8 +773,8 @@ Everything else should be default, which will effectively be no permissions.&lt;
 		data-flex-basis=&#34;508px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;the-script&#34;&gt;The script&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;the-script&#34;&gt;The script
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;I will create a new folder in the &lt;code&gt;root&lt;/code&gt; users home folder where I will store the script.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir fancontrol
@@ -787,7 +787,7 @@ Everything else should be default, which will effectively be no permissions.&lt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20.jpg&#34;
 	width=&#34;1000&#34;
 	height=&#34;410&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu4350537090052142358.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/20_hu18357169930478334598.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create file&#34;
@@ -849,7 +849,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;1410&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu16361936581340371831.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/21_hu1992303572223388488.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;nano&#34;
@@ -878,7 +878,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;698&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu16256855713039441896.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/22_hu16660781001016388403.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;9 percent speed&#34;
@@ -893,7 +893,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;698&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu12718751408511137095.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/23_hu8398609056247688848.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;50 percent speed&#34;
@@ -904,8 +904,8 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 		data-flex-basis=&#34;412px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;create-a-cron-job&#34;&gt;Create a cron job&lt;/h2&gt;
-&lt;p&gt;Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.&lt;/p&gt;
+&lt;h2 id=&#34;create-a-cron-job&#34;&gt;Create a cron job
+&lt;/h2&gt;&lt;p&gt;Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Open crontab&lt;/li&gt;
 &lt;/ol&gt;
@@ -913,7 +913,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;351&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu3375797388950538065.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/24_hu18107176373986816045.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;crontab&#34;
@@ -931,7 +931,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;1393&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu11115716564630389640.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/25_hu14963632974374196170.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create cron&#34;
@@ -948,7 +948,7 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26.jpg&#34;
 	width=&#34;690&#34;
 	height=&#34;118&#34;
-	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu16342052145661340636.jpg 480w, http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/26_hu15170031447319795874.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;cron job runs&#34;
@@ -959,8 +959,8 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 		data-flex-basis=&#34;1403px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -978,14 +978,14 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;perc-h700-raid-controller&#34;&gt;PERC H700 RAID controller&lt;/h2&gt;
-&lt;p&gt;The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD&amp;rsquo;s to it.&lt;/p&gt;
-&lt;h2 id=&#34;add-your-hard-drives-to-the-server&#34;&gt;Add your hard drives to the server&lt;/h2&gt;
-&lt;p&gt;I had four extremely  old Seagate 500 GB Barracuda Sata hard drives laying around, I will only be using those to demonstrate how to add drives to the server.&lt;/p&gt;
+&lt;h2 id=&#34;perc-h700-raid-controller&#34;&gt;PERC H700 RAID controller
+&lt;/h2&gt;&lt;p&gt;The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD&amp;rsquo;s to it.&lt;/p&gt;
+&lt;h2 id=&#34;add-your-hard-drives-to-the-server&#34;&gt;Add your hard drives to the server
+&lt;/h2&gt;&lt;p&gt;I had four extremely  old Seagate 500 GB Barracuda Sata hard drives laying around, I will only be using those to demonstrate how to add drives to the server.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu4721603725520680628.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/2_hu10241723279403693416.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Seagate&#34;
@@ -996,15 +996,15 @@ I also added a &lt;code&gt;FANSPEED&lt;/code&gt; variable to make it easier to s
 		data-flex-basis=&#34;358px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;how-to-access-the-controllers-bios&#34;&gt;How to access the controllers bios&lt;/h2&gt;
-&lt;p&gt;To access the controllers BIOS Configuration Utility.
+&lt;h2 id=&#34;how-to-access-the-controllers-bios&#34;&gt;How to access the controllers bios
+&lt;/h2&gt;&lt;p&gt;To access the controllers BIOS Configuration Utility.
 Turn on your Dell R710 and wait until you see the message to press the:
 &lt;code&gt;Ctrl + R&lt;/code&gt; Keys&lt;/p&gt;
 &lt;p&gt;Press the &lt;code&gt;Ctrl + R&lt;/code&gt; Keys to open the Utility.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu13688358992611993552.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/1_hu15802184694494309321.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;BIOS Configuration Utility&#34;
@@ -1015,8 +1015,8 @@ Turn on your Dell R710 and wait until you see the message to press the:
 		data-flex-basis=&#34;358px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;raid-type-to-use&#34;&gt;RAID type to use&lt;/h2&gt;
-&lt;p&gt;I would recommend that you read the user guide provided by Dell.
+&lt;h2 id=&#34;raid-type-to-use&#34;&gt;RAID type to use
+&lt;/h2&gt;&lt;p&gt;I would recommend that you read the user guide provided by Dell.
 From page 17 they go over the different RAID types and terminology.
 For this guide I&amp;rsquo;m going to use two drives individually, so RAID 0 and then the last two drives I will create a RAID 1 group.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.dell.com/manuals/all-products/esuprt_ser_stor_net/esuprt_dell_adapters/poweredge-rc-h700_user%27s%20guide_en-us.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1060,12 +1060,12 @@ disks per span.
 is striped across RAID 5 elements. RAID 50 requires at least six disks.
 • RAID 60 is a combination of RAID 0 and RAID 6 where a RAID 0 array is
 striped across RAID 6 elements. RAID 60 requires at least eight disks
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;how-to-add-hdds&#34;&gt;How to add HDDs&lt;/h2&gt;
-&lt;p&gt;Once the Configuration Utility is open, you will see a list of all your new HDDs at the bottom of the list under the &amp;ldquo;Unconfigured Physical Disks&amp;rdquo; section. So for exammple we can see that all four of our 500GB HDDs are showing up. If we only saw three for example, we could take a look at the caddy&amp;rsquo;s LED lights and find the one where the LED is not on. From there we could double check that the HDD is inserted correctly or troubleshoot further.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;how-to-add-hdds&#34;&gt;How to add HDDs
+&lt;/h2&gt;&lt;p&gt;Once the Configuration Utility is open, you will see a list of all your new HDDs at the bottom of the list under the &amp;ldquo;Unconfigured Physical Disks&amp;rdquo; section. So for exammple we can see that all four of our 500GB HDDs are showing up. If we only saw three for example, we could take a look at the caddy&amp;rsquo;s LED lights and find the one where the LED is not on. From there we could double check that the HDD is inserted correctly or troubleshoot further.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu4577773422934740512.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/3_hu15564562536321252741.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Unconfigured&#34;
@@ -1082,7 +1082,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu4293810284900111741.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/4_hu18116503342424822373.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Highlight Controller&#34;
@@ -1099,7 +1099,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu5908409867775894198.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/5_hu2914735643187427984.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Oerations Menu&#34;
@@ -1116,7 +1116,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu14141803794121782718.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/6_hu10762250506694374035.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Virtual Disk Management Menu&#34;
@@ -1130,8 +1130,8 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Please note that you can use the &lt;code&gt;UP or DOWN&lt;/code&gt; arrows on your keyboard to navigate the menu.&lt;/p&gt;
-&lt;h3 id=&#34;raid-type&#34;&gt;RAID type&lt;/h3&gt;
-&lt;ol start=&#34;4&#34;&gt;
+&lt;h3 id=&#34;raid-type&#34;&gt;RAID type
+&lt;/h3&gt;&lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;Highlight the &amp;ldquo;RAID Level&amp;rdquo; input. When you have it highlighted, press the &lt;code&gt;Enter / Return&lt;/code&gt; keyboard button to select the RAID Level you would like.
 In this case, I want to create a single RAID 0 drive. So I will only select the &amp;ldquo;RAID-0&amp;rdquo; option. Please note that You will only be presented with the available options depending on the amount of free drives you have.&lt;/p&gt;
@@ -1139,7 +1139,7 @@ In this case, I want to create a single RAID 0 drive. So I will only select the 
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu10246507762084648106.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/11_hu14398269774180302057.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;RAID Levels&#34;
@@ -1157,7 +1157,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu14977384459018700834.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/7_hu5479703820893274786.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Select HDD / HDDs RAID 0&#34;
@@ -1172,7 +1172,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu1471359193052135732.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/10_hu6122408424100044679.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Select HDD / HDDs RAID 1&#34;
@@ -1189,7 +1189,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu2462179578251181683.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/8_hu6199982216101275841.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Group Name&#34;
@@ -1206,7 +1206,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu18090184517405144078.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/9_hu10171914108266698324.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;OK button&#34;
@@ -1219,14 +1219,14 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;how-to-initialise-the-new-disk-groups&#34;&gt;How to initialise the new disk groups.&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;how-to-initialise-the-new-disk-groups&#34;&gt;How to initialise the new disk groups.
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Highlight the HDDs in your new Disk Group and press the &lt;code&gt;F2&lt;/code&gt; button to open the &amp;quot; Operations Menu &amp;quot; again.
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu14903389904925468229.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/12_hu15465260309356651559.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Disk Operations Menu&#34;
@@ -1243,7 +1243,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu12181833961518004288.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/13_hu17678980534144918842.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Initialization&#34;
@@ -1260,7 +1260,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;img src=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;723&#34;
-	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu15448639335230245963.jpg 480w, http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/14_hu5707627642053157161.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Confirm&#34;
@@ -1276,8 +1276,8 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 &lt;p&gt;Continue to do that for all your new Virtual Disks.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Hopefully this quick guide helps you on your path of adding new drives to your PERC H700 RAID Controller. I recommend that you read and study the different RAID Levels / Types in order to know which type will be the best for your use cases.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Hopefully this quick guide helps you on your path of adding new drives to your PERC H700 RAID Controller. I recommend that you read and study the different RAID Levels / Types in order to know which type will be the best for your use cases.&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -1295,12 +1295,12 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;my-current-setup&#34;&gt;My Current Setup&lt;/h2&gt;
-&lt;p&gt;For many years I have been using two HPE ProLiant MicroServer Gen 8&amp;rsquo;s which are still running great till this day. I upgraded them with Xeon E3-1260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.&lt;/p&gt;
+&lt;h2 id=&#34;my-current-setup&#34;&gt;My Current Setup
+&lt;/h2&gt;&lt;p&gt;For many years I have been using two HPE ProLiant MicroServer Gen 8&amp;rsquo;s which are still running great till this day. I upgraded them with Xeon E3-1260L (4 cores, 8 threads) which is an energy efficient and powerful cpu. The only issue I have with the ProLiant is that the max supported RAM is 16GB on the motherboard itself.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu4fa883f32be73ce051e36a2d4f7d48d5_207941_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu4fa883f32be73ce051e36a2d4f7d48d5_207941_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu16722466176961474727.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/4_hu7491345374597796284.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;ProLiant MicroServer&#34;
@@ -1317,8 +1317,8 @@ I decided to look into getting something more powerful and has more features for
 &lt;p&gt;The price was great, the specs are fantastic, but is it still a good idea to use very old technologies for a testing and home lab server?&lt;/p&gt;
 &lt;p&gt;Please note that I&amp;rsquo;m not a master of hardware, I have a fair amount of experience using different hardware but I&amp;rsquo;m far from a hardware guru. If you need advice from experts, I would recommend visiting the Level 1 Techs forums &lt;a class=&#34;link&#34; href=&#34;https://forum.level1techs.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://forum.level1techs.com/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;second-hand-dell-r710-is-it-worth-it&#34;&gt;Second Hand Dell R710 is it worth it?&lt;/h2&gt;
-&lt;p&gt;The R710 server that I was looking at has two Xeon X5650&amp;rsquo;s, 64 GB RAM, 8x Gigabit ports (2x 4 port gigabit cards), 2x 870 watt PSU&amp;rsquo;s and a H700 RAID Controller which unfortunately does not support passthrough. I didn&amp;rsquo;t do my research on the H700 before hand as I assumed that it would support passthrough as I&amp;rsquo;m so used to RAID controllers usually supporting that. In the end it is not too much of an issue for me, but it was a wake up call with regards to reminding me to always research every thing thoroughly first.&lt;/p&gt;
+&lt;h2 id=&#34;second-hand-dell-r710-is-it-worth-it&#34;&gt;Second Hand Dell R710 is it worth it?
+&lt;/h2&gt;&lt;p&gt;The R710 server that I was looking at has two Xeon X5650&amp;rsquo;s, 64 GB RAM, 8x Gigabit ports (2x 4 port gigabit cards), 2x 870 watt PSU&amp;rsquo;s and a H700 RAID Controller which unfortunately does not support passthrough. I didn&amp;rsquo;t do my research on the H700 before hand as I assumed that it would support passthrough as I&amp;rsquo;m so used to RAID controllers usually supporting that. In the end it is not too much of an issue for me, but it was a wake up call with regards to reminding me to always research every thing thoroughly first.&lt;/p&gt;
 &lt;p&gt;The unit did not include any HDD caddies, so I had to get 6x caddies as well.&lt;/p&gt;
 &lt;p&gt;A X5650 has 6 cores 12 threads at a base frequency of 2.66 GHz and boosts to  3.06 GHz. The TDP is  95 W and can take up to 288 GB of DDR3 800/1066/1333 ecc RAM. It also support all the virtualization technologies (VT-x and VT-d) if needed, although I was also having issues with hardware passthrough.&lt;/p&gt;
 &lt;p&gt;The cost of the Dell R710 was R3000 (ZAR)
@@ -1326,9 +1326,9 @@ The cost of a HDD caddy was R175 each, I needed 6 (R1050 total)
 Shipping was R30&lt;/p&gt;
 &lt;p&gt;Total cost is R4080&lt;/p&gt;
 &lt;p&gt;Really good deal in my opinion.&lt;/p&gt;
-&lt;h3 id=&#34;what-i-looked-for-to-see-if-it-was-worth-purchasing&#34;&gt;What I looked for to see if it was worth purchasing?&lt;/h3&gt;
-&lt;h4 id=&#34;power-draw-and-efficiency&#34;&gt;Power draw and efficiency&lt;/h4&gt;
-&lt;p&gt;Take these numbers with a grain of salt due to silicon lottery. However this is the approach I took when deciding if the Dell R710 will be a good purchase.&lt;/p&gt;
+&lt;h3 id=&#34;what-i-looked-for-to-see-if-it-was-worth-purchasing&#34;&gt;What I looked for to see if it was worth purchasing?
+&lt;/h3&gt;&lt;h4 id=&#34;power-draw-and-efficiency&#34;&gt;Power draw and efficiency
+&lt;/h4&gt;&lt;p&gt;Take these numbers with a grain of salt due to silicon lottery. However this is the approach I took when deciding if the Dell R710 will be a good purchase.&lt;/p&gt;
 &lt;p&gt;Browsing through the web and scouring forums, I could make out that a X5650 idles at around 45 - 55 Watts.
 So a total of around 110 Watts for the pair.&lt;/p&gt;
 &lt;p&gt;My ProLiant with the Xeon E3-1260L idles at around 35 - 45 Watts.
@@ -1339,10 +1339,10 @@ Which would bring the idle power usage around 10 Watts per CPU more then what I 
 &lt;p&gt;An Intel BX8071512700F Core i7-12700F 12 Core 3.6GHz has a TDP of 95 Watts - 180 Watts maximum at load.&lt;/p&gt;
 &lt;p&gt;They are all in a similar TDP range with regards to Watts per core and it is very clear that as technology improved, the modern CPU&amp;rsquo;s will be more efficient and more powerful. But with regards to the workload I will be putting on the cpu, I won&amp;rsquo;t be very disadvantaged with the frequency of the cpu. The 2.66 GHz to  3.06 GHz of the X5650 will be fine for my test and home lab needs.&lt;/p&gt;
 &lt;p&gt;It is also very important to know that depending on your workload, running two CPU&amp;rsquo;s together can run slower than a single CPU with the combined cores. But I was interested in redundancy and having more RAM channels, using a dual socket motherboard will facilitate this.&lt;/p&gt;
-&lt;h4 id=&#34;sound-pollution&#34;&gt;Sound Pollution&lt;/h4&gt;
-&lt;p&gt;Unfortunately server hardware is loud, sever fans can be extremely noise polluting, especially in a residential area. But with some tweaking, we will be able to almost make the server completely silent. I will create an article in the near future with how to achieve this.&lt;/p&gt;
-&lt;h4 id=&#34;costs&#34;&gt;Costs&lt;/h4&gt;
-&lt;p&gt;The Second hand Dell R710 totals up to:
+&lt;h4 id=&#34;sound-pollution&#34;&gt;Sound Pollution
+&lt;/h4&gt;&lt;p&gt;Unfortunately server hardware is loud, sever fans can be extremely noise polluting, especially in a residential area. But with some tweaking, we will be able to almost make the server completely silent. I will create an article in the near future with how to achieve this.&lt;/p&gt;
+&lt;h4 id=&#34;costs&#34;&gt;Costs
+&lt;/h4&gt;&lt;p&gt;The Second hand Dell R710 totals up to:
 R4080&lt;/p&gt;
 &lt;p&gt;An AMD 100-100000061WOF Ryzen 9 5900X CPU only:
 R6999 (At the time of writing this)&lt;/p&gt;
@@ -1351,7 +1351,7 @@ R8099  (At the time of writing this)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;481&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hue8da54c38e5708b395721fbd612cbb1a_134965_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hue8da54c38e5708b395721fbd612cbb1a_134965_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hu14585824000917808017.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/2_hu8154952097903225202.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;CPU Costs&#34;
@@ -1386,7 +1386,7 @@ cost per year = 13.10 x 365
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;679&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu30910665284931ace4f57faa1e01d828_71125_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu30910665284931ace4f57faa1e01d828_71125_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu14554234639399732501.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/1_hu4633248157634443632.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;McFeast&#34;
@@ -1399,12 +1399,12 @@ cost per year = 13.10 x 365
 &gt;&lt;/p&gt;
 &lt;p&gt;Another way to look at it is that I can purchase the Dell and use it 24/7 for a year and that will be close to the cost of only buying a new CPU. Then if we take the cost of a motherboard for that CPU, which is around another R4000. We can run the Dell 24/7 for two years at the same price.&lt;/p&gt;
 &lt;p&gt;In my situation, going the Dell route is the better option than building a more modern server. I don&amp;rsquo;t plan on running the server 24/7 as well, so it will defiantly be cheaper to run a second hand Dell R710.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;So of course I purchased the unit. It is now sitting comfortably in my server rack.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;So of course I purchased the unit. It is now sitting comfortably in my server rack.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;775&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu30910665284931ace4f57faa1e01d828_86260_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu30910665284931ace4f57faa1e01d828_86260_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu6112071670710533707.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/3_hu9384987468911635753.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;receipt&#34;
@@ -1418,7 +1418,7 @@ cost per year = 13.10 x 365
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu7292658206343477357.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/5_hu11417764755017326314.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Dell R710 with cover&#34;
@@ -1432,7 +1432,7 @@ cost per year = 13.10 x 365
 &lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu4fa883f32be73ce051e36a2d4f7d48d5_254682_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu4fa883f32be73ce051e36a2d4f7d48d5_254682_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu2785904607036314023.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/6_hu8729813516336771659.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Dell R710&#34;
@@ -1450,7 +1450,7 @@ cost per year = 13.10 x 365
 &lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu4fa883f32be73ce051e36a2d4f7d48d5_203235_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu4fa883f32be73ce051e36a2d4f7d48d5_203235_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu4838766473836906612.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/7_hu5751049109289259375.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Dell R710 startup Wattage&#34;
@@ -1465,7 +1465,7 @@ cost per year = 13.10 x 365
 &lt;img src=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8.jpg&#34;
 	width=&#34;1200&#34;
 	height=&#34;900&#34;
-	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu4fa883f32be73ce051e36a2d4f7d48d5_223277_480x0_resize_q75_box.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu4fa883f32be73ce051e36a2d4f7d48d5_223277_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu15534503910716942030.jpg 480w, http://localhost:1313/post/old-server-new-home-lab-05-12-2023/8_hu12973324299320237651.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Dell R710 idle Wattage&#34;

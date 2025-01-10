@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3">
 <title>How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3</title>
 
 <link rel='canonical' href='http://localhost:1313/post/dell-openanage-server-administrator-12-01-2024/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3'>
-<meta property='og:description' content='How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3">
+<meta property='og:description' content="How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3">
 <meta property='og:url' content='http://localhost:1313/post/dell-openanage-server-administrator-12-01-2024/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:published_time' content='2024-01-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-01-12T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/dell-openanage-server-administrator-12-01-2024/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="How To Install Dell OpenManage Server Administrator on Proxmox 8.1.3"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/dell-openanage-server-administrator-12-01-2024/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -267,8 +246,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/dell-openanage-server-administrator-12-01-2024/">
-                <img src="/post/dell-openanage-server-administrator-12-01-2024/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_43221_800x0_resize_q75_box.jpg"
-                        srcset="/post/dell-openanage-server-administrator-12-01-2024/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_43221_800x0_resize_q75_box.jpg 800w, /post/dell-openanage-server-administrator-12-01-2024/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_43221_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/dell-openanage-server-administrator-12-01-2024/splash_hu16719475069558208045.jpg"
+                        srcset="/post/dell-openanage-server-administrator-12-01-2024/splash_hu16719475069558208045.jpg 800w, /post/dell-openanage-server-administrator-12-01-2024/splash_hu7092037664297753821.jpg 1600w"
                         width="800" 
                         height="297" 
                         loading="lazy"
@@ -360,23 +339,23 @@
     </iframe>
 </div>
 
-<h2 id="what-is-dell-openmanage-server-administrator">What is Dell OpenManage Server Administrator</h2>
-<p>In short Dell OpenManage Server Administrator (OMSA) is a tool &ldquo;web browser-based graphical user interface&rdquo; that allows you to manage your server without having to access the Configuration Utility in the boot screen.</p>
+<h2 id="what-is-dell-openmanage-server-administrator">What is Dell OpenManage Server Administrator
+</h2><p>In short Dell OpenManage Server Administrator (OMSA) is a tool &ldquo;web browser-based graphical user interface&rdquo; that allows you to manage your server without having to access the Configuration Utility in the boot screen.</p>
 <p>So the server can be running and services don&rsquo;t need to be disrupted to do administration work.</p>
 <p>See the following link for more information:</p>
 <p><a class="link" href="https://www.dell.com/support/kbdoc/en-za/000132087/support-for-dell-emc-openmanage-server-administrator-omsa"  target="_blank" rel="noopener"
     >https://www.dell.com/support/kbdoc/en-za/000132087/support-for-dell-emc-openmanage-server-administrator-omsa</a></p>
-<h2 id="why-install-it">Why Install it</h2>
-<p>I wanted the ability to control the PERC H700 RAID controller without having to restart the server in order to access the &ldquo;RAID configuration Utility&rdquo; in the boot screen.</p>
+<h2 id="why-install-it">Why Install it
+</h2><p>I wanted the ability to control the PERC H700 RAID controller without having to restart the server in order to access the &ldquo;RAID configuration Utility&rdquo; in the boot screen.</p>
 <p>So adding and removing Hard Drives can be quick and easy to do.</p>
-<h2 id="installation">Installation</h2>
-<p>In order for the Dell OpenManage Server Administrator to see and have access to the H700 RAID controller. It has to be installed directly on the host OS itself.
+<h2 id="installation">Installation
+</h2><p>In order for the Dell OpenManage Server Administrator to see and have access to the H700 RAID controller. It has to be installed directly on the host OS itself.
 You can install it in a &ldquo;Privileged&rdquo; container if you would like to. But it will not be able to access the RAID controller.</p>
 <p>I will once again use the &ldquo;Shell&rdquo; directly in the Proxmox web UI again. You can do this via ssh if you like.</p>
 <p><img src="/post/dell-openanage-server-administrator-12-01-2024/2.jpg"
 	width="1200"
 	height="499"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_49344_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_49344_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/2_hu8030502424255531809.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/2_hu17813455987272982239.jpg 1024w"
 	loading="lazy"
 	
 		alt="Proxmox Shell"
@@ -395,7 +374,7 @@ You can install it in a &ldquo;Privileged&rdquo; container if you would like to.
 </span></span></code></pre></div><p><img src="/post/dell-openanage-server-administrator-12-01-2024/3.jpg"
 	width="1200"
 	height="499"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_51679_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_51679_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/3_hu7230299495642059996.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/3_hu7165052457349569282.jpg 1024w"
 	loading="lazy"
 	
 		alt="Create Folder"
@@ -413,7 +392,7 @@ You can install it in a &ldquo;Privileged&rdquo; container if you would like to.
 </span></span></code></pre></div><p><img src="/post/dell-openanage-server-administrator-12-01-2024/4.jpg"
 	width="1200"
 	height="499"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_52880_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_52880_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/4_hu14393087155774058256.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/4_hu12634137511100711668.jpg 1024w"
 	loading="lazy"
 	
 		alt="Create File"
@@ -478,7 +457,7 @@ You can install it in a &ldquo;Privileged&rdquo; container if you would like to.
 </span></span></code></pre></div><p><img src="/post/dell-openanage-server-administrator-12-01-2024/5.jpg"
 	width="1200"
 	height="499"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_111473_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_111473_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/5_hu842352693510678679.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/5_hu2465498288648819484.jpg 1024w"
 	loading="lazy"
 	
 		alt="script content"
@@ -501,7 +480,7 @@ You can install it in a &ldquo;Privileged&rdquo; container if you would like to.
 </span></span></code></pre></div><p><img src="/post/dell-openanage-server-administrator-12-01-2024/6.jpg"
 	width="1200"
 	height="499"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_54554_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_54554_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/6_hu2191444186095182241.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/6_hu15385429181475823327.jpg 1024w"
 	loading="lazy"
 	
 		alt="executable rights"
@@ -520,7 +499,7 @@ You can install it in a &ldquo;Privileged&rdquo; container if you would like to.
 <p><img src="/post/dell-openanage-server-administrator-12-01-2024/7.jpg"
 	width="1200"
 	height="636"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_150197_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_150197_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/7_hu10108726841576381808.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/7_hu10983765712195189782.jpg 1024w"
 	loading="lazy"
 	
 		alt="run script"
@@ -541,8 +520,8 @@ I got most of the information from the following blog post on the Proxmox forum:
 <a class="link" href="https://forum.proxmox.com/threads/dell-openmanage-on-proxmox-6-x.57932/"  target="_blank" rel="noopener"
     >https://forum.proxmox.com/threads/dell-openmanage-on-proxmox-6-x.57932/</a></p>
 <p>If you need any more information or troubleshooting, You can go over the original post and see if any of the suggestions in there help you.</p>
-<h2 id="access-the-web-ui">Access the Web UI</h2>
-<p>To access the UI, open up your web browser and navigate to:
+<h2 id="access-the-web-ui">Access the Web UI
+</h2><p>To access the UI, open up your web browser and navigate to:
 <a class="link" href="https://your.proxmox.ip:1311"  target="_blank" rel="noopener"
     >https://your.proxmox.ip:1311</a></p>
 <p>for example, mine is accessible at:
@@ -551,7 +530,7 @@ https://10.0.0.2:1311/</p>
 <p><img src="/post/dell-openanage-server-administrator-12-01-2024/1.jpg"
 	width="1200"
 	height="445"
-	srcset="/post/dell-openanage-server-administrator-12-01-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_61471_480x0_resize_q75_box.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_61471_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-openanage-server-administrator-12-01-2024/1_hu9852497011198959126.jpg 480w, /post/dell-openanage-server-administrator-12-01-2024/1_hu1874618275632978994.jpg 1024w"
 	loading="lazy"
 	
 		alt="PERC Controller"
@@ -598,7 +577,7 @@ https://10.0.0.2:1311/</p>
         
         
             <div class="article-image">
-                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu11451766359703548736.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -622,7 +601,7 @@ https://10.0.0.2:1311/</p>
         
         
             <div class="article-image">
-                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash.b42692afb37ad5555d6ff83e38b75bf8_hu15096498884190665594.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -646,7 +625,7 @@ https://10.0.0.2:1311/</p>
         
         
             <div class="article-image">
-                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu13242097979415000744.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -670,7 +649,7 @@ https://10.0.0.2:1311/</p>
         
         
             <div class="article-image">
-                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu3316767254082506059.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -703,12 +682,12 @@ https://10.0.0.2:1311/</p>
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -797,7 +776,7 @@ https://10.0.0.2:1311/</p>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

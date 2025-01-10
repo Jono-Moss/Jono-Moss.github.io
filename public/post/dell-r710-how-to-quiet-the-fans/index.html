@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='We will create a cron job that will run a script that will control the fan speed'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="We will create a cron job that will run a script that will control the fan speed">
 <title>How To Make Your Dell R710 Quiet using Proxmox</title>
 
 <link rel='canonical' href='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How To Make Your Dell R710 Quiet using Proxmox'>
-<meta property='og:description' content='We will create a cron job that will run a script that will control the fan speed'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="How To Make Your Dell R710 Quiet using Proxmox">
+<meta property='og:description' content="We will create a cron job that will run a script that will control the fan speed">
 <meta property='og:url' content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hardware' /><meta property='article:tag' content='Home Lab' /><meta property='article:published_time' content='2024-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-01-05T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="We will create a cron job that will run a script that will control the fan speed"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/dell-r710-how-to-quiet-the-fans/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -271,8 +250,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/dell-r710-how-to-quiet-the-fans/">
-                <img src="/post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_800x0_resize_q75_box.jpg"
-                        srcset="/post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_800x0_resize_q75_box.jpg 800w, /post/dell-r710-how-to-quiet-the-fans/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/dell-r710-how-to-quiet-the-fans/splash_hu10919387759579658570.jpg"
+                        srcset="/post/dell-r710-how-to-quiet-the-fans/splash_hu10919387759579658570.jpg 800w, /post/dell-r710-how-to-quiet-the-fans/splash_hu5290989611612251840.jpg 1600w"
                         width="800" 
                         height="465" 
                         loading="lazy"
@@ -364,8 +343,8 @@
     </iframe>
 </div>
 
-<h2 id="how-will-we-achieve-this">How will we achieve this?</h2>
-<p>In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
+<h2 id="how-will-we-achieve-this">How will we achieve this?
+</h2><p>In Proxmox, we will create a cron job that will run a script to check the current servers ambient temperature and set the fan speeds accordingly.
 The script will need to use two main components to achieve this:</p>
 <ol>
 <li>ipmitool for Debian (Proxmox) to use use ipmi protocols in the cli.</li>
@@ -374,13 +353,13 @@ The script will need to use two main components to achieve this:</p>
 </ol>
 <p>Just as a side note, I have created a &ldquo;Management&rdquo; (10.0.0.0/24) network were things such as the iDRAC and other other management related software / devices are connected to. Having a separate and tightly locked down network where all the IT infrastructure is managed is very important.</p>
 <p>I will do a write up on my network design in a future post, but for now I wanted to get this post out to help people silence their server and also help save some electricity in the process.</p>
-<h2 id="set-your-idrac-lan-settings-and-main-admin-user">Set your iDRAC LAN Settings and main admin user</h2>
-<p>In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &ldquo;Admin&rdquo; user we can use to login and administrate the server.</p>
+<h2 id="set-your-idrac-lan-settings-and-main-admin-user">Set your iDRAC LAN Settings and main admin user
+</h2><p>In order for us to access the iDRAC web portal, we will need to give the iDRAC NIC an IP address and create the main &ldquo;Admin&rdquo; user we can use to login and administrate the server.</p>
 <p>make sure to have your iDRAC NIC connected to your desired network
 <img src="/post/dell-r710-how-to-quiet-the-fans/8.jpg"
 	width="1200"
 	height="900"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/8_hu5ba6f85f25d95320ae884a0b5e41aeac_923820_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/8_hu18174131023807372716.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/8_hu2677620323442158972.jpg 1024w"
 	loading="lazy"
 	
 		alt="cable connection"
@@ -399,7 +378,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 </span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/2.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_113979_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/2_hu2411230857364870208.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/2_hu14305635541632078713.jpg 1024w"
 	loading="lazy"
 	
 		alt="bios screen"
@@ -416,7 +395,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/3.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_156499_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/3_hu1200365773324186690.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/3_hu4328307570800005474.jpg 1024w"
 	loading="lazy"
 	
 		alt="IPMI On"
@@ -433,7 +412,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/4.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_158593_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/4_hu17307248343914457389.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/4_hu6696847633051047551.jpg 1024w"
 	loading="lazy"
 	
 		alt="Lan Section"
@@ -447,7 +426,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/5.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_150291_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/5_hu2814240398869505723.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/5_hu9219488478227214844.jpg 1024w"
 	loading="lazy"
 	
 		alt="Lan Settings"
@@ -464,7 +443,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/6.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_160907_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/6_hu3337522834265341653.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/6_hu7723406076389305298.jpg 1024w"
 	loading="lazy"
 	
 		alt="user section"
@@ -481,7 +460,7 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/7.jpg"
 	width="1200"
 	height="800"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_162764_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/7_hu8884064234017932140.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/7_hu15589907767503043968.jpg 1024w"
 	loading="lazy"
 	
 		alt="user settings"
@@ -495,8 +474,8 @@ Turn on your server and press the &ldquo;CTRL + E&rdquo; key on your keyboard wh
 <ol start="6">
 <li>press <code>ESC</code> to exit and save your changes.</li>
 </ol>
-<h2 id="create-a-new-idrac-user-for-our-script">Create a new iDRAC user for our script</h2>
-<p>We don&rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
+<h2 id="create-a-new-idrac-user-for-our-script">Create a new iDRAC user for our script
+</h2><p>We don&rsquo;t want to use our main Administrator account for this as having those details in plain text in a script is very dangerous.
 We will instead create a new user that we will give permissions to use the IPMI.</p>
 <ol>
 <li>Login to your iDRAC web portal entering your iDRAC IP address in your browser, mine is as follows:
@@ -505,7 +484,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/1.jpg"
 	width="1200"
 	height="665"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/1_hu8f5e8ece1545cdc7772ac0a2783c4f41_71866_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/1_hu15047791058217599135.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/1_hu5518155607846115775.jpg 1024w"
 	loading="lazy"
 	
 		alt="iDRAC Web"
@@ -527,7 +506,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/9.jpg"
 	width="1006"
 	height="892"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/9_hu5f299b5f3d0d701c1ef5afe858e66b6a_108597_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/9_hu2404481764149524793.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/9_hu10602185151978643384.jpg 1024w"
 	loading="lazy"
 	
 		alt="iDRAC Menu"
@@ -544,7 +523,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/10.jpg"
 	width="1006"
 	height="892"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/10_hu5f299b5f3d0d701c1ef5afe858e66b6a_108422_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/10_hu3561587383961023412.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/10_hu12240187665025222968.jpg 1024w"
 	loading="lazy"
 	
 		alt="network section Menu"
@@ -561,7 +540,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/11.jpg"
 	width="1006"
 	height="892"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/11_hu5f299b5f3d0d701c1ef5afe858e66b6a_106709_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/11_hu7966757779011494270.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/11_hu10823135452834859978.jpg 1024w"
 	loading="lazy"
 	
 		alt="user  section"
@@ -578,7 +557,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/12.jpg"
 	width="1200"
 	height="648"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_73615_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/12_hu6364155986394511575.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/12_hu11245897128768407006.jpg 1024w"
 	loading="lazy"
 	
 		alt="id select"
@@ -595,7 +574,7 @@ https://10.0.0.4/login.html</li>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/13.jpg"
 	width="1200"
 	height="523"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_51750_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/13_hu2620343910551736913.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/13_hu8986062986650386062.jpg 1024w"
 	loading="lazy"
 	
 		alt="Configure User"
@@ -620,7 +599,7 @@ Everything else should be default, which will effectively be no permissions.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/14.jpg"
 	width="1200"
 	height="613"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_59181_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/14_hu17776374719881967696.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/14_hu8934149398663873027.jpg 1024w"
 	loading="lazy"
 	
 		alt="user settings"
@@ -634,12 +613,12 @@ Everything else should be default, which will effectively be no permissions.</p>
 <ol start="8">
 <li>Scroll to the bottom of the page and click “Apply” to create the new user.</li>
 </ol>
-<h2 id="ipmi-encryption">IPMI Encryption</h2>
-<p>Under the <code>Network</code> section of the <code>iDRAC Settings</code>. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &ldquo;0&rdquo;.</p>
+<h2 id="ipmi-encryption">IPMI Encryption
+</h2><p>Under the <code>Network</code> section of the <code>iDRAC Settings</code>. You are able to set a 40 character hex value that will be used for encrypting your connections. For this guide I will leave it all as &ldquo;0&rdquo;.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/15.jpg"
 	width="1200"
 	height="589"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_63626_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/15_hu2313075504308294838.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/15_hu10244641985735509128.jpg 1024w"
 	loading="lazy"
 	
 		alt="IPMI Encryption"
@@ -650,12 +629,12 @@ Everything else should be default, which will effectively be no permissions.</p>
 		data-flex-basis="488px"
 	
 ></p>
-<h2 id="install-ipmi-tools-on-proxmox">Install IPMI Tools on Proxmox</h2>
-<p>I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.</p>
+<h2 id="install-ipmi-tools-on-proxmox">Install IPMI Tools on Proxmox
+</h2><p>I will now login to my host operating system (Proxmox) in my case. I will login to the Proxmox web interface and use the built in shell / terminal. You can use SSH if you prefer that.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/16.jpg"
 	width="1200"
 	height="449"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/16_hu5f299b5f3d0d701c1ef5afe858e66b6a_59966_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/16_hu7062122804682138209.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/16_hu16020303315984034604.jpg 1024w"
 	loading="lazy"
 	
 		alt="Proxmox Terminal"
@@ -677,7 +656,7 @@ Everything else should be default, which will effectively be no permissions.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/17.jpg"
 	width="1200"
 	height="566"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/17_hu8f5e8ece1545cdc7772ac0a2783c4f41_62249_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/17_hu5192722578223947591.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/17_hu2572196401432798350.jpg 1024w"
 	loading="lazy"
 	
 		alt="command"
@@ -691,7 +670,7 @@ Everything else should be default, which will effectively be no permissions.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/18.jpg"
 	width="1200"
 	height="566"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/18_hu8f5e8ece1545cdc7772ac0a2783c4f41_149230_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/18_hu9262104901419834797.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/18_hu9815799238588046229.jpg 1024w"
 	loading="lazy"
 	
 		alt="ipmitool installed"
@@ -717,7 +696,7 @@ Everything else should be default, which will effectively be no permissions.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/19.jpg"
 	width="1200"
 	height="566"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/19_hu8f5e8ece1545cdc7772ac0a2783c4f41_58933_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/19_hu5401035964624730060.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/19_hu16152946771569044569.jpg 1024w"
 	loading="lazy"
 	
 		alt="ipmitool test"
@@ -728,8 +707,8 @@ Everything else should be default, which will effectively be no permissions.</p>
 		data-flex-basis="508px"
 	
 ></p>
-<h2 id="the-script">The script</h2>
-<ol>
+<h2 id="the-script">The script
+</h2><ol>
 <li>
 <p>I will create a new folder in the <code>root</code> users home folder where I will store the script.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir fancontrol
@@ -742,7 +721,7 @@ Everything else should be default, which will effectively be no permissions.</p>
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/20.jpg"
 	width="1000"
 	height="410"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/20_hu5f299b5f3d0d701c1ef5afe858e66b6a_49483_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/20_hu4350537090052142358.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/20_hu18357169930478334598.jpg 1024w"
 	loading="lazy"
 	
 		alt="create file"
@@ -804,7 +783,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 </span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/21.jpg"
 	width="1200"
 	height="1410"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/21_hu8f5e8ece1545cdc7772ac0a2783c4f41_247050_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/21_hu16361936581340371831.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/21_hu1992303572223388488.jpg 1024w"
 	loading="lazy"
 	
 		alt="nano"
@@ -833,7 +812,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/22.jpg"
 	width="1200"
 	height="698"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/22_hu8f5e8ece1545cdc7772ac0a2783c4f41_142839_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/22_hu16256855713039441896.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/22_hu16660781001016388403.jpg 1024w"
 	loading="lazy"
 	
 		alt="9 percent speed"
@@ -848,7 +827,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/23.jpg"
 	width="1200"
 	height="698"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/23_hu8f5e8ece1545cdc7772ac0a2783c4f41_143777_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/23_hu12718751408511137095.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/23_hu8398609056247688848.jpg 1024w"
 	loading="lazy"
 	
 		alt="50 percent speed"
@@ -859,8 +838,8 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 		data-flex-basis="412px"
 	
 ></p>
-<h2 id="create-a-cron-job">Create a cron job</h2>
-<p>Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.</p>
+<h2 id="create-a-cron-job">Create a cron job
+</h2><p>Next we need to create a cron job that Proxmox will run on startup and every minute (in this case) you can change how often the job runs. That is up to you.</p>
 <ol>
 <li>Open crontab</li>
 </ol>
@@ -868,7 +847,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 </span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/24.jpg"
 	width="1200"
 	height="351"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/24_hu5f299b5f3d0d701c1ef5afe858e66b6a_33523_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/24_hu3375797388950538065.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/24_hu18107176373986816045.jpg 1024w"
 	loading="lazy"
 	
 		alt="crontab"
@@ -886,7 +865,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 </span></span></code></pre></div><p><img src="/post/dell-r710-how-to-quiet-the-fans/25.jpg"
 	width="1200"
 	height="1393"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/25_hu8f5e8ece1545cdc7772ac0a2783c4f41_164949_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/25_hu11115716564630389640.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/25_hu14963632974374196170.jpg 1024w"
 	loading="lazy"
 	
 		alt="create cron"
@@ -903,7 +882,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 <p><img src="/post/dell-r710-how-to-quiet-the-fans/26.jpg"
 	width="690"
 	height="118"
-	srcset="/post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_480x0_resize_q75_box.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/26_hu5f299b5f3d0d701c1ef5afe858e66b6a_29911_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/dell-r710-how-to-quiet-the-fans/26_hu16342052145661340636.jpg 480w, /post/dell-r710-how-to-quiet-the-fans/26_hu15170031447319795874.jpg 1024w"
 	loading="lazy"
 	
 		alt="cron job runs"
@@ -914,8 +893,8 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
 		data-flex-basis="1403px"
 	
 ></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.</p>
+<h2 id="conclusion">Conclusion
+</h2><p>You will now have a script that will run every minute, check on the servers ambient temperature and then set the fan speeds accordingly.</p>
 
 </section>
 
@@ -952,7 +931,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
         
         
             <div class="article-image">
-                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash.e56c69ae04b913fe9b0f06ccea448e64_hu13242097979415000744.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -976,7 +955,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
         
         
             <div class="article-image">
-                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu3316767254082506059.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1000,7 +979,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
         
         
             <div class="article-image">
-                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu11451766359703548736.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -1033,12 +1012,12 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -1127,7 +1106,7 @@ I also added a <code>FANSPEED</code> variable to make it easier to set the fan s
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

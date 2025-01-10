@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this video we will setup Surfshark OpenVPN client on OpnSense.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In this video we will setup Surfshark OpenVPN client on OpnSense.">
 <title>Setup Surfshark OpenVPN Client on OpnSense</title>
 
 <link rel='canonical' href='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Setup Surfshark OpenVPN Client on OpnSense'>
-<meta property='og:description' content='In this video we will setup Surfshark OpenVPN client on OpnSense.'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Setup Surfshark OpenVPN Client on OpnSense">
+<meta property='og:description' content="In this video we will setup Surfshark OpenVPN client on OpnSense.">
 <meta property='og:url' content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-03-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-03-22T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="In this video we will setup Surfshark OpenVPN client on OpnSense."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/surfshark-client-opnsense-22-03-2024/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -271,8 +250,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/surfshark-client-opnsense-22-03-2024/">
-                <img src="/post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_800x0_resize_q75_box.jpg"
-                        srcset="/post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_800x0_resize_q75_box.jpg 800w, /post/surfshark-client-opnsense-22-03-2024/splash_hu30910665284931ace4f57faa1e01d828_534702_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/surfshark-client-opnsense-22-03-2024/splash_hu2783729869200148172.jpg"
+                        srcset="/post/surfshark-client-opnsense-22-03-2024/splash_hu2783729869200148172.jpg 800w, /post/surfshark-client-opnsense-22-03-2024/splash_hu9753340729540724178.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -368,8 +347,8 @@
     </iframe>
 </div>
 
-<h2 id="intro">Intro</h2>
-<p>In this guide we will setup up a VPN client on OpnSense, this will allow us to create a gateway that we can use
+<h2 id="intro">Intro
+</h2><p>In this guide we will setup up a VPN client on OpnSense, this will allow us to create a gateway that we can use
 for all traffic we would like to use through a VPN. A common use is to route all IOT devices through the VPN
 connection so that our &ldquo;real&rdquo; public IP address can not be seen by these kind of devices.</p>
 <p>Setting up a Client VPN requires four main steps:</p>
@@ -393,18 +372,18 @@ This guide is the steps that I used to set this all up.</p>
 <p>For more information about the referral program:
 <a class="link" href="https://surfshark.com/refer-a-friend"  target="_blank" rel="noopener"
     >https://surfshark.com/refer-a-friend</a></p>
-<h2 id="get-your-surfshark-credentials-and-server-location">Get your Surfshark credentials and server location</h2>
-<p>Login to your Surfshark account and go to the following link to get your credentials and to see a list of VPN server locations you can connect to:
+<h2 id="get-your-surfshark-credentials-and-server-location">Get your Surfshark credentials and server location
+</h2><p>Login to your Surfshark account and go to the following link to get your credentials and to see a list of VPN server locations you can connect to:
 <a class="link" href="https://my.surfshark.com/vpn/manual-setup/main/openvpn"  target="_blank" rel="noopener"
     >https://my.surfshark.com/vpn/manual-setup/main/openvpn</a></p>
-<h2 id="add-surfshark-to-our-certificate-authority">Add Surfshark to our &ldquo;Certificate Authority&rdquo;</h2>
-<ol>
+<h2 id="add-surfshark-to-our-certificate-authority">Add Surfshark to our &ldquo;Certificate Authority&rdquo;
+</h2><ol>
 <li>
 <p>Navigate to System &gt; Trust &gt; Authorities and click on the +Add button. Once there, you should be able to see the window below:
 <img src="/post/surfshark-client-opnsense-22-03-2024/1.jpg"
 	width="759"
 	height="767"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/1_hu45080e4ce1655aeb224eadedf9ea1029_85756_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/1_hu45080e4ce1655aeb224eadedf9ea1029_85756_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/1_hu3553713531074810186.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/1_hu1452018674082550893.jpg 1024w"
 	loading="lazy"
 	
 		alt="Authorities"
@@ -457,7 +436,7 @@ This guide is the steps that I used to set this all up.</p>
 </span></span></code></pre></div><p><img src="/post/surfshark-client-opnsense-22-03-2024/2.jpg"
 	width="1500"
 	height="1151"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_282792_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_282792_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/2_hu14492539935455797307.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/2_hu13059107697829626633.jpg 1024w"
 	loading="lazy"
 	
 		alt="Authorities completed"
@@ -474,7 +453,7 @@ This guide is the steps that I used to set this all up.</p>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/3.jpg"
 	width="1500"
 	height="1151"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_204981_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_204981_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/3_hu9118506637331810297.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/3_hu17564097419615077343.jpg 1024w"
 	loading="lazy"
 	
 		alt="Authorities cert"
@@ -485,14 +464,14 @@ This guide is the steps that I used to set this all up.</p>
 		data-flex-basis="312px"
 	
 ></p>
-<h2 id="creating-the-client-connection">Creating the client connection</h2>
-<ol>
+<h2 id="creating-the-client-connection">Creating the client connection
+</h2><ol>
 <li>
 <p>Navigate to VPN &gt; OpenVPN &gt; Clients (Legacy) and click on the +Add button. Once there, you should be able to see the window below:
 <img src="/post/surfshark-client-opnsense-22-03-2024/4.jpg"
 	width="1500"
 	height="794"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_185796_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_185796_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/4_hu4490366144367497729.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/4_hu6619919750523265740.jpg 1024w"
 	loading="lazy"
 	
 		alt="Client"
@@ -571,7 +550,7 @@ Advanced: Paste the contents down below</p>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/6.jpg"
 	width="1500"
 	height="2527"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/6_hu30910665284931ace4f57faa1e01d828_379707_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/6_hu30910665284931ace4f57faa1e01d828_379707_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/6_hu893780032142600533.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/6_hu2479178022880790806.jpg 1024w"
 	loading="lazy"
 	
 		alt="Client All Settings"
@@ -588,7 +567,7 @@ Advanced: Paste the contents down below</p>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/5.jpg"
 	width="2322"
 	height="396"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/5_hu5f299b5f3d0d701c1ef5afe858e66b6a_86905_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/5_hu5f299b5f3d0d701c1ef5afe858e66b6a_86905_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/5_hu5941429957273880436.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/5_hu15487767258381819524.jpg 1024w"
 	loading="lazy"
 	
 		alt="Client Completed"
@@ -606,7 +585,7 @@ You should see that the connection is &ldquo;Connected&rdquo;.</li>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/7.jpg"
 	width="1500"
 	height="433"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/7_hu5f299b5f3d0d701c1ef5afe858e66b6a_99837_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/7_hu5f299b5f3d0d701c1ef5afe858e66b6a_99837_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/7_hu14427438465234023342.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/7_hu8135503401751090877.jpg 1024w"
 	loading="lazy"
 	
 		alt="Client Connected"
@@ -617,8 +596,8 @@ You should see that the connection is &ldquo;Connected&rdquo;.</li>
 		data-flex-basis="831px"
 	
 ></p>
-<h2 id="assigning-and-creating-the-interface">Assigning and Creating the Interface</h2>
-<ol>
+<h2 id="assigning-and-creating-the-interface">Assigning and Creating the Interface
+</h2><ol>
 <li>
 <p>Navigate to Interfaces &gt; Assignments</p>
 </li>
@@ -629,7 +608,7 @@ You should see that the connection is &ldquo;Connected&rdquo;.</li>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/8.jpg"
 	width="1500"
 	height="525"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_129759_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_129759_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/8_hu1412720640831685740.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/8_hu16381847535995140191.jpg 1024w"
 	loading="lazy"
 	
 		alt="Assign Interface"
@@ -652,7 +631,7 @@ Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on t
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/9.jpg"
 	width="1500"
 	height="525"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_153326_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_153326_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/9_hu12725806584729763601.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/9_hu14483725450214865826.jpg 1024w"
 	loading="lazy"
 	
 		alt="Enable Interface"
@@ -663,14 +642,14 @@ Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on t
 		data-flex-basis="685px"
 	
 ></p>
-<h2 id="create-an-outbound-nat-rule">Create an Outbound NAT rule</h2>
-<ol>
+<h2 id="create-an-outbound-nat-rule">Create an Outbound NAT rule
+</h2><ol>
 <li>Navigate to Firewall &gt; NAT &gt; Outbound, select Hybrid outbound NAT rule generation (automatically generated rules are applied after manual rules), click Save and Apply Changes.</li>
 </ol>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/10.jpg"
 	width="1500"
 	height="525"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_163311_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_163311_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/10_hu17586367467150252138.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/10_hu12882710582727958411.jpg 1024w"
 	loading="lazy"
 	
 		alt="Hybrid outbound"
@@ -687,7 +666,7 @@ Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on t
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/11.jpg"
 	width="1500"
 	height="525"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_135242_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_135242_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/11_hu5115204845242735595.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/11_hu15993533372347068125.jpg 1024w"
 	loading="lazy"
 	
 		alt="Create outbound rule"
@@ -704,7 +683,7 @@ Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on t
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/12.jpg"
 	width="1500"
 	height="754"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_215861_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_215861_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/12_hu6755886834075579986.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/12_hu13152555916007206272.jpg 1024w"
 	loading="lazy"
 	
 		alt="outbound rule created"
@@ -715,15 +694,15 @@ Scroll down to the bottom of the page and &ldquo;Save&rdquo; and then click on t
 		data-flex-basis="477px"
 	
 ></p>
-<h2 id="edit-the-management-firewall-rules-to-route-the-traffic-through-the-vpn">Edit the Management firewall rules to route the traffic through the VPN.</h2>
-<ol>
+<h2 id="edit-the-management-firewall-rules-to-route-the-traffic-through-the-vpn">Edit the Management firewall rules to route the traffic through the VPN.
+</h2><ol>
 <li>Navigate to Firewall -&gt; Rules -&gt; MANAGEMENT
 and that click on the edit button next to IPv4.</li>
 </ol>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/13.jpg"
 	width="1500"
 	height="754"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_206290_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_206290_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/13_hu5758616938306247829.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/13_hu14346412766442817293.jpg 1024w"
 	loading="lazy"
 	
 		alt="Management network"
@@ -740,7 +719,7 @@ and that click on the edit button next to IPv4.</li>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/14.jpg"
 	width="1500"
 	height="754"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_199309_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_199309_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/14_hu6043320257372951811.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/14_hu10735180293915833401.jpg 1024w"
 	loading="lazy"
 	
 		alt="Set Gateway"
@@ -751,12 +730,12 @@ and that click on the edit button next to IPv4.</li>
 		data-flex-basis="477px"
 	
 ></p>
-<h2 id="test-the-connection">Test the connection</h2>
-<p>If we do a simple speed test, we will see that our IP address and Location is now showing as &ldquo;London&rdquo;. The VPN gateway is ready to be used.</p>
+<h2 id="test-the-connection">Test the connection
+</h2><p>If we do a simple speed test, we will see that our IP address and Location is now showing as &ldquo;London&rdquo;. The VPN gateway is ready to be used.</p>
 <p><img src="/post/surfshark-client-opnsense-22-03-2024/15.jpg"
 	width="1500"
 	height="754"
-	srcset="/post/surfshark-client-opnsense-22-03-2024/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_99123_480x0_resize_q75_box.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/15_hu8f5e8ece1545cdc7772ac0a2783c4f41_99123_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/surfshark-client-opnsense-22-03-2024/15_hu4784286626096199166.jpg 480w, /post/surfshark-client-opnsense-22-03-2024/15_hu3369082289472583534.jpg 1024w"
 	loading="lazy"
 	
 		alt="Location London"
@@ -805,7 +784,7 @@ and that click on the edit button next to IPv4.</li>
         
         
             <div class="article-image">
-                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/splash.d2a2e890ea4bddd901281ae36d474a5a_hu30910665284931ace4f57faa1e01d828_246393_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/splash.d2a2e890ea4bddd901281ae36d474a5a_hu15291363111403085986.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -829,7 +808,7 @@ and that click on the edit button next to IPv4.</li>
         
         
             <div class="article-image">
-                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu30910665284931ace4f57faa1e01d828_560198_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu18058751586417416172.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -853,7 +832,7 @@ and that click on the edit button next to IPv4.</li>
         
         
             <div class="article-image">
-                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu30910665284931ace4f57faa1e01d828_331877_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu3330447614525820836.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -877,7 +856,7 @@ and that click on the edit button next to IPv4.</li>
         
         
             <div class="article-image">
-                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu12252776230656566963.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -901,7 +880,7 @@ and that click on the edit button next to IPv4.</li>
         
         
             <div class="article-image">
-                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2ca534eb11e9b7bc2b1e5e61c960c5d5_113854_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/home-lab-network-design-26-01-2024/splash.3a9978d682b948d542ba2646dfdd737e_hu2880105974817315016.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -934,12 +913,12 @@ and that click on the edit button next to IPv4.</li>
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -1028,7 +1007,7 @@ and that click on the edit button next to IPv4.</li>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

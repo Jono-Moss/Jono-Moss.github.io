@@ -3,10 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/development/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/development/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/software/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/software/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-12-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/home-lab/</loc>
     <lastmod>2024-09-27T00:00:00+00:00</lastmod>
@@ -21,18 +42,6 @@
     <lastmod>2024-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/networking/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/software/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/software/</loc>
-    <lastmod>2024-09-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/opnsense-ipsec-point-to-point-connections-policy-based-28-08-2024/</loc>
@@ -100,12 +109,6 @@
   </url><url>
     <loc>http://localhost:1313/post/old-server-new-home-lab-05-12-2023/</loc>
     <lastmod>2023-12-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/development/</loc>
-    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/development/</loc>
-    <lastmod>2023-12-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/hugo/</loc>
     <lastmod>2023-12-04T00:00:00+00:00</lastmod>

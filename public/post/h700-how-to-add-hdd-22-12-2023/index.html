@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='This is how to add drives to the Dell PERC H700 RAID controller'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This is how to add drives to the Dell PERC H700 RAID controller">
 <title>How To Add Drives To The Dell PERC H700 RAID Controller</title>
 
 <link rel='canonical' href='http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='How To Add Drives To The Dell PERC H700 RAID Controller'>
-<meta property='og:description' content='This is how to add drives to the Dell PERC H700 RAID controller'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="How To Add Drives To The Dell PERC H700 RAID Controller">
+<meta property='og:description' content="This is how to add drives to the Dell PERC H700 RAID controller">
 <meta property='og:url' content='http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hardware' /><meta property='article:tag' content='Home Lab' /><meta property='article:published_time' content='2023-12-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-12-26T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="This is how to add drives to the Dell PERC H700 RAID controller"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/h700-how-to-add-hdd-22-12-2023/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -274,8 +253,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/h700-how-to-add-hdd-22-12-2023/">
-                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_800x0_resize_q75_box.jpg"
-                        srcset="/post/h700-how-to-add-hdd-22-12-2023/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_800x0_resize_q75_box.jpg 800w, /post/h700-how-to-add-hdd-22-12-2023/splash_hu8f5e8ece1545cdc7772ac0a2783c4f41_123209_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/h700-how-to-add-hdd-22-12-2023/splash_hu9780656770451818203.jpg"
+                        srcset="/post/h700-how-to-add-hdd-22-12-2023/splash_hu9780656770451818203.jpg 800w, /post/h700-how-to-add-hdd-22-12-2023/splash_hu11059643822724756202.jpg 1600w"
                         width="800" 
                         height="536" 
                         loading="lazy"
@@ -367,14 +346,14 @@
     </iframe>
 </div>
 
-<h2 id="perc-h700-raid-controller">PERC H700 RAID controller</h2>
-<p>The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD&rsquo;s to it.</p>
-<h2 id="add-your-hard-drives-to-the-server">Add your hard drives to the server</h2>
-<p>I had four extremely  old Seagate 500 GB Barracuda Sata hard drives laying around, I will only be using those to demonstrate how to add drives to the server.</p>
+<h2 id="perc-h700-raid-controller">PERC H700 RAID controller
+</h2><p>The Dell R710 that I recently purchased came with a PERC H700 RAID controller. In this guide I want to go over how to access the controllers BIOS Configuration Utility to add HDDs / SSD&rsquo;s to it.</p>
+<h2 id="add-your-hard-drives-to-the-server">Add your hard drives to the server
+</h2><p>I had four extremely  old Seagate 500 GB Barracuda Sata hard drives laying around, I will only be using those to demonstrate how to add drives to the server.</p>
 <p><img src="/post/h700-how-to-add-hdd-22-12-2023/2.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/2_hu8f5e8ece1545cdc7772ac0a2783c4f41_119490_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/2_hu4721603725520680628.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/2_hu10241723279403693416.jpg 1024w"
 	loading="lazy"
 	
 		alt="Seagate"
@@ -385,15 +364,15 @@
 		data-flex-basis="358px"
 	
 ></p>
-<h2 id="how-to-access-the-controllers-bios">How to access the controllers bios</h2>
-<p>To access the controllers BIOS Configuration Utility.
+<h2 id="how-to-access-the-controllers-bios">How to access the controllers bios
+</h2><p>To access the controllers BIOS Configuration Utility.
 Turn on your Dell R710 and wait until you see the message to press the:
 <code>Ctrl + R</code> Keys</p>
 <p>Press the <code>Ctrl + R</code> Keys to open the Utility.</p>
 <p><img src="/post/h700-how-to-add-hdd-22-12-2023/1.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/1_hu40772087fe97fb85aca8e8162538bc11_126098_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/1_hu13688358992611993552.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/1_hu15802184694494309321.jpg 1024w"
 	loading="lazy"
 	
 		alt="BIOS Configuration Utility"
@@ -404,8 +383,8 @@ Turn on your Dell R710 and wait until you see the message to press the:
 		data-flex-basis="358px"
 	
 ></p>
-<h2 id="raid-type-to-use">RAID type to use</h2>
-<p>I would recommend that you read the user guide provided by Dell.
+<h2 id="raid-type-to-use">RAID type to use
+</h2><p>I would recommend that you read the user guide provided by Dell.
 From page 17 they go over the different RAID types and terminology.
 For this guide I&rsquo;m going to use two drives individually, so RAID 0 and then the last two drives I will create a RAID 1 group.</p>
 <p><a class="link" href="https://dl.dell.com/manuals/all-products/esuprt_ser_stor_net/esuprt_dell_adapters/poweredge-rc-h700_user%27s%20guide_en-us.pdf"  target="_blank" rel="noopener"
@@ -449,12 +428,12 @@ disks per span.
 is striped across RAID 5 elements. RAID 50 requires at least six disks.
 • RAID 60 is a combination of RAID 0 and RAID 6 where a RAID 0 array is
 striped across RAID 6 elements. RAID 60 requires at least eight disks
-</code></pre><h2 id="how-to-add-hdds">How to add HDDs</h2>
-<p>Once the Configuration Utility is open, you will see a list of all your new HDDs at the bottom of the list under the &ldquo;Unconfigured Physical Disks&rdquo; section. So for exammple we can see that all four of our 500GB HDDs are showing up. If we only saw three for example, we could take a look at the caddy&rsquo;s LED lights and find the one where the LED is not on. From there we could double check that the HDD is inserted correctly or troubleshoot further.</p>
+</code></pre><h2 id="how-to-add-hdds">How to add HDDs
+</h2><p>Once the Configuration Utility is open, you will see a list of all your new HDDs at the bottom of the list under the &ldquo;Unconfigured Physical Disks&rdquo; section. So for exammple we can see that all four of our 500GB HDDs are showing up. If we only saw three for example, we could take a look at the caddy&rsquo;s LED lights and find the one where the LED is not on. From there we could double check that the HDD is inserted correctly or troubleshoot further.</p>
 <p><img src="/post/h700-how-to-add-hdd-22-12-2023/3.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/3_hu8f5e8ece1545cdc7772ac0a2783c4f41_115120_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/3_hu4577773422934740512.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/3_hu15564562536321252741.jpg 1024w"
 	loading="lazy"
 	
 		alt="Unconfigured"
@@ -471,7 +450,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 <img src="/post/h700-how-to-add-hdd-22-12-2023/4.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/4_hu8f5e8ece1545cdc7772ac0a2783c4f41_110770_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/4_hu4293810284900111741.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/4_hu18116503342424822373.jpg 1024w"
 	loading="lazy"
 	
 		alt="Highlight Controller"
@@ -488,7 +467,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 <img src="/post/h700-how-to-add-hdd-22-12-2023/5.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/5_hu8f5e8ece1545cdc7772ac0a2783c4f41_120822_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/5_hu5908409867775894198.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/5_hu2914735643187427984.jpg 1024w"
 	loading="lazy"
 	
 		alt="Oerations Menu"
@@ -505,7 +484,7 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 <img src="/post/h700-how-to-add-hdd-22-12-2023/6.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/6_hu8f5e8ece1545cdc7772ac0a2783c4f41_133531_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/6_hu14141803794121782718.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/6_hu10762250506694374035.jpg 1024w"
 	loading="lazy"
 	
 		alt="Virtual Disk Management Menu"
@@ -519,8 +498,8 @@ striped across RAID 6 elements. RAID 60 requires at least eight disks
 </li>
 </ol>
 <p>Please note that you can use the <code>UP or DOWN</code> arrows on your keyboard to navigate the menu.</p>
-<h3 id="raid-type">RAID type</h3>
-<ol start="4">
+<h3 id="raid-type">RAID type
+</h3><ol start="4">
 <li>
 <p>Highlight the &ldquo;RAID Level&rdquo; input. When you have it highlighted, press the <code>Enter / Return</code> keyboard button to select the RAID Level you would like.
 In this case, I want to create a single RAID 0 drive. So I will only select the &ldquo;RAID-0&rdquo; option. Please note that You will only be presented with the available options depending on the amount of free drives you have.</p>
@@ -528,7 +507,7 @@ In this case, I want to create a single RAID 0 drive. So I will only select the 
 <img src="/post/h700-how-to-add-hdd-22-12-2023/11.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/11_hu8f5e8ece1545cdc7772ac0a2783c4f41_131355_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/11_hu10246507762084648106.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/11_hu14398269774180302057.jpg 1024w"
 	loading="lazy"
 	
 		alt="RAID Levels"
@@ -546,7 +525,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/7.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/7_hu8f5e8ece1545cdc7772ac0a2783c4f41_133541_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/7_hu14977384459018700834.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/7_hu5479703820893274786.jpg 1024w"
 	loading="lazy"
 	
 		alt="Select HDD / HDDs RAID 0"
@@ -561,7 +540,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/10.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/10_hu8f5e8ece1545cdc7772ac0a2783c4f41_131923_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/10_hu1471359193052135732.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/10_hu6122408424100044679.jpg 1024w"
 	loading="lazy"
 	
 		alt="Select HDD / HDDs RAID 1"
@@ -578,7 +557,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/8.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/8_hu8f5e8ece1545cdc7772ac0a2783c4f41_132310_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/8_hu2462179578251181683.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/8_hu6199982216101275841.jpg 1024w"
 	loading="lazy"
 	
 		alt="Group Name"
@@ -595,7 +574,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/9.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/9_hu8f5e8ece1545cdc7772ac0a2783c4f41_132636_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/9_hu18090184517405144078.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/9_hu10171914108266698324.jpg 1024w"
 	loading="lazy"
 	
 		alt="OK button"
@@ -608,14 +587,14 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 ></p>
 </li>
 </ol>
-<h2 id="how-to-initialise-the-new-disk-groups">How to initialise the new disk groups.</h2>
-<ol>
+<h2 id="how-to-initialise-the-new-disk-groups">How to initialise the new disk groups.
+</h2><ol>
 <li>
 <p>Highlight the HDDs in your new Disk Group and press the <code>F2</code> button to open the &quot; Operations Menu &quot; again.
 <img src="/post/h700-how-to-add-hdd-22-12-2023/12.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/12_hu8f5e8ece1545cdc7772ac0a2783c4f41_124288_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/12_hu14903389904925468229.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/12_hu15465260309356651559.jpg 1024w"
 	loading="lazy"
 	
 		alt="Disk Operations Menu"
@@ -632,7 +611,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/13.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/13_hu8f5e8ece1545cdc7772ac0a2783c4f41_125825_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/13_hu12181833961518004288.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/13_hu17678980534144918842.jpg 1024w"
 	loading="lazy"
 	
 		alt="Initialization"
@@ -649,7 +628,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <img src="/post/h700-how-to-add-hdd-22-12-2023/14.jpg"
 	width="1080"
 	height="723"
-	srcset="/post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_480x0_resize_q75_box.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/14_hu8f5e8ece1545cdc7772ac0a2783c4f41_127540_1024x0_resize_q75_box.jpg 1024w"
+	srcset="/post/h700-how-to-add-hdd-22-12-2023/14_hu15448639335230245963.jpg 480w, /post/h700-how-to-add-hdd-22-12-2023/14_hu5707627642053157161.jpg 1024w"
 	loading="lazy"
 	
 		alt="Confirm"
@@ -665,8 +644,8 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
 <p>Continue to do that for all your new Virtual Disks.</p>
 </li>
 </ol>
-<h2 id="conclusion">Conclusion</h2>
-<p>Hopefully this quick guide helps you on your path of adding new drives to your PERC H700 RAID Controller. I recommend that you read and study the different RAID Levels / Types in order to know which type will be the best for your use cases.</p>
+<h2 id="conclusion">Conclusion
+</h2><p>Hopefully this quick guide helps you on your path of adding new drives to your PERC H700 RAID Controller. I recommend that you read and study the different RAID Levels / Types in order to know which type will be the best for your use cases.</p>
 
 </section>
 
@@ -703,7 +682,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
         
         
             <div class="article-image">
-                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu4fa883f32be73ce051e36a2d4f7d48d5_226202_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/old-server-new-home-lab-05-12-2023/splash.1919b60ac19a271629cb88d1188b1459_hu3316767254082506059.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -727,7 +706,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
         
         
             <div class="article-image">
-                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu4fa883f32be73ce051e36a2d4f7d48d5_141458_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/update_dell-r710-11-12-2023/splash.b2cbf30d733220aa97759222ef90cef2_hu11451766359703548736.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -760,12 +739,12 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -854,7 +833,7 @@ I this case, I want to create a single RAID 0 drive. So I will only select the f
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

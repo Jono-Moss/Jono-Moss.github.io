@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="In this guide we will look at how to monitor multiple WAN connections with a single monitoring software">
 <title>Multi WAN Uptime Monitoring</title>
 
 <link rel='canonical' href='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeac4a629942d93f6e102b31bfd794ac1149b04f22e9f6d339fd8bfc13c59fc4.css"><meta property='og:title' content='Multi WAN Uptime Monitoring'>
-<meta property='og:description' content='In this guide we will look at how to monitor multiple WAN connections with a single monitoring software'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Multi WAN Uptime Monitoring">
+<meta property='og:description' content="In this guide we will look at how to monitor multiple WAN connections with a single monitoring software">
 <meta property='og:url' content='http://localhost:1313/post/multi-wan-uptime-monitoring/'>
 <meta property='og:site_name' content='Jonathan Moss'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Software' /><meta property='article:tag' content='Home Lab' /><meta property='article:tag' content='Networking' /><meta property='article:published_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-05-31T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
@@ -15,9 +15,6 @@
 <meta name="twitter:description" content="In this guide we will look at how to monitor multiple WAN connections with a single monitoring software"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/post/multi-wan-uptime-monitoring/splash.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
-
-  
-
 
     </head>
     <body class="
@@ -62,7 +59,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu449d0c68eb01d06b5ca59726df471601_278788_300x0_resize_box_3.png" width="300"
+                        <img src="/img/avatar_hu15867392520796615511.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -76,7 +73,7 @@
             <h1 class="site-name"><a href="/">Jonathan Moss</a></h1>
             <h2 class="site-description"></h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -179,31 +176,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="http://localhost:1313/" selected></option>
-                        
-                    </select>
-                </li>
-            
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -211,7 +189,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -219,10 +197,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -278,8 +257,8 @@
     <header class="article-header">
         <div class="article-image">
             <a href="/post/multi-wan-uptime-monitoring/">
-                <img src="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg"
-                        srcset="/post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_800x0_resize_q75_box.jpg 800w, /post/multi-wan-uptime-monitoring/splash_hu30910665284931ace4f57faa1e01d828_320049_1600x0_resize_q75_box.jpg 1600w"
+                <img src="/post/multi-wan-uptime-monitoring/splash_hu2935412599232195266.jpg"
+                        srcset="/post/multi-wan-uptime-monitoring/splash_hu2935412599232195266.jpg 800w, /post/multi-wan-uptime-monitoring/splash_hu1435286144745181215.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -375,14 +354,14 @@
     </iframe>
 </div>
 
-<h2 id="concept-and-design">Concept and design</h2>
-<p>In a previous video I made going over the different Multi WAN modes.
+<h2 id="concept-and-design">Concept and design
+</h2><p>In a previous video I made going over the different Multi WAN modes.
 I spoke about how you could route traffic over different WAN connections to create a form of load balancing.
 We can use that same concept for monitoring multiple WAN connections from a single monitoring application.</p>
 <p>In this guide, I will be using a monitoring application called &ldquo;Uptime Kuma&rdquo; mainly
 due to it being quick to install and extremely simple to setup. However this method will work for any monitoring software that uses a ping (ICMP) to monitor a devices presence.</p>
-<h2 id="installation">Installation</h2>
-<p>I have created an Ubuntu server VM that is on the &ldquo;Management&rdquo; network.
+<h2 id="installation">Installation
+</h2><p>I have created an Ubuntu server VM that is on the &ldquo;Management&rdquo; network.
 I have given it a static IP of ```10.0.0.3</p>
 <pre tabindex="0"><code class="language-," data-lang=",">From there I have created an &#34;Uptime Kuma&#34; container that is ready to go.
 
@@ -411,8 +390,8 @@ services:
 </code></pre><p>Once done, we can simply run the following:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker-compose up -d
 </span></span></code></pre></div><p>That will create and start the container.</p>
-<h2 id="create-the-monitors">Create the monitors</h2>
-<p>Once Uptime Kuma is up and running, we can goto:
+<h2 id="create-the-monitors">Create the monitors
+</h2><p>Once Uptime Kuma is up and running, we can goto:
 <code>http://&lt;your.servser.IP&gt;:3001</code>
 in your web browser of choice and we can create the following monitors. Change the <code>&lt;your.servser.IP&gt;</code> to the IP of your server.</p>
 <p>For this guide, we will create three monitors.</p>
@@ -421,8 +400,8 @@ in your web browser of choice and we can create the following monitors. Change t
 <li>For the second WAN, we will call it 5G</li>
 <li>For the VPN, we will call it VPN</li>
 </ol>
-<h3 id="create-a-monitor">Create a monitor</h3>
-<ol>
+<h3 id="create-a-monitor">Create a monitor
+</h3><ol>
 <li>
 <p>Click on the <code>+ Add New Monitor</code> button on the top left to start creating a new monitor.</p>
 </li>
@@ -459,17 +438,17 @@ Heartbeat Interval: 60
 Retries: 2
 Heartbeat Retry Interval: 20
 Description: &#34;VPN Uptime&#34;
-</code></pre><h2 id="test-that-the-monitors-work">Test that the monitors work</h2>
-<p>Now since  the server is on the &ldquo;Management&rdquo; network. The pings will most probably use the default WAN mode that you have set for that network. So in this instance it is on a &ldquo;failover&rdquo; WAN group that uses the &ldquo;Fibre&rdquo; WAN first and the &ldquo;5G&rdquo; WAN as the failover.</p>
+</code></pre><h2 id="test-that-the-monitors-work">Test that the monitors work
+</h2><p>Now since  the server is on the &ldquo;Management&rdquo; network. The pings will most probably use the default WAN mode that you have set for that network. So in this instance it is on a &ldquo;failover&rdquo; WAN group that uses the &ldquo;Fibre&rdquo; WAN first and the &ldquo;5G&rdquo; WAN as the failover.</p>
 <p>So if we  unplug the &ldquo;Fibre&rdquo; connection, we should see that all the connections will be marked as down for a few moments, until the failover kicks in.</p>
 <p>This will let us know that the monitor are working, however we want to have the monitors monitor the desired individual WAN connections.</p>
 <p>We will do that on our Firewall by creating rules in order to route the pings through the correct WAN connection / Gateways.</p>
-<h2 id="firewall-rules">Firewall rules.</h2>
-<p>This is not an &ldquo;OpnSense&rdquo; specific feature.
+<h2 id="firewall-rules">Firewall rules.
+</h2><p>This is not an &ldquo;OpnSense&rdquo; specific feature.
 This will work with any firewall where you have the ability to create detailed firewall rules. You will just need to consult the user manual for that firewall in order to see how to create custom rules.</p>
 <p>However, in this guide I will use OpnSense as my firewall.</p>
-<h3 id="firewall-rule-concept">Firewall rule concept</h3>
-<p>The rule will allow <code>ICMP</code> traffic to <code>Pass</code> from the server with IP <code>&lt;your.server.IP&gt;</code> through a specific <code>Gateway</code> depending on the <code>destination IP</code></p>
+<h3 id="firewall-rule-concept">Firewall rule concept
+</h3><p>The rule will allow <code>ICMP</code> traffic to <code>Pass</code> from the server with IP <code>&lt;your.server.IP&gt;</code> through a specific <code>Gateway</code> depending on the <code>destination IP</code></p>
 <ol>
 <li>Login to your Firewall.</li>
 <li>In OpnSens, I will go to the &ldquo;Management&rdquo; network in the &ldquo;Rules&rdquo; section and create a new rule.</li>
@@ -532,13 +511,13 @@ Log: enabled (Optional)
 Description: Ping for VPN Monitoring
 Gateway: &lt;Your Desired WAN Connection&gt;
 </code></pre><p>With those rules created and applied, we can test again and we should now get the desired results.</p>
-<h2 id="test-that-the-monitors-work-individually">Test that the monitors work individually</h2>
-<p>If we now unplug the first WAN connection in this case the &ldquo;Fibre&rdquo; WAN. We will see that only the &ldquo;Fibre&rdquo; monitor will show as &ldquo;down&rdquo;.</p>
+<h2 id="test-that-the-monitors-work-individually">Test that the monitors work individually
+</h2><p>If we now unplug the first WAN connection in this case the &ldquo;Fibre&rdquo; WAN. We will see that only the &ldquo;Fibre&rdquo; monitor will show as &ldquo;down&rdquo;.</p>
 <p>If the &ldquo;VPN&rdquo; connection was connected on the &ldquo;Fibre&rdquo; WAN, that too will show as &ldquo;down&rdquo; until it reconnects to the next WAn connection.</p>
 <p>If we plug  it back in, the monitor will return to &ldquo;UP&rdquo;.</p>
 <p>You can now do this test on the &ldquo;5G&rdquo; WAN and you should get the expected results.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>This was a quick guide showing you how to monitor multiple WANs / Gateways using a single instance of your monitoring software.
+<h2 id="conclusion">Conclusion
+</h2><p>This was a quick guide showing you how to monitor multiple WANs / Gateways using a single instance of your monitoring software.
 The power of firewall rules helps you achieve this setup and is a very quick and flexible option that doesn&rsquo;t require complicated network setups.</p>
 
 </section>
@@ -578,7 +557,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
         
             <div class="article-image">
-                <img src="/post/surfshark-client-opnsense-22-03-2024/splash.188b2db202b2cb2f03fb1ecb3ac572a6_hu30910665284931ace4f57faa1e01d828_534702_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/surfshark-client-opnsense-22-03-2024/splash.188b2db202b2cb2f03fb1ecb3ac572a6_hu9286636507370287589.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -602,7 +581,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
         
             <div class="article-image">
-                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/splash.d2a2e890ea4bddd901281ae36d474a5a_hu30910665284931ace4f57faa1e01d828_246393_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/opnsense-dns-and-block-list-setup-12-03-2024/splash.d2a2e890ea4bddd901281ae36d474a5a_hu15291363111403085986.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -626,7 +605,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
         
             <div class="article-image">
-                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu30910665284931ace4f57faa1e01d828_560198_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/finishing-the-management-network-01-03-2024/splash.7aee4ecca8c3b5033454ba1467b71c5b_hu18058751586417416172.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -650,7 +629,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
         
             <div class="article-image">
-                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu30910665284931ace4f57faa1e01d828_331877_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/opnsense-vm-install-12-02-2024/Splash.124604455d968c4d7cb13b59306367e8_hu3330447614525820836.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -674,7 +653,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
         
             <div class="article-image">
-                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu30910665284931ace4f57faa1e01d828_51682_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/lab-wan-network-creation-02-02-2024/splash.5cc6315e4331e2f0388dc6d45ceb6eb6_hu12252776230656566963.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -707,12 +686,12 @@ The power of firewall rules helps you achieve this setup and is a very quick and
         
             2023 - 
         
-        2024 Jonathan Moss
+        2025 Jonathan Moss
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
@@ -801,7 +780,7 @@ The power of firewall rules helps you achieve this setup and is a very quick and
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d2054c8aedfded5b17a8bc8bc549534a9359e544a7e0fc3a730656b607355b72.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

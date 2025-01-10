@@ -6,22 +6,364 @@
         <description>Recent content in Development on Jonathan Moss</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 04 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/development/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 06 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/development/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>OpnSense - How To Create A Custom Dashboard Widget</title>
+        <link>http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/</link>
+        <pubDate>Fri, 06 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/</guid>
+        <description>&lt;img src="http://localhost:1313/splash.jpg" alt="Featured image of post OpnSense - How To Create A Custom Dashboard Widget" /&gt;&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Here is a quick write up of how to create your own dashboard widget on OpnSense.&lt;br&gt;
+At the time of writing this, I am using OpnSense version 24.7.
+The original documents can be found at:&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://docs.opnsense.org/development/frontend/dashboard.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://docs.opnsense.org/development/frontend/dashboard.html&lt;/a&gt;
+We will be taking the existing widgets and merge them into one big widget with our own styling and layout. The purpose on this guide is not to be a javascript and  html development tutorial, but instead show the basics of how to start developing a widget.&lt;/p&gt;
+&lt;h2 id=&#34;the-development-environment&#34;&gt;The Development Environment
+&lt;/h2&gt;&lt;p&gt;At the time of writing this, I was doing a few network designs and projects using GNS3.
+So I decided to make a &amp;ldquo;Lab&amp;rdquo; on there and turn that into a small development environment.&lt;br&gt;
+The lab consisted of 4 &amp;ldquo;Appliances&amp;rdquo;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Cloud - to give us access to the internet&lt;/li&gt;
+&lt;li&gt;OpnSense VM&lt;/li&gt;
+&lt;li&gt;An Ubuntu VM (We will use this as our development machine)&lt;/li&gt;
+&lt;li&gt;A basic switch (This is not really needed)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/1.jpg&#34;
+	width=&#34;1920&#34;
+	height=&#34;1080&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/1_hu17542189062530623946.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/1_hu3638503620387489744.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Lab Setup&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Make sure to set / change the &amp;ldquo;Console&amp;rdquo; setting for both  the OpnSense and Ubuntu VM to be &amp;ldquo;Spice Agent&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Once the lab is setup, we will move to setting up the &amp;ldquo;Appliances&amp;rdquo;&lt;/p&gt;
+&lt;h3 id=&#34;opnsense-vm&#34;&gt;OpnSense VM
+&lt;/h3&gt;&lt;p&gt;The first thing you will need to do is assign the interfaces so that OpnSense knows&lt;br&gt;
+which is your WAN interface and  which is your LAN interface.&lt;br&gt;
+This can be done by &amp;ldquo;Double Clicking&amp;rdquo; on the OpnSense Appliance, login using the default login details:&lt;br&gt;
+user: root&lt;br&gt;
+pass: opnsense&lt;br&gt;
+Then using the &amp;ldquo;Assign Interfaces&amp;rdquo; option in the menu.&lt;/p&gt;
+&lt;p&gt;Once that id done, we need to enable &lt;code&gt;SSH&lt;/code&gt; access for the root user so that we can access the files on OpnSense.&lt;/p&gt;
+&lt;p&gt;I did this via the &amp;ldquo;Web UI&amp;rdquo;, using the Ubuntu VM. Since the default LAN IP is set to be:&lt;br&gt;
+192.168.1.1/24&lt;br&gt;
+I &amp;ldquo;Double Clicked&amp;rdquo; on the Ubuntu VM to open it and used Firefox to access the &amp;ldquo;web UI&amp;rdquo; on 192.168.1.1.&lt;/p&gt;
+&lt;p&gt;From there head over to:&lt;br&gt;
+System-&amp;gt;Settings-&amp;gt;Administration&lt;br&gt;
+Then enable the &lt;code&gt;Secure Shell Server&lt;/code&gt;, &lt;code&gt;Permit Root User Login&lt;/code&gt; and &lt;code&gt;Permit Password Login&lt;/code&gt;.&lt;br&gt;
+Save and Apply the changes.&lt;br&gt;
+We now are able to use sFTP to access the files on OpnSense.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/2.jpg&#34;
+	width=&#34;1657&#34;
+	height=&#34;926&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/2_hu107056679740965531.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/2_hu13291947008027049332.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Enable SSH&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;178&#34;
+		data-flex-basis=&#34;429px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;ubuntu-vm&#34;&gt;Ubuntu VM
+&lt;/h3&gt;&lt;p&gt;You  may use whatever program you would like to use to develop the widget,&lt;br&gt;
+since it is only HTML and Javascript, there is no need for any &amp;ldquo;heavy IDE&amp;rdquo;.
+I started just using Ubuntu&amp;rsquo;s default text editor but moved to  installing VSCode as I
+wanted things like code folding that I  was not getting from the default editor.&lt;/p&gt;
+&lt;h2 id=&#34;widget-file-structure&#34;&gt;Widget File Structure
+&lt;/h2&gt;&lt;p&gt;There are 4 main locations that you will use to store your files for dashboard widgets
+to work:&lt;br&gt;
+Widgets are stored in:&lt;br&gt;
+/usr/local/opnsense/www/js/widgets/
+Were your widgets core file will be stored:&lt;br&gt;
+/usr/local/opnsense/www/js/widgets/Metadata/
+CSS file for styling, however I suggest sticking to inline CSS:&lt;br&gt;
+/usr/local/opnsense/www/css/dashboard.css
+Images can be stored in the &amp;ldquo;themes&amp;rdquo; directory:&lt;br&gt;
+/ui/themes/&lt;/p&gt;
+&lt;h3 id=&#34;files-that-make-the-widget&#34;&gt;Files That make The Widget
+&lt;/h3&gt;&lt;p&gt;There are 2 main files that make a widget:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The &amp;ldquo;core&amp;rdquo; .xml file, which is used to register the widget in OpnSense and store &amp;ldquo;Localisation&amp;rdquo; info.&lt;/li&gt;
+&lt;li&gt;The &amp;ldquo;widget&amp;rdquo; .js file, which is where all the widget logic and UI is created.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The &amp;ldquo;core&amp;rdquo; file is stored in the &lt;code&gt;/usr/local/opnsense/www/js/widgets/Metadata/&lt;/code&gt; folder.&lt;br&gt;
+You can name it anything you like, in this guide we will call it &lt;code&gt;jonoCustomwidget.xml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The &amp;ldquo;widget&amp;rdquo; file is created an stored in the &lt;code&gt;/usr/local/opnsense/www/js/widgets/&lt;/code&gt; folder.
+You can name it anything you like, in this guide we will call it &lt;code&gt;JonoCustom.js&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;With that in mind, I will go over how to access the folders and files in order to start developing your widget.&lt;/p&gt;
+&lt;h2 id=&#34;accessing-the-folders-and-files&#34;&gt;Accessing the folders and Files
+&lt;/h2&gt;&lt;p&gt;Ubuntu&amp;rsquo;s &amp;ldquo;file explorer&amp;rdquo; has the ability to access files directly using sFTP, so we can easily
+access the files on OpnSense using that feature.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open the &amp;ldquo;file explorer&amp;rdquo; and click on the &lt;code&gt;Other Locations&lt;/code&gt; option at the bottom left.
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/3.jpg&#34;
+	width=&#34;789&#34;
+	height=&#34;491&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/3_hu9712383050301540345.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/3_hu2617004867995762272.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;other locations&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;Then in the input at the bottom, you can use the following to access the files:&lt;br&gt;
+&lt;code&gt;ssh://opnsenseip&lt;/code&gt;&lt;br&gt;
+or&lt;br&gt;
+&lt;code&gt;sftp://opnsense-ip&lt;/code&gt;
+So in this guide it will be:
+&lt;code&gt;ssh://192.168.1.1&lt;/code&gt;&lt;br&gt;
+or&lt;br&gt;
+&lt;code&gt;sftp://192.168.1.1&lt;/code&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/4.jpg&#34;
+	width=&#34;336&#34;
+	height=&#34;42&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/4_hu12344438867962509555.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/4_hu18004197145845666907.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;other locations&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;800&#34;
+		data-flex-basis=&#34;1920px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;You will be prompted to enter in your OpnSense credentials to get access.
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/5.jpg&#34;
+	width=&#34;792&#34;
+	height=&#34;493&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/5_hu5000654943412074896.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/5_hu1727594751128335849.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;credentials&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;You will then be taken to the users home folder, in my case, since I logged into OpnSense using the root user, I will be taken to the root users home folder which is currently empty.&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/6.jpg&#34;
+	width=&#34;792&#34;
+	height=&#34;493&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/6_hu9964699273509243606.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/6_hu11525680744578429719.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;root home&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;From there, you can click on the &amp;ldquo;IP Address&amp;rdquo; at the top navigation pane and remove the &amp;ldquo;Trailing path&amp;rdquo;, in this to go back out of the &amp;ldquo;root home&amp;rdquo; folder and out to the top most path / folder of OpnSense.&lt;br&gt;
+So in my case I will change it from &lt;code&gt;sftp://192.168.1.1/root&lt;/code&gt; back to  &lt;code&gt;sftp://192.168.1.1&lt;/code&gt;
+and then press the &lt;code&gt;Enter&lt;/code&gt; key on my  keyboard to go to the main path.
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/7.jpg&#34;
+	width=&#34;792&#34;
+	height=&#34;493&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/7_hu11663706857422448422.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/7_hu15067816128988749625.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;top path&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;We can now &amp;ldquo;visually&amp;rdquo; navigate the OpnSense file system easily. &lt;br&gt;
+From here we will navigate to the main widget folder which is located at:&lt;br&gt;
+&lt;code&gt;/usr/local/opnsense/www/js/widgets/&lt;/code&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/8.jpg&#34;
+	width=&#34;792&#34;
+	height=&#34;493&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/8_hu18376066468696601028.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/8_hu2885081539524985013.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;top path&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;create-the-files&#34;&gt;Create the Files
+&lt;/h2&gt;&lt;h3 id=&#34;the-widget-file&#34;&gt;The &amp;ldquo;Widget&amp;rdquo; File
+&lt;/h3&gt;&lt;p&gt;We will start with creating the &amp;ldquo;widget&amp;rdquo; js file. To do this, open the IDE that you will use to develop the widget.&lt;br&gt;
+In the IDE, create a new &amp;ldquo;js&amp;rdquo; file, navigate to the &lt;code&gt;/usr/local/opnsense/www/js/widgets/&lt;/code&gt; folder and save it.&lt;br&gt;
+Since we have it open in the Ubuntu file explorer, we can access the folder via the UI by selecting it on the left menu panel.&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/9.jpg&#34;
+	width=&#34;1195&#34;
+	height=&#34;643&#34;
+	srcset=&#34;http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/9_hu12272062619269345971.jpg 480w, http://localhost:1313/post/opnsense-dashboard-widget-06-12-2024/9_hu10527292861768238781.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;save widget file&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;446px&#34;
+	
+&gt;
+You can name it whatever you like, in this guide I will name it:
+&lt;code&gt;JonoCustom.js&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;the-core-file&#34;&gt;The &amp;ldquo;Core&amp;rdquo; File
+&lt;/h3&gt;&lt;p&gt;Using the same stpes as above. Create an XML file in the following folder, name it whatever you like:&lt;br&gt;
+&lt;code&gt;/usr/local/opnsense/www/js/widgets/Metadata/&lt;/code&gt;
+In this guide I named it &lt;code&gt;jonoCustomwidget.xml&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;let-the-development-begin&#34;&gt;Let the Development Begin
+&lt;/h2&gt;&lt;h3 id=&#34;the-core-file-1&#34;&gt;The &amp;ldquo;Core&amp;rdquo; File
+&lt;/h3&gt;&lt;p&gt;You can copy and paste the code below into your XML file, I will explain each section to you:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;metadata&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;jonoCustomwidget&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;filename&amp;gt;&lt;/span&gt;JonoCustom.js&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filename&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;https://jonomoss.com&lt;span class=&#34;nt&#34;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;endpoints&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;endpoint&amp;gt;&lt;/span&gt;/api/diagnostics/system/systemResources&lt;span class=&#34;nt&#34;&gt;&amp;lt;/endpoint&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/endpoints&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;translations&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Jono Custom Widget&lt;span class=&#34;nt&#34;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;used&amp;gt;&lt;/span&gt;Used&lt;span class=&#34;nt&#34;&gt;&amp;lt;/used&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;free&amp;gt;&lt;/span&gt;Free&lt;span class=&#34;nt&#34;&gt;&amp;lt;/free&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;firewall&amp;gt;&lt;/span&gt;Firewall Logs&lt;span class=&#34;nt&#34;&gt;&amp;lt;/firewall&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;action&amp;gt;&lt;/span&gt;Action&lt;span class=&#34;nt&#34;&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;time&amp;gt;&lt;/span&gt;Time&lt;span class=&#34;nt&#34;&gt;&amp;lt;/time&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;interface&amp;gt;&lt;/span&gt;Interface&lt;span class=&#34;nt&#34;&gt;&amp;lt;/interface&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;source&amp;gt;&lt;/span&gt;Source&lt;span class=&#34;nt&#34;&gt;&amp;lt;/source&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;destination&amp;gt;&lt;/span&gt;Destination&lt;span class=&#34;nt&#34;&gt;&amp;lt;/destination&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;port&amp;gt;&lt;/span&gt;Port&lt;span class=&#34;nt&#34;&gt;&amp;lt;/port&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;matchedrule&amp;gt;&lt;/span&gt;Matched rule&lt;span class=&#34;nt&#34;&gt;&amp;lt;/matchedrule&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;interfaces&amp;gt;&lt;/span&gt;Interfaces&lt;span class=&#34;nt&#34;&gt;&amp;lt;/interfaces&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;services&amp;gt;&lt;/span&gt;Services&lt;span class=&#34;nt&#34;&gt;&amp;lt;/services&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;noservices&amp;gt;&lt;/span&gt;No services found&lt;span class=&#34;nt&#34;&gt;&amp;lt;/noservices&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;running&amp;gt;&lt;/span&gt;Running&lt;span class=&#34;nt&#34;&gt;&amp;lt;/running&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;stopped&amp;gt;&lt;/span&gt;Stopped&lt;span class=&#34;nt&#34;&gt;&amp;lt;/stopped&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;restart&amp;gt;&lt;/span&gt;Restart&lt;span class=&#34;nt&#34;&gt;&amp;lt;/restart&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;stop&amp;gt;&lt;/span&gt;Stop&lt;span class=&#34;nt&#34;&gt;&amp;lt;/stop&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;start&amp;gt;&lt;/span&gt;Start&lt;span class=&#34;nt&#34;&gt;&amp;lt;/start&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;gateway&amp;gt;&lt;/span&gt;Gateways&lt;span class=&#34;nt&#34;&gt;&amp;lt;/gateway&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;rtt&amp;gt;&lt;/span&gt;RTT&lt;span class=&#34;nt&#34;&gt;&amp;lt;/rtt&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;rttd&amp;gt;&lt;/span&gt;RTTd&lt;span class=&#34;nt&#34;&gt;&amp;lt;/rttd&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;lt;loss&amp;gt;&lt;/span&gt;Loss&lt;span class=&#34;nt&#34;&gt;&amp;lt;/loss&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/translations&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/jonoCustomwidget&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/metadata&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;The first parent &amp;ldquo;tag&amp;rdquo; in the XML file needs to be &lt;code&gt;&amp;lt;metadata&amp;gt;&amp;lt;/metadata&amp;gt;&lt;/code&gt; this tells OpnSense what the content inside it will be linked to / be about.&lt;br&gt;
+You need to always have this in the core file.&lt;/li&gt;
+&lt;li&gt;The next tag in the &lt;code&gt;&amp;lt;metadata&amp;gt;&amp;lt;/metadata&amp;gt;&lt;/code&gt; will be what you want to call your widget.    In this case we will call it &lt;code&gt;&amp;lt;jonoCustomwidget&amp;gt;&amp;lt;/jonoCustomwidget&amp;gt; &lt;/code&gt; This is what yo will see in the &amp;ldquo;Widget List&amp;rdquo; when adding it to the dashboard.&lt;/li&gt;
+&lt;li&gt;The next tag in the &lt;code&gt;&amp;lt;jonoCustomwidget&amp;gt;&amp;lt;/jonoCustomwidget&amp;gt; &lt;/code&gt; section is the &lt;code&gt;&amp;lt;filename&amp;gt;JonoCustom.js&amp;lt;/filename&amp;gt;&lt;/code&gt;.&lt;br&gt;
+This tells OpnSense what the name of the &amp;ldquo;Widget&amp;rdquo; js file is.&lt;br&gt;
+In the previous file creation section. We create and named the &amp;ldquo;widget&amp;rdquo; file &lt;code&gt;JonoCustom.js&lt;/code&gt;.
+So it is very important that it matches the name  of the file you created.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;&amp;lt;link&amp;gt;https://jonomoss.com&amp;lt;/link&amp;gt;&lt;/code&gt; tag is not really used, but it is be a nice place to put a link to where a developer or user can get more info about the widget.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;&amp;lt;endpoints&amp;gt;&amp;lt;/endpoints&amp;gt;&lt;/code&gt; section is where you will tell OpnSense what &amp;ldquo;endpoints&amp;rdquo; the widget will be using. From there OpnSense will see if the current logged in user has access to those endpoints (ACL).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Important&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In this guide and example I forgot to add all the end points. However since I login to the OpnSense web UI via the &amp;ldquo;root&amp;rdquo; user, the widget will still work. If however a user who does not have access to the endpoints uses this widget, they will run into errors.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;The &lt;code&gt; &amp;lt;translations&amp;gt;&amp;lt;/translations&amp;gt;&lt;/code&gt; section is used  for static text in your widget, you can give the tag any name and that will be used to reference the value  / text in it. &lt;code&gt;&amp;lt;keyName&amp;gt;&amp;lt;/keyName&amp;gt;&lt;/code&gt;. As an example, you  can create a &amp;ldquo;translation&amp;rdquo; with the key as &lt;code&gt;&amp;lt;title&amp;gt;My Widget&amp;lt;/title&amp;gt;&lt;/code&gt; and in the &amp;ldquo;widget&amp;rdquo; file, you can reference and use the &amp;ldquo;My Widget&amp;rdquo; text by using the  following code:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;translations&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;the-widget-file-1&#34;&gt;The &amp;ldquo;Widget&amp;rdquo; File
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;When creating your widget, your class has to extend one of the three base classes:&lt;br&gt;
+BaseWidget&lt;br&gt;
+BaseTableWidget&lt;br&gt;
+BaseGaugeWidget&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The BaseTableWidget and BaseGaugeWidget both extend the BaseWidget but have some built in functions to be able to speed up the creation of either a &amp;ldquo;table&amp;rdquo; based widget or a &amp;ldquo;gauge&amp;rdquo; based widget.
+when I started this guide, I was focusing on creating a &amp;ldquo;Firewall Log&amp;rdquo; widget. So I started by extending the &lt;code&gt;BaseTableWidget&lt;/code&gt;. However, as I got more knowledgeable and comfortable with how the widgets worked. I stopped using OpnSense&amp;rsquo;s table functions and instead wrote my own. I did not change the extends to be &lt;code&gt;BaseWidget&lt;/code&gt;, How ever it does not really make a difference to my widget.&lt;/p&gt;
+&lt;p&gt;So in this guide the class we will create will be as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Jono&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;BaseTableWidget&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;There are 5 main functions that OpnSense triggers when you use your widget,&lt;br&gt;
+The following are the main functions:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;constructor - Run once when widget is created&lt;/li&gt;
+&lt;li&gt;getMarkup - Run once when widget is started&lt;/li&gt;
+&lt;li&gt;onMarkupRendered - called once after &amp;ldquo;getMarkup&amp;rdquo; is completed&lt;/li&gt;
+&lt;li&gt;onWidgetTick - Run every tick, you can set the &amp;ldquo;tick rate&amp;rdquo; in the constructor, this is where you get and refresh the widgets data&lt;/li&gt;
+&lt;li&gt;onWidgetClose - Run once when widget is closed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;constructor&#34;&gt;Constructor
+&lt;/h4&gt;&lt;p&gt;The only things we will do in the constructor is set the &amp;ldquo;tick rate&amp;rdquo; and  add a &amp;ldquo;locked&amp;rdquo; variable that the &amp;ldquo;service&amp;rdquo; system needed to keep track of its state.&lt;/p&gt;
+&lt;p&gt;These variables are declared in the parent class, we are just setting the values in our child class.&lt;/p&gt;
+&lt;h4 id=&#34;getmarkup&#34;&gt;getMarkup()
+&lt;/h4&gt;&lt;p&gt;The getMarkup() function is then called after the constructor, this is used to create the main HTML structure of the widget.&lt;br&gt;
+Since I want to have multiple widgets in one, my getMarkup() function was looking messy and become difficult to follow.&lt;br&gt;
+So what I decided to do was  to create a separate  function for each widget section I wanted and then called them here.&lt;br&gt;
+I have made comments in the file so it should be easy to follow. Doing it this way also allows for me to easily extract the different  widgets code out of this file and use them else where if I want to create a new widget in the future.&lt;/p&gt;
+&lt;p&gt;The next thing that I did was to add a function that will include all the CSS into my widget. When I was using the CSS file that the OpnSense documents recommended&lt;br&gt;
+&lt;code&gt;/usr/local/opnsense/www/css/dashboard.css&lt;/code&gt;&lt;br&gt;
+I noticed that after OpnSense did an update. All my CSS was removed from that file.&lt;br&gt;
+So instead I decided to move all the CSS into the widget itself and add it to  the html in this getMarkup() function.&lt;br&gt;
+Now updates will not interfere with the widget.&lt;/p&gt;
+&lt;p&gt;#### onMarkupRendered()
+This is called after the getMarkup() function.&lt;br&gt;
+The purpose of this function is to add more data to the main widget HTML structure
+but could only be done once the initial structure is on the DOM.&lt;/p&gt;
+&lt;h4 id=&#34;onwidgettick&#34;&gt;onWidgetTick()
+&lt;/h4&gt;&lt;p&gt;This is where the magic happens, all the data your widget need to get and then render to the screen is done here.&lt;br&gt;
+Just like the above functions, I have created a separate function for each section so that it is more organised and easier for me to follow.&lt;/p&gt;
+&lt;p&gt;The general process of the data fetching and updating goes as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;If needed, clear the existing data from the DOM (remove from section)&lt;/li&gt;
+&lt;li&gt;Call and get the data from the api endpoint.&lt;/li&gt;
+&lt;li&gt;Once the data is received, map the data to an HTML object / snippets.&lt;/li&gt;
+&lt;li&gt;Append or replace the data to the main HTML structure.&lt;/li&gt;
+&lt;li&gt;When the next tick is met, repeat.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;onwidgetclose&#34;&gt;onWidgetClose()
+&lt;/h4&gt;&lt;p&gt;The last function onWidgetClose() calls the onWidgetClose() function in r=the parent class. This does garbage collection and destructor things.&lt;/p&gt;
+&lt;h2 id=&#34;explain-the-dangers-of-downloading-widgets&#34;&gt;Explain the dangers of downloading widgets
+&lt;/h2&gt;&lt;p&gt;Be careful when downloading widgets, is basically any html and javascript can be run. So for example a abd actor
+can have hidden fields on the code, for example &amp;ldquo;Address&amp;rdquo; and &amp;ldquo;Credit Card&amp;rdquo; details that your
+browser could auto fill with saved data you have. I simple script can then auto send those details
+to the bad actor.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Learning Hugo - Layouts</title>
         <link>http://localhost:1313/post/hugo-theme-layout-04-12-2023/</link>
         <pubDate>Mon, 04 Dec 2023 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/post/hugo-theme-layout-04-12-2023/</guid>
-        <description>&lt;img src="http://localhost:1313/post/hugo-theme-layout-04-12-2023/splash.jpg" alt="Featured image of post Learning Hugo - Layouts" /&gt;&lt;h2 id=&#34;learning-hugo&#34;&gt;Learning Hugo&lt;/h2&gt;
-&lt;p&gt;I wanted to learn how to use the Hugo framework.
+        <description>&lt;img src="http://localhost:1313/post/hugo-theme-layout-04-12-2023/splash.jpg" alt="Featured image of post Learning Hugo - Layouts" /&gt;&lt;h2 id=&#34;learning-hugo&#34;&gt;Learning Hugo
+&lt;/h2&gt;&lt;p&gt;I wanted to learn how to use the Hugo framework.
 The purpose of this guide, is to document my thought process and have a step by step guide to help me with future Hugo theme creations. If you have ever had to maintain a &amp;ldquo;dynamic&amp;rdquo; web application that is accessible by the public. You will know what security nightmare it becomes and the amount of time it takes to maintain it. Frameworks such as Wordpress has haunted me for years as it is like a flame that attracts endless moths of malicious actors having a field day constantly probing and prodding your the site and server. I have always preferred to have &amp;ldquo;Static&amp;rdquo; based websites, and seeing the power of frameworks such as Hugo and Jekyll. It is about time I jump in and learn how to use them.&lt;/p&gt;
 &lt;p&gt;I usually just develop my sites from scratch, but being able to have a &amp;ldquo;blog&amp;rdquo; like function where I can keep my focus on creating articles and content in general and have Hugo generate the pages for me, saving me time and having almost no stress in worrying plugin security all the time.&lt;/p&gt;
-&lt;h2 id=&#34;purpose-of-this-guide&#34;&gt;Purpose of this guide.&lt;/h2&gt;
-&lt;p&gt;I will only be going thought learning how the layouts and basic content of a Hugo theme works. This guide will not be an &lt;code&gt;html&lt;/code&gt; tutorial. I just wanted to see how to quickly get a basic theme started and will not be worrying about how the final design will look or even add and &amp;ldquo;responsive&amp;rdquo; development yet. I want to first understand the structure of a theme and how Hugo deals with the &amp;ldquo;content&amp;rdquo; of the site.&lt;/p&gt;
+&lt;h2 id=&#34;purpose-of-this-guide&#34;&gt;Purpose of this guide.
+&lt;/h2&gt;&lt;p&gt;I will only be going thought learning how the layouts and basic content of a Hugo theme works. This guide will not be an &lt;code&gt;html&lt;/code&gt; tutorial. I just wanted to see how to quickly get a basic theme started and will not be worrying about how the final design will look or even add and &amp;ldquo;responsive&amp;rdquo; development yet. I want to first understand the structure of a theme and how Hugo deals with the &amp;ldquo;content&amp;rdquo; of the site.&lt;/p&gt;
 &lt;p&gt;I will go into more depth in future guides and eventually end up using the theme I make as my main theme for this website. However  for now I will be using the beautiful - Stack &lt;a class=&#34;link&#34; href=&#34;https://github.com/CaiJimmy/hugo-theme-stack&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/CaiJimmy/hugo-theme-stack&lt;/a&gt; theme for this site but will move to my own theme once I am comfortable with my own theme.&lt;/p&gt;
-&lt;h2 id=&#34;installation-and-initialisation&#34;&gt;Installation and Initialisation&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;installation-and-initialisation&#34;&gt;Installation and Initialisation
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Install Hugo
 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/quick-start/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -67,8 +409,8 @@ In my case it will be called &lt;code&gt;jonomoss&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;You can now goto http://localhost:1313/ in your favourite browser and you will see a barebones website.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;a-quick-overview-of-the-theme-structure&#34;&gt;A Quick Overview of The Theme Structure&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;a-quick-overview-of-the-theme-structure&#34;&gt;A Quick Overview of The Theme Structure
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;We will be focusing on the folders in the theme folder from now on.
 In my case it is the following folder:
@@ -93,8 +435,8 @@ For example if we want to display a &lt;code&gt;single&lt;/code&gt; page or the 
 &lt;/ol&gt;
 &lt;p&gt;This is just a quick overview of the main folders that we will use and work on to create our own theme. For a full explanation of the entire folder and file structure, see &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/directory-structure/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://gohugo.io/getting-started/directory-structure/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;design&#34;&gt;Design&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;design&#34;&gt;Design
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;For the purpose of this guide, we will create a very basic three column website.
 &lt;ol&gt;
 &lt;li&gt;The Header will be a fixed column on the left&lt;/li&gt;
@@ -107,8 +449,8 @@ For example if we want to display a &lt;code&gt;single&lt;/code&gt; page or the 
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;I won&amp;rsquo;t go too deep into the html code as this is not a guide on html development, but rather an overview of where to put the pieces of code to create a theme.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;development&#34;&gt;Development&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;development&#34;&gt;Development
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;We will start by setting some global styles in the stylesheet. Hugo does support &lt;code&gt;scss&lt;/code&gt; but personally I prefer to stick with plain &lt;code&gt;css&lt;/code&gt;.
 Open the &lt;code&gt;main.css&lt;/code&gt; file in  the &lt;code&gt;assets/css&lt;/code&gt; folder. These are the basic global styles we will use for this example.&lt;/li&gt;
 &lt;/ol&gt;
@@ -163,7 +505,7 @@ Open the &lt;code&gt;main.css&lt;/code&gt; file in  the &lt;code&gt;assets/css&l
 &lt;img src=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/1.png&#34;
 	width=&#34;3360&#34;
 	height=&#34;1722&#34;
-	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/1_hu385e0173f8757c0e97bedfcc532db8db_369956_480x0_resize_box_3.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/1_hu385e0173f8757c0e97bedfcc532db8db_369956_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/1_hu4237512890083562409.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/1_hu4090730882016651879.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;three column basic layout&#34;
@@ -211,7 +553,7 @@ Open the &lt;code&gt;_default/baseof.html&lt;/code&gt; file and we will wrap all
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/2.png&#34;
 	width=&#34;3360&#34;
 	height=&#34;1722&#34;
-	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/2_hu1f4cd0fe98fde04a42ac98718c2be61b_409386_480x0_resize_box_3.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/2_hu1f4cd0fe98fde04a42ac98718c2be61b_409386_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/2_hu11594908389371455105.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/2_hu8043843117751253452.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;basic layout centered&#34;
@@ -222,12 +564,12 @@ Open the &lt;code&gt;_default/baseof.html&lt;/code&gt; file and we will wrap all
 		data-flex-basis=&#34;468px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;header&#34;&gt;Header&lt;/h3&gt;
-&lt;ol start=&#34;4&#34;&gt;
+&lt;h3 id=&#34;header&#34;&gt;Header
+&lt;/h3&gt;&lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Now we will work on the header. The idea will be to have a logo at the top, the site description, the navigation under that and lastly icon links to external sites and copyright (footer) at the bottom. It will be a five row layout with the navigation filling most of the space.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;logo-and-description&#34;&gt;Logo and Description&lt;/h4&gt;
-&lt;ol start=&#34;5&#34;&gt;
+&lt;h4 id=&#34;logo-and-description&#34;&gt;Logo and Description
+&lt;/h4&gt;&lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;add a logo.png file in the &lt;code&gt;static&lt;/code&gt; folder.&lt;/p&gt;
 &lt;/li&gt;
@@ -278,8 +620,8 @@ Open the &lt;code&gt;_default/baseof.html&lt;/code&gt; file and we will wrap all
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;nav&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;flex-grow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;navigation&#34;&gt;Navigation&lt;/h4&gt;
-&lt;ol start=&#34;9&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;navigation&#34;&gt;Navigation
+&lt;/h4&gt;&lt;ol start=&#34;9&#34;&gt;
 &lt;li&gt;Next We will work on the navigation. I want to add icon images to each main menu
 category. To do so we can use the &lt;code&gt;pre&lt;/code&gt; parameter in the &lt;code&gt;[[menus.main]]&lt;/code&gt; sections in the themes &lt;code&gt;hugo.toml&lt;/code&gt; file.
 Add the following parameters to each menu entry&lt;/li&gt;
@@ -417,8 +759,8 @@ weight: is the position / order that the menu will be rendered in.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;tags-icon&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;background-image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;../tags.svg&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;external-links-and-footer&#34;&gt;External links and Footer&lt;/h4&gt;
-&lt;ol start=&#34;13&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;external-links-and-footer&#34;&gt;External links and Footer
+&lt;/h4&gt;&lt;ol start=&#34;13&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;Add your social media icons to the &lt;code&gt;static&lt;/code&gt; folder. In this guide I will only be using Github and Patreon as I don&amp;rsquo;t have any social media accounts.&lt;/p&gt;
 &lt;/li&gt;
@@ -456,7 +798,7 @@ weight: is the position / order that the menu will be rendered in.&lt;/p&gt;
 &lt;img src=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/3.png&#34;
 	width=&#34;3360&#34;
 	height=&#34;1722&#34;
-	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/3_hu26a6be191a9deb99f1e03da99e87bc8c_422492_480x0_resize_box_3.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/3_hu26a6be191a9deb99f1e03da99e87bc8c_422492_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/3_hu5400242092883381970.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/3_hu10526301210740477639.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;header completed&#34;
@@ -467,8 +809,8 @@ weight: is the position / order that the menu will be rendered in.&lt;/p&gt;
 		data-flex-basis=&#34;468px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;home--posts-content&#34;&gt;Home / Posts Content&lt;/h3&gt;
-&lt;ol start=&#34;17&#34;&gt;
+&lt;h3 id=&#34;home--posts-content&#34;&gt;Home / Posts Content
+&lt;/h3&gt;&lt;ol start=&#34;17&#34;&gt;
 &lt;li&gt;We will now wrap the posts in a &lt;code&gt;.card-wrapper&lt;/code&gt; class that we will use to style each post on the &lt;code&gt;home.html&lt;/code&gt; page.
 Open the &lt;code&gt;_default/home.html&lt;/code&gt; file and we will wrap all our content in a new &lt;code&gt;div&lt;/code&gt; giving it the &lt;code&gt;.card-wrapper&lt;/code&gt; class. The &lt;code&gt;home.html&lt;/code&gt; file will look as follows:&lt;/li&gt;
 &lt;/ol&gt;
@@ -513,7 +855,7 @@ Open the &lt;code&gt;_default/home.html&lt;/code&gt; file and we will wrap all o
 &lt;img src=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/4.png&#34;
 	width=&#34;2160&#34;
 	height=&#34;1376&#34;
-	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/4_hud7f59877687f028c0d6269b480051214_680070_480x0_resize_box_3.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/4_hud7f59877687f028c0d6269b480051214_680070_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/4_hu15853514832525718406.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/4_hu1918603335456533723.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;single page&#34;
@@ -525,8 +867,8 @@ Open the &lt;code&gt;_default/home.html&lt;/code&gt; file and we will wrap all o
 	
 &gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;tags-and-category-sidebar&#34;&gt;Tags and Category Sidebar&lt;/h3&gt;
-&lt;ol start=&#34;21&#34;&gt;
+&lt;h3 id=&#34;tags-and-category-sidebar&#34;&gt;Tags and Category Sidebar
+&lt;/h3&gt;&lt;ol start=&#34;21&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;I would like to create a new html file that will be the driver for our &amp;ldquo;Tags and Categories&amp;rdquo; side bar. Create a new &lt;code&gt;aside.html&lt;/code&gt; file ine the &lt;code&gt;partials&lt;/code&gt; folder.&lt;/p&gt;
 &lt;/li&gt;
@@ -590,7 +932,7 @@ Open the &lt;code&gt;_default/home.html&lt;/code&gt; file and we will wrap all o
 &lt;img src=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/5.png&#34;
 	width=&#34;2160&#34;
 	height=&#34;1344&#34;
-	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/5_hu89acefca988fcc1fd064b0092547d985_363264_480x0_resize_box_3.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/5_hu89acefca988fcc1fd064b0092547d985_363264_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/hugo-theme-layout-04-12-2023/5_hu16964698682452945645.png 480w, http://localhost:1313/post/hugo-theme-layout-04-12-2023/5_hu3278958863575433731.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;tag sidebar&#34;
@@ -606,8 +948,8 @@ Open the &lt;code&gt;_default/home.html&lt;/code&gt; file and we will wrap all o
 &lt;p&gt;In order to add the &amp;ldquo;Categories&amp;rdquo; and a &amp;ldquo;Search&amp;rdquo; function a lot more things need to be added to the template in order to get it to work. So for now I am happy with my quick look at how the layout of a Hugo theme works.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;set-syntax-highlighting-theme&#34;&gt;Set Syntax Highlighting Theme&lt;/h3&gt;
-&lt;ol start=&#34;27&#34;&gt;
+&lt;h3 id=&#34;set-syntax-highlighting-theme&#34;&gt;Set Syntax Highlighting Theme
+&lt;/h3&gt;&lt;ol start=&#34;27&#34;&gt;
 &lt;li&gt;To set the colour scheme of the syntax highlighting that hugo and go will use. Add the following to your &lt;code&gt;hugo.toml&lt;/code&gt; file. Ps I like the &amp;ldquo;Autumn&amp;rdquo; colour scheme, you can see all available themes at:
 &lt;a class=&#34;link&#34; href=&#34;https://xyproto.github.io/splash/docs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://xyproto.github.io/splash/docs/&lt;/a&gt;&lt;/li&gt;
@@ -640,8 +982,8 @@ Then use the following command:&lt;/p&gt;
 &lt;p&gt;see the following link for more information.
 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/syntax-highlighting/#generate-syntax-highlighter-css&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://gohugo.io/content-management/syntax-highlighting/#generate-syntax-highlighter-css&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;security&#34;&gt;Security&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;security&#34;&gt;Security
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Lastly and before I forget, I want to create an  &lt;code&gt;.htaccess&lt;/code&gt; file to restrict access to subfolder on the site when it is live.&lt;/p&gt;
 &lt;/li&gt;
